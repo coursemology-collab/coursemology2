@@ -17,9 +17,12 @@ class Course::Achievement < ActiveRecord::Base
     self.weight ||= 10
   end
 
-  def permitted_for!(_course_user)
+  def permitted_for!(course_user)
+    return if conditions.empty?
+    course_users << course_user unless course_users.exists?(course_user.id)
   end
 
-  def precluded_for!(_course_user)
+  def precluded_for!(course_user)
+    course_users.delete(course_user) if course_users.exists?(course_user.id)
   end
 end
