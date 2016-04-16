@@ -10,8 +10,10 @@ RSpec.describe Course::Achievement, type: :model do
 
   let!(:instance) { create(:instance) }
   with_tenant(:instance) do
+    let(:course) { create(:course) }
+    let(:course_user) { create(:course_user, course: course) }
+
     describe '.default_scope' do
-      let(:course) { create(:course) }
       let!(:achievements) { create_list(:course_achievement, 2, course: course) }
       it 'orders by ascending weight' do
         weights = course.achievements.pluck(:weight)
@@ -19,14 +21,40 @@ RSpec.describe Course::Achievement, type: :model do
         expect(weights.each_cons(2).all? { |a, b| a <= b }).to be_truthy
       end
 
-      it 'implements #permitted_for!' do
-        expect(subject).to respond_to(:permitted_for!)
-        expect { subject.permitted_for!(double) }.to_not raise_error
+      context '#permitted_for!' do
+        let(:achievement) { create(:course_achievement, course: course) }
+
+        context 'when achievement do not have conditions' do
+          it 'does not permit the achievement for the course user' do
+            expect(achievement).to receive(:conditions).and_return([])
+            achievement.permitted_for!(course_user)
+            expect(achievement.course_users).to_not include(course_user)
+          end
+        end
+
+        context 'when achievement have conditions' do
+          it 'permit the achievement for the course user' do
+            expect(achievement).to receive(:conditions).and_return([double('condition')])
+            achievement.permitted_for!(course_user)
+            expect(achievement.course_users).to include(course_user)
+          end
+        end
       end
 
-      it 'implements #precluded_for!' do
-        expect(subject).to respond_to(:precluded_for!)
-        expect { subject.precluded_for!(double) }.to_not raise_error
+      context '#precluded_for!' do
+        let(:achievement) do
+          achievement = create(:course_achievement, course: course)
+          achievement.course_users << course_user
+          achievement
+        end
+
+        context 'when achievement was permitted to course user' do
+          it 'preclude the achievement for the course user' do
+            expect(achievement.course_users).to include(course_user)
+            achievement.precluded_for!(course_user)
+            expect(achievement.course_users).to_not include(course_user)
+          end
+        end
       end
     end
   end
