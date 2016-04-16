@@ -8,7 +8,11 @@ class Course::Achievement < ActiveRecord::Base
   belongs_to :course, inverse_of: :achievements
   has_many :course_user_achievements, class_name: Course::UserAchievement.name,
                                       inverse_of: :achievement, dependent: :destroy
-  has_many :course_users, through: :course_user_achievements, class_name: CourseUser.name
+  # Due to the through relationship, destroy dependent had to be added for course users in order for
+  # UserAchievement's destroy callbacks to be called, However, this destroy dependent will not
+  # actually remove the course users when the Achievement object is destroyed.
+  has_many :course_users, through: :course_user_achievements, class_name: CourseUser.name,
+                          dependent: :destroy
 
   default_scope { order(weight: :asc) }
 
