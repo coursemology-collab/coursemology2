@@ -9,8 +9,8 @@ json.assessment do
     answer = @answers_hash[question.id]
 
     json.question do
-      json.(@question, :title, :description)
-      json.type @question.actable_type
+      json.(question, :title, :description)
+      json.type question.actable_type
     end
 
     json.answer
