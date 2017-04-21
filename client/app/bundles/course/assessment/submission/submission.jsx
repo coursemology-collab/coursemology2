@@ -6,7 +6,7 @@ import storeCreator from './store';
 import routes from './routes';
 
 $(document).ready(() => {
-  const mountNode = document.getElementById('assessment-edit');
+  const mountNode = document.getElementById('submission-edit');
 
   if (mountNode) {
     const store = storeCreator({ submission: {} });
