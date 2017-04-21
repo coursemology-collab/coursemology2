@@ -42,5 +42,15 @@ function getSurveyId() {
   return match && match[1];
 }
 
+/**
+ * Get the assessment id from URL.
+ *
+ * return {number}
+ */
+function getAssessmentId() {
+  const match = window.location.pathname.match(/^\/courses\/\d+\/assessments\/(\d+)/);
+  return match && match[1];
+}
+
 /* eslint-disable import/prefer-default-export */
-export { getUrlParameter, getCourseId, getSurveyId };
+export { getUrlParameter, getCourseId, getSurveyId, getAssessmentId };
