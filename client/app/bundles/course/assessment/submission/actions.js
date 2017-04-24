@@ -4,7 +4,7 @@ import actions from './constants';
 export function fetchSubmission(id) {
   return (dispatch) => {
     dispatch({ type: actions.FETCHING_SUBMISSION });
-    
+
     return CourseAPI.assessment.submissions.edit(id)
       .then(response => response.data)
       .then(data => {
