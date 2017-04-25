@@ -4,7 +4,7 @@ export const DATA_STATES = {
   Error: 'error',
   Unfetched: 'unfetched',
   Fetching: 'fetching',
-  Received: 'received'
+  Received: 'received',
 };
 
 const actions = mirrorCreator([

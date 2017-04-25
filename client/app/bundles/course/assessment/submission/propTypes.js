@@ -1,5 +1,12 @@
 import { PropTypes } from 'react';
 
+export const QuestionProp =
+PropTypes.shape({
+  description: PropTypes.string,
+  display_title: PropTypes.string,
+  type: PropTypes.string,
+});
+
 export const AssessmentProp =
   PropTypes.shape({
     autograded: PropTypes.bool,
@@ -15,9 +22,20 @@ export const AssessmentProp =
     ),
   });
 
-const QuestionProp =
+export const ReduxFormProp =
   PropTypes.shape({
-    description: PropTypes.string,
-    title: PropTypes.string,
-    type: PropTypes.string,
+    registeredField: PropTypes.object,
+    values: PropTypes.any,
+  });
+
+export const ReduxFormInputProp =
+  PropTypes.shape({
+    checked: PropTypes.bool,
+    name: PropTypes.name,
+    onBlur: PropTypes.func,
+    onChange: PropTypes.func,
+    onDragStart: PropTypes.func,
+    onDrop: PropTypes.func,
+    onFocus: PropTypes.func,
+    value: PropTypes.any,
   });
