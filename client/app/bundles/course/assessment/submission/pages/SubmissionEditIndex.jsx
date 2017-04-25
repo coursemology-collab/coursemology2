@@ -1,9 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
-import { fetchSubmission } from '../../actions';
-import { AssessmentProp } from '../../propTypes';
-import { DATA_STATES } from '../../constants';
+import SubmissionEditForm from '../components/SubmissionEditForm';
+import fetchSubmission from '../actions';
+import { AssessmentProp, ReduxFormProp } from '../propTypes';
+import { DATA_STATES } from '../constants';
 
 class VisibleSubmissionEditIndex extends Component {
   componentDidMount() {
@@ -11,12 +12,16 @@ class VisibleSubmissionEditIndex extends Component {
     fetchData(params.submissionId);
   }
 
+  handleSubmit() {
+    console.log(this.props.form.values);
+  }
+
   renderContent() {
     const { assessment } = this.props;
     if (assessment.autograded) {
       return <p>This is autograded assessment.</p>;
     }
-    return <p>This is manually graded assessment.</p>;
+    return <SubmissionEditForm handleSubmit={() => this.handleSubmit()} questions={assessment.questions} />;
   }
 
   render() {
@@ -37,6 +42,7 @@ VisibleSubmissionEditIndex.propTypes = {
     submissionId: PropTypes.string,
   }),
   assessment: AssessmentProp.isRequired,
+  form: ReduxFormProp,
   dataState: PropTypes.string.isRequired,
   fetchData: PropTypes.func.isRequired,
 };
@@ -44,6 +50,7 @@ VisibleSubmissionEditIndex.propTypes = {
 function mapStateToProps(state) {
   return {
     assessment: state.submission.assessment,
+    form: state.form.submissionEdit,
     dataState: state.submission.dataState,
   };
 }
