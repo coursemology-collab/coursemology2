@@ -22,7 +22,7 @@ export default function submissionReducer(state = initialState, action) {
       return {
         ...state,
         dataState: DATA_STATES.Error,
-      }
+      };
     default:
       return state;
   }
