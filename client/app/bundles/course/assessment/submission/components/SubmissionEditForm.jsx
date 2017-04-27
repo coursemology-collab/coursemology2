@@ -16,9 +16,8 @@ class SubmissionEditForm extends Component {
         <div dangerouslySetInnerHTML={{ __html: question.description }} />
         <hr />
         {question.answer.options.map(opt =>
-          <label key={opt.option}>
-            {/* replace opt.option with opt.id */}
-            <Field name={name} component="input" type="radio" value={opt.option.trim()} />
+          <label key={opt.id.toString()}>
+            <Field name={name} component="input" type="radio" value={opt.id.toString()} />
             <div dangerouslySetInnerHTML={{ __html: opt.option.trim() }} />
           </label>
         )}
