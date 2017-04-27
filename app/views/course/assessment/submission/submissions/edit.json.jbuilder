@@ -1,3 +1,5 @@
+json.key_format! camelize: :lower
+
 @answers_hash = @submission.answers.map { |answer| [answer.question_id, answer] }.to_h
 
 can_grade = can?(:grade, @submission)
@@ -8,7 +10,9 @@ json.attempting @submission.attempting?
 json.can_grade can_grade
 json.can_update can_update
 
-json.partial! 'progress' if can_grade
+json.progress do
+  json.partial! 'progress'
+end if can_grade
 
 json.assessment do
   json.(@assessment, :title, :description, :published, :autograded, :skippable,
