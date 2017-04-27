@@ -8,21 +8,20 @@ export default class CheckboxFormGroup extends Component {
     const { options, input } = this.props;
     return (
       <div>
-        {/* replace opt.option with opt.id */}
         {options.map((opt, index) =>
-          <div key={opt.option}>
+          <div key={opt.id}>
             <label>
               <input
                 type="checkbox"
                 name={`${input.name}[${index}]`}
-                value={opt.option}
-                checked={input.value.indexOf(opt.option) !== -1}
+                value={opt.id}
+                checked={input.value.indexOf(opt.id) !== -1}
                 onChange={(event) => {
                   const newValue = [...input.value];
                   if (event.target.checked) {
-                    newValue.push(opt.option);
+                    newValue.push(opt.id);
                   } else {
-                    newValue.splice(newValue.indexOf(opt.option), 1);
+                    newValue.splice(newValue.indexOf(opt.id), 1);
                   }
                   return input.onChange(newValue);
                 }}
