@@ -39,12 +39,20 @@ class SubmissionEditForm extends Component {
     );
   }
 
+  static renderTextResponse(question) {
+    const title = question.display_title;
+    const answerId = question.answer.id.toString();
+    const allowUpload = question.answer.allow_attachment;
+  }
+
   static renderQuestion(question) {
     switch (question.type) {
       case QuestionTypes.MultipleChoice:
         return SubmissionEditForm.renderMCQ(question);
       case QuestionTypes.MultipleResponse:
         return SubmissionEditForm.renderMRQ(question);
+      case QuestionTypes.TextResponse:
+        return SubmissionEditForm.renderTextResponse(question);
       default:
         return null;
     }
