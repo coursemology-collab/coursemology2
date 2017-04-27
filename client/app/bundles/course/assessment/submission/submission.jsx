@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { Provider } from 'react-redux';
+import ProviderWrapper from 'lib/components/ProviderWrapper';
 import { Router, browserHistory } from 'react-router';
 import store from './store';
 import routes from './routes';
@@ -10,9 +10,9 @@ $(document).ready(() => {
 
   if (mountNode) {
     render(
-      <Provider store={store}>
+      <ProviderWrapper store={store}>
         <Router routes={routes} history={browserHistory} />
-      </Provider>
+      </ProviderWrapper>
     , mountNode);
   }
 });
