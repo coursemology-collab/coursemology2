@@ -1,11 +1,28 @@
 import { PropTypes } from 'react';
 
+const OptionProp =
+  PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    option: PropTypes.string.isRequired,
+    selected: PropTypes.bool.isRequired,
+  });
+
+const AnswerProp =
+  PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    allow_attachment: PropTypes.bool,
+    answer_text: PropTypes.string,
+    attachment: PropTypes.string,
+    options: PropTypes.arrayOf(OptionProp),
+  });
+
 export const QuestionProp =
-PropTypes.shape({
-  description: PropTypes.string,
-  display_title: PropTypes.string,
-  type: PropTypes.string,
-});
+  PropTypes.shape({
+    answer: AnswerProp.isRequired,
+    description: PropTypes.string.isRequired,
+    display_title: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+  });
 
 export const AssessmentProp =
   PropTypes.shape({
