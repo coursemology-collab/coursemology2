@@ -1,11 +1,14 @@
 @answers_hash = @submission.answers.map { |answer| [answer.question_id, answer] }.to_h
 
+can_grade = can?(:grade, @submission)
+can_update = can?(:update, @submission)
+
 json.submitted @submission.submitted?
 json.attempting @submission.attempting?
-json.can_grade can?(:grade, @submission)
-json.can_update can?(:update, @submission)
+json.can_grade can_grade
+json.can_update can_update
 
-json.partial! 'progress'
+json.partial! 'progress' if can_grade
 
 json.assessment do
   json.(@assessment, :title, :description, :published, :autograded, :skippable,
