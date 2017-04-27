@@ -11,7 +11,7 @@ import { QuestionProp } from '../propTypes';
 
 class SubmissionEditForm extends Component {
   static renderMCQ(question) {
-    const title = question.display_title;
+    const title = question.displayTitle;
     const answerId = question.answer.id.toString();
     return (
       <div key={answerId}>
@@ -29,7 +29,7 @@ class SubmissionEditForm extends Component {
   }
 
   static renderMRQ(question) {
-    const title = question.display_title;
+    const title = question.displayTitle;
     const answerId = question.answer.id.toString();
     return (
       <div key={answerId}>
