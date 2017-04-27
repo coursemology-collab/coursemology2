@@ -3,6 +3,8 @@
 import React, { Component, PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form';
 
+// eslint-disable-next-line import/extensions, import/no-extraneous-dependencies, import/no-unresolved
+import RichTextField from 'lib/components/redux-form/RichTextField';
 import CheckboxFormGroup from './CheckboxFormGroup';
 import { QuestionTypes } from '../constants';
 import { QuestionProp } from '../propTypes';
@@ -39,10 +41,24 @@ class SubmissionEditForm extends Component {
     );
   }
 
+  static renderFileUploader() {
+    return null;
+  }
+
   static renderTextResponse(question) {
     const title = question.display_title;
     const answerId = question.answer.id.toString();
     const allowUpload = question.answer.allow_attachment;
+
+    return (
+      <div key={answerId}>
+        <h3>{title}</h3>
+        <div dangerouslySetInnerHTML={{ __html: question.description }} />
+        <hr />
+        <Field name={answerId} component={RichTextField} multiLine />
+        {allowUpload ? QuestionTypes.renderFileUploader() : null}
+      </div>
+    );
   }
 
   static renderQuestion(question) {
