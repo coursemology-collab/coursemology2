@@ -43,18 +43,12 @@ class ProgressPanel extends Component {
 
   renderTime() {
     const { workflowState, actionAt } = this.props.progress;
-    let label = null;
-    switch (workflowState) {
-      case 'Attempting':
-        label = 'Attempted At';
-        break;
-      case 'Submitted':
-        label = 'Submitted At';
-        break;
-      default:
-        label = 'Graded At';
-        break;
-    }
+    const label = {
+      attempting: 'Attempted At',
+      submitted: 'Submitted At',
+      graded: 'Graded At',
+      published: 'Graded At',
+    }[workflowState];
     return (
       <TableRow>
         <TableRowColumn>{label}</TableRowColumn>
@@ -86,9 +80,15 @@ class ProgressPanel extends Component {
 
   render() {
     const { late, workflowState } = this.props.progress;
+    const title = {
+      attempting: 'Attempted',
+      submitted: 'Submitted',
+      graded: 'Graded but not published',
+      published: 'Graded',
+    }[workflowState];
     return (
       <Card>
-        <CardHeader title={workflowState} style={styles.header[workflowState.toLowerCase()]} />
+        <CardHeader title={title} style={styles.header[workflowState]} />
         <CardText>
           <Table selectable={false}>
             <TableBody displayRowCheckbox={false}>
