@@ -2,6 +2,7 @@ import actions, { DATA_STATES } from '../constants';
 
 const initialState = {
   assessment: {},
+  progress: {},
   dataState: DATA_STATES.Unfetched,
 };
 
@@ -15,6 +16,9 @@ export default function submissionReducer(state = initialState, action) {
     case actions.RECEIVED_SUBMISSION:
       return {
         ...state,
+        canGrade: action.payload.canGrade,
+        canUpdate: action.payload.canUpdate,
+        progress: action.payload.progress,
         assessment: action.payload.assessment,
         dataState: DATA_STATES.Received,
       };

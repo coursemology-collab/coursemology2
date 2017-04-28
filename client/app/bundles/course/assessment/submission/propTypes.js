@@ -39,6 +39,14 @@ export const AssessmentProp =
     ),
   });
 
+export const ProgressProp =
+  PropTypes.shape({
+    actionAt: PropTypes.string,
+    courseUser: PropTypes.string,
+    late: PropTypes.bool,
+    workflowState: PropTypes.string,
+  });
+
 export const ReduxFormProp =
   PropTypes.shape({
     registeredField: PropTypes.object,
