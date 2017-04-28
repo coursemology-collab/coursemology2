@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import ProgressPanel from '../components/ProgressPanel';
-import SubmissionEditForm from '../components/SubmissionEditForm';
+import SubmissionEditForm from '../containers/SubmissionEditForm';
 import fetchSubmission from '../actions';
 import { AssessmentProp, ProgressProp, ReduxFormProp } from '../propTypes';
 import { DATA_STATES } from '../constants';
