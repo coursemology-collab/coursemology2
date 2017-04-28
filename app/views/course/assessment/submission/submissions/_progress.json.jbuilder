@@ -1,4 +1,4 @@
-json.workflow_state Course::Assessment::Submission.human_attribute_name(@submission.workflow_state)
+json.workflow_state @submission.workflow_state.to_s
 json.course_user display_course_user(@submission.course_user)
 
 if @submission.attempting?

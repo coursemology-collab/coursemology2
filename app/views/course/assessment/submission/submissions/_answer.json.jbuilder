@@ -1,7 +1,8 @@
 json.(answer, :id)
 
+answer_type = answer.actable_type.demodulize.underscore
 answer = answer.specific
-json.partial! answer, answer: answer
+json.partial! answer_type, answer: answer
 
 last_attempt = last_attempt(answer)
 if last_attempt && last_attempt.auto_grading && last_attempt.auto_grading.result

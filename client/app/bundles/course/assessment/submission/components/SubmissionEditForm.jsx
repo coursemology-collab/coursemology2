@@ -46,9 +46,9 @@ class SubmissionEditForm extends Component {
   }
 
   static renderTextResponse(question) {
-    const title = question.display_title;
+    const title = question.displayTitle;
     const answerId = question.answer.id.toString();
-    const allowUpload = question.answer.allow_attachment;
+    const allowUpload = question.answer.allowAttachment;
 
     return (
       <div key={answerId}>
@@ -56,7 +56,7 @@ class SubmissionEditForm extends Component {
         <div dangerouslySetInnerHTML={{ __html: question.description }} />
         <hr />
         <Field name={answerId} component={RichTextField} multiLine />
-        {allowUpload ? QuestionTypes.renderFileUploader() : null}
+        {allowUpload ? SubmissionEditForm.renderFileUploader() : null}
       </div>
     );
   }

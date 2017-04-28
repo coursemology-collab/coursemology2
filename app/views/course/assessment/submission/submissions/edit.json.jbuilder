@@ -5,8 +5,6 @@ json.key_format! camelize: :lower
 can_grade = can?(:grade, @submission)
 can_update = can?(:update, @submission)
 
-json.submitted @submission.submitted?
-json.attempting @submission.attempting?
 json.can_grade can_grade
 json.can_update can_update
 
