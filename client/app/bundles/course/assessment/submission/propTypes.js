@@ -41,9 +41,17 @@ export const AssessmentProp =
 
 export const ProgressProp =
   PropTypes.shape({
-    actionAt: PropTypes.string,
-    courseUser: PropTypes.string,
+    attemptedAt: PropTypes.string,
+    basePoints: PropTypes.number,
+    dueAt: PropTypes.string,
+    grade: PropTypes.number,
+    gradedAt: PropTypes.string,
+    grader: PropTypes.string,
     late: PropTypes.bool,
+    maximumGrade: PropTypes.number,
+    pointsAwarded: PropTypes.number,
+    submittedAt: PropTypes.string,
+    submitter: PropTypes.string,
     workflowState: PropTypes.string,
   });
 

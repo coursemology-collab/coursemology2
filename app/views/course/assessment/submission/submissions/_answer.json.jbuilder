@@ -13,3 +13,9 @@ if last_attempt && last_attempt.auto_grading && last_attempt.auto_grading.result
     end
   end
 end
+
+json.grader display_user(answer.grader) if answer&.grader && @can_grade
+if @can_grade || @submission.published?
+  json.grade (answer&.grade || 0).to_f
+  json.maximum_grade answer.question.maximum_grade.to_f
+end
