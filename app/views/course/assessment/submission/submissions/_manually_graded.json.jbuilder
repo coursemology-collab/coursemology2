@@ -1,7 +1,6 @@
 json.questions @assessment.questions do |question|
   answer = @answers_hash[question.id]
 
-
   json.(question, :display_title, :description)
   json.type case question.actable_type
             when Course::Assessment::Question::MultipleResponse.name
@@ -13,6 +12,6 @@ json.questions @assessment.questions do |question|
             end
 
   json.answer do
-    json.partial! 'course/assessment/answer/answer', answer: answer
+    json.partial! 'answer', answer: answer
   end
 end

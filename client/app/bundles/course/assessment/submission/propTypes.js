@@ -10,8 +10,8 @@ const OptionProp =
 const AnswerProp =
   PropTypes.shape({
     id: PropTypes.number.isRequired,
-    allow_attachment: PropTypes.bool,
-    answer_text: PropTypes.string,
+    allowAttachment: PropTypes.bool,
+    answerText: PropTypes.string,
     attachment: PropTypes.string,
     options: PropTypes.arrayOf(OptionProp),
   });
@@ -20,17 +20,17 @@ export const QuestionProp =
   PropTypes.shape({
     answer: AnswerProp.isRequired,
     description: PropTypes.string.isRequired,
-    display_title: PropTypes.string.isRequired,
+    displayTitle: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
   });
 
 export const AssessmentProp =
   PropTypes.shape({
     autograded: PropTypes.bool,
-    delayed_grade_publication: PropTypes.bool,
+    delayedGradePublication: PropTypes.bool,
     description: PropTypes.string,
     password: PropTypes.string,
-    password_protected: PropTypes.bool,
+    passwordProtected: PropTypes.bool,
     published: PropTypes.bool,
     questions: PropTypes.arrayOf(
       PropTypes.shape({
@@ -41,9 +41,17 @@ export const AssessmentProp =
 
 export const ProgressProp =
   PropTypes.shape({
-    actionAt: PropTypes.string,
-    courseUser: PropTypes.string,
+    attemptedAt: PropTypes.string,
+    basePoints: PropTypes.number,
+    dueAt: PropTypes.string,
+    grade: PropTypes.number,
+    gradedAt: PropTypes.string,
+    grader: PropTypes.string,
     late: PropTypes.bool,
+    maximumGrade: PropTypes.number,
+    pointsAwarded: PropTypes.number,
+    submittedAt: PropTypes.string,
+    submitter: PropTypes.string,
     workflowState: PropTypes.string,
   });
 

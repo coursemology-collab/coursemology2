@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { Card, CardHeader, CardText } from 'material-ui/Card';
-import { Table, TableBody, TableRow, TableRowColumn } from 'material-ui/Table';
-import { Paper } from 'material-ui/Paper';
-import { red200, yellow100, grey100, green100, blue100 } from 'material-ui/styles/colors';
-import { formatDateTime } from 'lib/date-time-defaults';
+import { Card, CardHeader, CardText, CardTitle } from 'material-ui/Card';
+import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
+import { red100, yellow100, grey100, green100, blue100 } from 'material-ui/styles/colors';
 import WarningIcon from 'material-ui/svg-icons/alert/warning';
+import IconButton from 'material-ui/IconButton';
+import moment from 'lib/moment';
 
 import { ProgressProp } from '../propTypes';
 
@@ -27,55 +27,46 @@ const styles = {
     display: 'inline-block',
     verticalAlign: 'middle',
   },
+  table: {
+    maxWidth: 600,
+  },
 };
 
 class ProgressPanel extends Component {
 
-  renderCourseUser() {
-    const { courseUser } = this.props.progress;
-    return (
-      <TableRow>
-        <TableRowColumn>Student</TableRowColumn>
-        <TableRowColumn>{courseUser}</TableRowColumn>
-      </TableRow>
-    );
+  formatDateTime(dateTime) {
+    return dateTime ? moment(dateTime).format('DD MMM YYYY, h:mma') : null;
   }
 
-  renderTime() {
-    const { workflowState, actionAt } = this.props.progress;
-    let label = null;
-    switch (workflowState) {
-      case 'Attempting':
-        label = 'Attempted At';
-        break;
-      case 'Submitted':
-        label = 'Submitted At';
-        break;
-      default:
-        label = 'Graded At';
-        break;
-    }
+  renderGrading() {
+    const { basePoints, grade, gradedAt, grader, maximumGrade, pointsAwarded } = this.props.progress;
     return (
-      <TableRow>
-        <TableRowColumn>{label}</TableRowColumn>
-        <TableRowColumn>{formatDateTime(actionAt)}</TableRowColumn>
-      </TableRow>
-    );
-  }
-
-  renderGrade() {
-    const { grade, maximumGrade } = this.props.progress;
-    return (
-      <TableRow>
-        <TableRowColumn>Grade</TableRowColumn>
-        <TableRowColumn>{grade} / {maximumGrade}</TableRowColumn>
-      </TableRow>
+      <Table selectable={false} style={styles.table}>
+        <TableBody displayRowCheckbox={false}>
+          <TableRow>
+            <TableRowColumn>Grade</TableRowColumn>
+            <TableRowColumn>{grade} / {maximumGrade}</TableRowColumn>
+          </TableRow>
+          <TableRow>
+            <TableRowColumn>Experience Points</TableRowColumn>
+            <TableRowColumn>{pointsAwarded} / {basePoints}</TableRowColumn>
+          </TableRow>
+          <TableRow>
+            <TableRowColumn>Graded At</TableRowColumn>
+            <TableRowColumn>{this.formatDateTime(gradedAt)}</TableRowColumn>
+          </TableRow>
+          <TableRow>
+            <TableRowColumn>Grader</TableRowColumn>
+            <TableRowColumn>{grader}</TableRowColumn>
+          </TableRow>
+        </TableBody>
+      </Table>
     );
   }
 
   renderLateWarning() {
     return (
-      <Card style={{ backgroundColor: red200 }}>
+      <Card style={{ backgroundColor: red100 }}>
         <CardText>
           <WarningIcon style={styles.warningIcon} />
           <span>This submission is LATE! You may want to penalize the student for late submission.</span>
@@ -84,20 +75,51 @@ class ProgressPanel extends Component {
     );
   }
 
+  renderTimes() {
+    const { attemptedAt, dueAt, submittedAt } = this.props.progress;
+    return (
+      <Table selectable={false} style={styles.table}>
+        <TableBody displayRowCheckbox={false}>
+          <TableRow>
+            <TableRowColumn>Attempted At</TableRowColumn>
+            <TableRowColumn>{this.formatDateTime(attemptedAt)}</TableRowColumn>
+          </TableRow>
+          <TableRow>
+            <TableRowColumn>Submitted At</TableRowColumn>
+            <TableRowColumn>{this.formatDateTime(submittedAt)}</TableRowColumn>
+          </TableRow>
+          <TableRow>
+            <TableRowColumn>Due At</TableRowColumn>
+            <TableRowColumn>{this.formatDateTime(dueAt)}</TableRowColumn>
+          </TableRow>
+        </TableBody>
+      </Table>
+    );
+  }
+
   render() {
-    const { late, workflowState } = this.props.progress;
+    const { late, submitter, workflowState } = this.props.progress;
+    const title = {
+      attempting: 'Attempting',
+      submitted: 'Submitted',
+      graded: 'Graded but not published',
+      published: 'Graded',
+    }[workflowState];
     return (
       <Card>
-        <CardHeader title={workflowState} style={styles.header[workflowState.toLowerCase()]} />
+        <CardHeader
+          title={`Submission by ${submitter}`}
+          subtitle={title}
+          style={styles.header[workflowState]}
+          actAsExpander
+          showExpandableButton
+        />
         <CardText>
-          <Table selectable={false}>
-            <TableBody displayRowCheckbox={false}>
-              {this.renderCourseUser()}
-              {this.renderTime()}
-              {this.props.progress.grade ? this.renderGrade() : null}
-            </TableBody>
-          </Table>
-          { late ? this.renderLateWarning() : null }
+          {this.renderGrading()}
+          {late ? this.renderLateWarning() : null}
+        </CardText>
+        <CardText expandable>
+          {this.renderTimes()}
         </CardText>
       </Card>
     );
