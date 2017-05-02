@@ -1,15 +1,24 @@
 /* eslint-disable react/no-danger */
 
 import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 
 // eslint-disable-next-line import/extensions, import/no-extraneous-dependencies, import/no-unresolved
 import RichTextField from 'lib/components/redux-form/RichTextField';
-import CheckboxFormGroup from './CheckboxFormGroup';
+import CheckboxFormGroup from '../components/CheckboxFormGroup';
+import FileInput from '../components/FileInput';
 import { QuestionTypes } from '../constants';
-import { QuestionProp } from '../propTypes';
+import { QuestionProp, ReduxFormProp } from '../propTypes';
 
 class SubmissionEditForm extends Component {
+  static getUploadedFilename(values, key) {
+    if (values) {
+      return values[key] ? values[key].name : '';
+    }
+    return '';
+  }
+
   static renderMCQ(question) {
     const title = question.displayTitle;
     const answerId = question.answer.id.toString();
@@ -41,11 +50,21 @@ class SubmissionEditForm extends Component {
     );
   }
 
-  static renderFileUploader() {
-    return null;
+  static renderFileUploader(answerId, filename) {
+    return (
+      <FileInput
+        name={answerId}
+        inputOptions={{
+          multiple: false,
+        }}
+      >
+        <p>Choose file</p>
+        <p>{filename || 'No file chosen'}</p>
+      </FileInput>
+    );
   }
 
-  static renderTextResponse(question) {
+  static renderTextResponse(question, values) {
     const title = question.displayTitle;
     const answerId = question.answer.id.toString();
     const allowUpload = question.answer.allowAttachment;
@@ -56,30 +75,49 @@ class SubmissionEditForm extends Component {
         <div dangerouslySetInnerHTML={{ __html: question.description }} />
         <hr />
         <Field name={answerId} component={RichTextField} multiLine />
-        {allowUpload ? SubmissionEditForm.renderFileUploader() : null}
+        {allowUpload ? SubmissionEditForm.renderFileUploader(
+          `${answerId}-file`,
+          SubmissionEditForm.getUploadedFilename(values, `${answerId}-file`)
+        ) : null}
       </div>
     );
   }
 
-  static renderQuestion(question) {
+  static renderFileUpload(question) {
+    const title = question.displayTitle;
+    const answerId = question.answer.id.toString();
+
+    return (
+      <div key={answerId}>
+        <h3>{title}</h3>
+        <div dangerouslySetInnerHTML={{ __html: question.description }} />
+        <hr />
+        SubmissionEditForm.renderFileUploader(answerId);
+      </div>
+    );
+  }
+
+  static renderQuestion(question, values) {
     switch (question.type) {
       case QuestionTypes.MultipleChoice:
         return SubmissionEditForm.renderMCQ(question);
       case QuestionTypes.MultipleResponse:
         return SubmissionEditForm.renderMRQ(question);
       case QuestionTypes.TextResponse:
-        return SubmissionEditForm.renderTextResponse(question);
+        return SubmissionEditForm.renderTextResponse(question, values);
+      case QuestionTypes.FileUpload:
+        return SubmissionEditForm.renderFileUpload(question, values);
       default:
         return null;
     }
   }
 
   render() {
-    const { questions, pristine, submitting, handleSubmit } = this.props;
+    const { questions, formValues, pristine, submitting, handleSubmit } = this.props;
     return (
       <div>
         <form>
-          {questions.map(question => SubmissionEditForm.renderQuestion(question))}
+          {questions.map(question => SubmissionEditForm.renderQuestion(question, formValues))}
         </form>
         <button onClick={handleSubmit} disabled={pristine || submitting}>Submit</button>
       </div>
@@ -89,11 +127,18 @@ class SubmissionEditForm extends Component {
 
 SubmissionEditForm.propTypes = {
   questions: PropTypes.arrayOf(QuestionProp),
+  formValues: ReduxFormProp,
   pristine: PropTypes.bool,
   submitting: PropTypes.bool,
   handleSubmit: PropTypes.func,
 };
 
-export default reduxForm({
-  form: 'submissionEdit',
-})(SubmissionEditForm);
+export default connect(
+  state => ({
+    formValues: state.form.submissionEdit ? state.form.submissionEdit.values : null,
+  })
+)(
+  reduxForm({
+    form: 'submissionEdit',
+  })(SubmissionEditForm)
+);

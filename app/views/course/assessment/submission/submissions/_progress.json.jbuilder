@@ -17,7 +17,7 @@ if ['graded', 'published'].include? displayed_workflow_state
   json.maximum_grade @submission.assessment.maximum_grade.to_f
 end
 
-json.late @submission.assessment.end_at &&
+json.late @submission.assessment.end_at && @submission.submitted_at &&
   @submission.submitted_at > @submission.assessment.end_at
 
 if current_course.gamified?

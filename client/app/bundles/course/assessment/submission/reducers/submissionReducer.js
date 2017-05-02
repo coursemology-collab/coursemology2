@@ -1,8 +1,10 @@
 import actions, { DATA_STATES } from '../constants';
 
 const initialState = {
-  assessment: {},
+  canGrade: false,
+  canUpdate: false,
   progress: {},
+  assessment: {},
   dataState: DATA_STATES.Unfetched,
 };
 
