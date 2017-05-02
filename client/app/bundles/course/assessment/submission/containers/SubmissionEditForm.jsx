@@ -84,7 +84,7 @@ class SubmissionEditForm extends Component {
   }
 
   static renderFileUpload(question) {
-    const title = question.display_title;
+    const title = question.displayTitle;
     const answerId = question.answer.id.toString();
 
     return (
