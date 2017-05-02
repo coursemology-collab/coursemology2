@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Card, CardHeader, CardText, CardTitle } from 'material-ui/Card';
-import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
+import { Card, CardHeader, CardText } from 'material-ui/Card';
+import { Table, TableBody, TableRow, TableRowColumn } from 'material-ui/Table';
 import { red100, yellow100, grey100, green100, blue100 } from 'material-ui/styles/colors';
 import WarningIcon from 'material-ui/svg-icons/alert/warning';
-import IconButton from 'material-ui/IconButton';
+// eslint-disable-next-line import/extensions, import/no-extraneous-dependencies, import/no-unresolved
 import moment from 'lib/moment';
 
 import { ProgressProp } from '../propTypes';
@@ -33,9 +33,19 @@ const styles = {
 };
 
 class ProgressPanel extends Component {
-
-  formatDateTime(dateTime) {
+  static formatDateTime(dateTime) {
     return dateTime ? moment(dateTime).format('DD MMM YYYY, h:mma') : null;
+  }
+
+  static renderLateWarning() {
+    return (
+      <Card style={{ backgroundColor: red100 }}>
+        <CardText>
+          <WarningIcon style={styles.warningIcon} />
+          <span>This submission is LATE! You may want to penalize the student for late submission.</span>
+        </CardText>
+      </Card>
+    );
   }
 
   renderGrading() {
@@ -53,7 +63,7 @@ class ProgressPanel extends Component {
           </TableRow>
           <TableRow>
             <TableRowColumn>Graded At</TableRowColumn>
-            <TableRowColumn>{this.formatDateTime(gradedAt)}</TableRowColumn>
+            <TableRowColumn>{ProgressPanel.formatDateTime(gradedAt)}</TableRowColumn>
           </TableRow>
           <TableRow>
             <TableRowColumn>Grader</TableRowColumn>
@@ -64,17 +74,6 @@ class ProgressPanel extends Component {
     );
   }
 
-  renderLateWarning() {
-    return (
-      <Card style={{ backgroundColor: red100 }}>
-        <CardText>
-          <WarningIcon style={styles.warningIcon} />
-          <span>This submission is LATE! You may want to penalize the student for late submission.</span>
-        </CardText>
-      </Card>
-    );
-  }
-
   renderTimes() {
     const { attemptedAt, dueAt, submittedAt } = this.props.progress;
     return (
@@ -82,15 +81,15 @@ class ProgressPanel extends Component {
         <TableBody displayRowCheckbox={false}>
           <TableRow>
             <TableRowColumn>Attempted At</TableRowColumn>
-            <TableRowColumn>{this.formatDateTime(attemptedAt)}</TableRowColumn>
+            <TableRowColumn>{ProgressPanel.formatDateTime(attemptedAt)}</TableRowColumn>
           </TableRow>
           <TableRow>
             <TableRowColumn>Submitted At</TableRowColumn>
-            <TableRowColumn>{this.formatDateTime(submittedAt)}</TableRowColumn>
+            <TableRowColumn>{ProgressPanel.formatDateTime(submittedAt)}</TableRowColumn>
           </TableRow>
           <TableRow>
             <TableRowColumn>Due At</TableRowColumn>
-            <TableRowColumn>{this.formatDateTime(dueAt)}</TableRowColumn>
+            <TableRowColumn>{ProgressPanel.formatDateTime(dueAt)}</TableRowColumn>
           </TableRow>
         </TableBody>
       </Table>
@@ -116,7 +115,7 @@ class ProgressPanel extends Component {
         />
         <CardText>
           {this.renderGrading()}
-          {late ? this.renderLateWarning() : null}
+          {late ? ProgressPanel.renderLateWarning() : null}
         </CardText>
         <CardText expandable>
           {this.renderTimes()}
