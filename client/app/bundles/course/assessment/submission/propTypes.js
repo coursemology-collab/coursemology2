@@ -1,5 +1,11 @@
 import { PropTypes } from 'react';
 
+export const QuestionProp =
+PropTypes.shape({
+  description: PropTypes.string.isRequired,
+  displayTitle: PropTypes.string.isRequired,
+});
+
 const OptionProp =
   PropTypes.shape({
     id: PropTypes.number.isRequired,
@@ -7,20 +13,14 @@ const OptionProp =
     selected: PropTypes.bool.isRequired,
   });
 
-const AnswerProp =
+export const AnswerProp =
   PropTypes.shape({
     id: PropTypes.number.isRequired,
     allowAttachment: PropTypes.bool,
     answerText: PropTypes.string,
     attachment: PropTypes.string,
     options: PropTypes.arrayOf(OptionProp),
-  });
-
-export const QuestionProp =
-  PropTypes.shape({
-    answer: AnswerProp.isRequired,
-    description: PropTypes.string.isRequired,
-    displayTitle: PropTypes.string.isRequired,
+    question: QuestionProp.isRequired,
     type: PropTypes.string.isRequired,
   });
 
@@ -32,11 +32,6 @@ export const AssessmentProp =
     password: PropTypes.string,
     passwordProtected: PropTypes.bool,
     published: PropTypes.bool,
-    questions: PropTypes.arrayOf(
-      PropTypes.shape({
-        question: QuestionProp,
-      })
-    ),
   });
 
 export const ProgressProp =
@@ -53,6 +48,11 @@ export const ProgressProp =
     submittedAt: PropTypes.string,
     submitter: PropTypes.string,
     workflowState: PropTypes.string,
+  });
+
+export const SubmissionProp =
+  PropTypes.shape({
+    answers: PropTypes.arrayOf(AnswerProp),
   });
 
 export const ReduxFormProp =

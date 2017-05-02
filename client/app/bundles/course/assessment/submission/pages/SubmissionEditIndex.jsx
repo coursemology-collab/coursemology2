@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 
 import ProgressPanel from '../components/ProgressPanel';
 import SubmissionEditForm from '../containers/SubmissionEditForm';
-import fetchSubmission from '../actions';
-import { AssessmentProp, ProgressProp, ReduxFormProp } from '../propTypes';
+import { fetchSubmission, updateSubmission } from '../actions';
+import { AssessmentProp, ProgressProp, ReduxFormProp, SubmissionProp } from '../propTypes';
 import { DATA_STATES } from '../constants';
 
 class VisibleSubmissionEditIndex extends Component {
@@ -26,11 +26,11 @@ class VisibleSubmissionEditIndex extends Component {
   }
 
   renderContent() {
-    const { assessment } = this.props;
+    const { assessment, submission } = this.props;
     if (assessment.autograded) {
       return <p>This is autograded assessment.</p>;
     }
-    return <SubmissionEditForm handleSubmit={() => this.handleSubmit()} questions={assessment.questions} />;
+    return <SubmissionEditForm handleSubmit={() => this.handleSubmit()} answers={submission.answers} />;
   }
 
   render() {
@@ -59,23 +59,28 @@ VisibleSubmissionEditIndex.propTypes = {
   canGrade: PropTypes.bool,
   form: ReduxFormProp,
   progress: ProgressProp.isRequired,
+  submission: SubmissionProp.isRequired,
   dataState: PropTypes.string.isRequired,
+
   fetchData: PropTypes.func.isRequired,
+  updateData: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state) {
   return {
-    canGrade: state.submission.canGrade,
-    progress: state.submission.progress,
-    assessment: state.submission.assessment,
+    assessment: state.submissionEdit.assessment,
+    canGrade: state.submissionEdit.canGrade,
     form: state.form.submissionEdit,
-    dataState: state.submission.dataState,
+    progress: state.submissionEdit.progress,
+    submission: state.submissionEdit.submission,
+    dataState: state.submissionEdit.dataState,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     fetchData: id => dispatch(fetchSubmission(id)),
+    updateData: (id, payload) => dispatch(updateSubmission(id, payload)),
   };
 }
 
