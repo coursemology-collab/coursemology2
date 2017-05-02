@@ -12,6 +12,10 @@ export default class SubmissionsAPI extends BaseAssessmentAPI {
     return this.getClient().get(`${this._getUrlPrefix()}/${submissionId}/edit`);
   }
 
+  update(submissionId, submissionFields) {
+    return this.getClient().patch(`${this._getUrlPrefix()}/${submissionId}`, submissionFields);
+  }
+
   _getUrlPrefix() {
     return `/courses/${this.getCourseId()}/assessments/${this.getAssessmentId()}/submissions`;
   }

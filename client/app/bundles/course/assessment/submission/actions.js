@@ -1,22 +1,43 @@
 import CourseAPI from 'api/course';
-import actions from './constants';
+import actionTypes from './constants';
 
-export default function fetchSubmission(id) {
+export function fetchSubmission(id) {
   return (dispatch) => {
-    dispatch({ type: actions.FETCHING_SUBMISSION });
+    dispatch({ type: actionTypes.FETCH_SUBMISSION_REQUEST });
 
     return CourseAPI.assessment.submissions.edit(id)
       .then(response => response.data)
       .then((data) => {
         dispatch({
-          type: actions.RECEIVED_SUBMISSION,
+          type: actionTypes.FETCH_SUBMISSION_SUCCESS,
           payload: data,
         });
       })
       .catch(() => {
         dispatch({
-          type: actions.FETCH_SUBMISSION_ERROR,
+          type: actionTypes.FETCH_SUBMISSION_FAILURE,
         });
+      });
+  };
+}
+
+export function updateSubmission(
+  submissionId,
+  payload
+) {
+  return (dispatch) => {
+    dispatch({ type: actionTypes.UPDATE_SUBMISSION_REQUEST });
+
+    return CourseAPI.assessment.submissions.update(submissionId, payload)
+      .then(response => response.data)
+      .then((data) => {
+        dispatch({
+          type: actionTypes.UPDATE_SUBMISSION_SUCCESS,
+          response: data.response,
+        });
+      })
+      .catch(() => {
+        dispatch({ type: actionTypes.UPDATE_SUBMISSION_FAILURE });
       });
   };
 }
