@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
 import { reducer as formReducer } from 'redux-form';
-import submissionReducer from './submissionReducer';
+import submissionEditReducer from './submissionEditReducer';
 
 export default combineReducers({
-  submission: submissionReducer,
+  submissionEdit: submissionEditReducer,
   form: formReducer,
 });

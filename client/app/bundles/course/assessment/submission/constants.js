@@ -7,18 +7,21 @@ export const DATA_STATES = {
   Received: 'received',
 };
 
-export const QuestionTypes = {
-  MultipleChoice: 'MultipleChoice',
-  MultipleResponse: 'MultipleResponse',
-  Programming: 'Programming',
-  TextResponse: 'TextResponse',
-  FileUpload: 'FileUpload',
-};
-
-const actions = mirrorCreator([
-  'FETCHING_SUBMISSION',
-  'RECEIVED_SUBMISSION',
-  'FETCH_SUBMISSION_ERROR',
+export const QuestionTypes = mirrorCreator([
+  'MultipleChoice',
+  'MultipleResponse',
+  'Programming',
+  'TextResponse',
+  'FileUpload',
 ]);
 
-export default actions;
+const actionTypes = mirrorCreator([
+  'FETCH_SUBMISSION_REQUEST',
+  'FETCH_SUBMISSION_SUCCESS',
+  'FETCH_SUBMISSION_FAILURE',
+  'UPDATE_SUBMISSION_REQUEST',
+  'UPDATE_SUBMISSION_SUCCESS',
+  'UPDATE_SUBMISSION_FAILURE',
+]);
+
+export default actionTypes;

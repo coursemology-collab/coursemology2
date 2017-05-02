@@ -1,7 +1,7 @@
-json.questions @assessment.questions do |question|
+json.answers @assessment.questions do |question|
   answer = @answers_hash[question.id]
 
-  json.(question, :display_title, :description)
+  json.partial! 'answer', answer: answer
   json.type case question.actable_type
             when Course::Assessment::Question::MultipleResponse.name
               question.actable.multiple_choice? ? 'MultipleChoice' : 'MultipleResponse'
@@ -11,7 +11,7 @@ json.questions @assessment.questions do |question|
               'Programming'
             end
 
-  json.answer do
-    json.partial! 'answer', answer: answer
+  json.question do
+    json.(question, :display_title, :description)
   end
 end
