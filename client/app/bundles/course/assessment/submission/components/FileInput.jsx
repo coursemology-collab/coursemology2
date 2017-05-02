@@ -37,10 +37,6 @@ class FileInput extends Component {
         <Dropzone
           {...inputOptions}
           onDrop={(f) => {
-            if (inputOptions.multiple) {
-              callback(f);
-              return onChange(f);
-            }
             callback(f[0]);
             return onChange(f[0]);
           }}

@@ -9,7 +9,7 @@ import RichTextField from 'lib/components/redux-form/RichTextField';
 import CheckboxFormGroup from '../components/CheckboxFormGroup';
 import FileInput from '../components/FileInput';
 import { QuestionTypes } from '../constants';
-import { QuestionProp, ReduxFormProp } from '../propTypes';
+import { QuestionProp } from '../propTypes';
 
 class SubmissionEditForm extends Component {
   static getUploadedFilename(values, key) {
@@ -83,7 +83,7 @@ class SubmissionEditForm extends Component {
     );
   }
 
-  static renderFileUpload(question) {
+  static renderFileUpload(question, values) {
     const title = question.displayTitle;
     const answerId = question.answer.id.toString();
 
@@ -92,7 +92,7 @@ class SubmissionEditForm extends Component {
         <h3>{title}</h3>
         <div dangerouslySetInnerHTML={{ __html: question.description }} />
         <hr />
-        SubmissionEditForm.renderFileUploader(answerId);
+        {SubmissionEditForm.renderFileUploader(answerId, SubmissionEditForm.getUploadedFilename(values, answerId))}
       </div>
     );
   }
@@ -127,7 +127,7 @@ class SubmissionEditForm extends Component {
 
 SubmissionEditForm.propTypes = {
   questions: PropTypes.arrayOf(QuestionProp),
-  formValues: ReduxFormProp,
+  formValues: PropTypes.arrayOf(PropTypes.any),
   pristine: PropTypes.bool,
   submitting: PropTypes.bool,
   handleSubmit: PropTypes.func,
