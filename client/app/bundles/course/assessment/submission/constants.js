@@ -16,6 +16,12 @@ export const QuestionTypes = mirrorCreator([
   'Programming',
 ]);
 
+export const TestCaseTypes = {
+  Public: 'public_test',
+  Private: 'private_test',
+  Evaluation: 'evaluation_test',
+};
+
 const actionTypes = mirrorCreator([
   'FETCH_SUBMISSION_REQUEST',
   'FETCH_SUBMISSION_SUCCESS',
