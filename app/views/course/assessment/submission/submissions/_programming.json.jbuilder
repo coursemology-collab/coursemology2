@@ -1,5 +1,7 @@
 question = answer.question.specific
 
+json.language question.language.name
+
 json.files answer.files do |file|
   json.filename file.filename
   json.content file.content
@@ -11,5 +13,6 @@ if question.test_cases.present?
     json.expression format_inline_text(test_case.expression)
     json.expected format_inline_text(test_case.expected)
     json.hint format_html(test_case.hint)
+    json.type test_case.test_case_type
   end
 end
