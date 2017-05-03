@@ -4,7 +4,7 @@ import AceEditor from 'react-ace';
 
 class Editor extends Component {
   static propTypes = {
-    name: PropTypes.string,
+    filename: PropTypes.string,
     content: PropTypes.string,
     language: PropTypes.string.isRequired,
     input: PropTypes.shape({
@@ -13,17 +13,17 @@ class Editor extends Component {
   }
 
   render() {
-    const { name, content, language, input: { onChange } } = this.props;
+    const { filename, language, input: { onChange, value } } = this.props;
     return (
       <AceEditor
-        name={name}
+        name={filename}
         mode={language}
         theme="github"
         width="100%"
         minLines={25}
         maxLines={25}
-        value={content}
-        onChange={value => onChange(value)}
+        value={value}
+        onChange={newValue => onChange(newValue)}
         editorProps={{ $blockScrolling: true }}
         setOptions={{ useSoftTabs: true }}
       />

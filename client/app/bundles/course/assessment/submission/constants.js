@@ -7,7 +7,7 @@ export const DATA_STATES = {
   Received: 'received',
 };
 
-export const QuestionTypes = mirrorCreator([
+export const questionTypes = mirrorCreator([
   'MultipleChoice',
   'MultipleResponse',
   'Programming',
