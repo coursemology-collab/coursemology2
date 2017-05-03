@@ -5,13 +5,16 @@ import 'brace/theme/github';
 import React, { Component } from 'react';
 import { Field } from 'redux-form';
 import AceEditor from 'react-ace';
+import ReactTooltip from 'react-tooltip';
+import { Card, CardHeader, CardText } from 'material-ui/Card';
+import { Table, TableHeader, TableHeaderColumn, TableBody, TableRow, TableRowColumn } from 'material-ui/Table';
 
 // eslint-disable-next-line import/extensions, import/no-extraneous-dependencies, import/no-unresolved
 import RichTextField from 'lib/components/redux-form/RichTextField';
 
 import CheckboxFormGroup from '../components/CheckboxFormGroup';
 import FileInput from '../components/FileInput';
-
+import { TestCaseTypes } from '../constants';
 
 export default class Questions extends Component {
   static renderQuestionHeader(answer) {
@@ -94,10 +97,9 @@ export default class Questions extends Component {
 
   static renderProgrammingEditor(file, language) {
     return (
-      <div>
+      <div key={file.filename}>
         <h5>Content</h5>
         <AceEditor
-          key={file.filename}
           mode={language}
           theme="github"
           width="100%"
@@ -112,23 +114,88 @@ export default class Questions extends Component {
     );
   }
 
+  static renderExclamationTriangle() {
+    return (
+      <div>
+        <a data-tip data-for="exclamation-triangle"><i className="fa fa-exclamation-triangle" /></a>
+        <ReactTooltip id="exclamation-triangle" effect="solid">
+          You are able to view these test cases because you are staff. Students will not be able to see them.
+        </ReactTooltip>
+      </div>
+    );
+  }
+
+  static renderTestCaseTitle(title, warn) {
+    return (
+      <div>
+        {title}
+        {warn ? Questions.renderExclamationTriangle() : null}
+      </div>
+    );
+  }
+
+  static renderTestCases(testCases, title) {
+    if (testCases.length === 0) {
+      return null;
+    }
+    return (
+      <div>
+        <Card>
+          <CardHeader
+            title={title}
+            style={{}}
+          />
+          <CardText>
+            <Table selectable={false} style={{}}>
+              <TableHeader displaySelectAll={false}>
+                <TableRow>
+                  <TableHeaderColumn>Identifier</TableHeaderColumn>
+                  <TableHeaderColumn>Expression</TableHeaderColumn>
+                  <TableHeaderColumn>Expected</TableHeaderColumn>
+                  <TableHeaderColumn>Output</TableHeaderColumn>
+                  <TableHeaderColumn>Hint</TableHeaderColumn>
+                  <TableHeaderColumn>Passed</TableHeaderColumn>
+                </TableRow>
+              </TableHeader>
+              <TableBody displayRowCheckbox={false}>
+                {testCases.map(testCase =>
+                  <TableRow key={testCase.identifier}>
+                    <TableRowColumn>{testCase.identifier}</TableRowColumn>
+                    <TableRowColumn>{testCase.expression}</TableRowColumn>
+                    <TableRowColumn>{testCase.expected}</TableRowColumn>
+                    <TableRowColumn>{testCase.output}</TableRowColumn>
+                    <TableRowColumn>{testCase.hint}</TableRowColumn>
+                    <TableRowColumn>{testCase.passed}</TableRowColumn>
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          </CardText>
+        </Card>
+      </div>
+    );
+  }
+
   static renderProgrammingTestCases(testCases, canGrade) {
     if (!testCases || testCases.length === 0) {
       return null;
     }
 
-    if (canGrade) {
-      return (
-        <div>
-          <h3>Test Cases</h3>
-          <p>All types of test cases</p>
-        </div>
-      );
-    }
     return (
       <div>
         <h3>Test Cases</h3>
-        <p>Only public test cases</p>
+        {Questions.renderTestCases(
+          testCases.filter(testCase => testCase.type === TestCaseTypes.Public),
+          Questions.renderTestCaseTitle('Public Test Cases', true)
+        )}
+        {canGrade ? Questions.renderTestCases(
+          testCases.filter(testCase => testCase.type === TestCaseTypes.Private),
+          Questions.renderTestCaseTitle('Private Test Cases', true)
+        ) : null}
+        {canGrade ? Questions.renderTestCases(
+          testCases.filter(testCase => testCase.type === TestCaseTypes.Evaluation),
+          Questions.renderTestCaseTitle('Evaluation Test Cases', true)
+        ) : null}
       </div>
     );
   }
