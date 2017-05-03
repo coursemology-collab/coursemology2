@@ -1,8 +1,11 @@
 /* eslint-disable react/no-danger */
+import 'brace/mode/python';
+import 'brace/theme/github';
 
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
+import AceEditor from 'react-ace';
 
 // eslint-disable-next-line import/extensions, import/no-extraneous-dependencies, import/no-unresolved
 import RichTextField from 'lib/components/redux-form/RichTextField';
@@ -97,6 +100,60 @@ class SubmissionEditForm extends Component {
     );
   }
 
+  static renderProgrammingEditor(file, language) {
+    return (
+      <AceEditor
+        key={file.filename}
+        mode={language}
+        theme="github"
+        width="100%"
+        minLines={25}
+        maxLines={25}
+        value={file.content}
+        onChange={() => {}}
+        editorProps={{ $blockScrolling: true }}
+        setOptions={{ useSoftTabs: true }}
+      />
+    );
+  }
+
+  static renderProgrammingTestCases(testCases, canGrade) {
+    if (!testCases || testCases.length === 0) {
+      return null;
+    }
+
+    if (canGrade) {
+      return (
+        <div>
+          <h3>Test Cases</h3>
+          <p>All types of test cases</p>
+        </div>
+      );
+    }
+    return (
+      <div>
+        <h3>Test Cases</h3>
+        <p>Only public test cases</p>
+      </div>
+    );
+  }
+
+  static renderProgramming(answer, canGrade) {
+    const title = answer.question.displayTitle;
+    const answerId = answer.id.toString();
+
+    return (
+      <div key={answerId}>
+        <h3>{title}</h3>
+        <div dangerouslySetInnerHTML={{ __html: answer.question.description }} />
+        <hr />
+        <h5>Content</h5>
+        {answer.files.map(file => SubmissionEditForm.renderProgrammingEditor(file, 'python'))}
+        {SubmissionEditForm.renderProgrammingTestCases(answer.testCases, canGrade)}
+      </div>
+    );
+  }
+
   static renderQuestion(answer, values) {
     switch (answer.type) {
       case QuestionTypes.MultipleChoice:
@@ -107,6 +164,8 @@ class SubmissionEditForm extends Component {
         return SubmissionEditForm.renderTextResponse(answer, values);
       case QuestionTypes.FileUpload:
         return SubmissionEditForm.renderFileUpload(answer, values);
+      case QuestionTypes.Programming:
+        return SubmissionEditForm.renderProgramming(answer);
       default:
         return null;
     }
