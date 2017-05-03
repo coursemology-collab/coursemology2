@@ -29,7 +29,7 @@ class FileInput extends Component {
   render() {
     const {
       name, className, inputOptions, meta: { error, touched },
-      children, input: { onChange }, callback,
+      children, input: { onChange, value }, callback,
     } = this.props;
 
     return (
@@ -44,6 +44,7 @@ class FileInput extends Component {
           name={name}
         >
           {children}
+          {value.name || 'No file chosen'}
         </Dropzone>
         {error && touched ? error : ''}
       </div>
