@@ -21,9 +21,9 @@ const FileProp =
 
 const TestCaseProp =
   PropTypes.shape({
-    identifier: PropTypes.string,
-    expression: PropTypes.string,
-    expected: PropTypes.string,
+    identifier: PropTypes.string.isRequired,
+    expression: PropTypes.string.isRequired,
+    expected: PropTypes.string.isRequired,
     hint: PropTypes.string,
     type: PropTypes.string.isRequired,
   });
