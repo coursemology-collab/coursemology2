@@ -33,7 +33,7 @@ export const AnswerProp =
     id: PropTypes.number.isRequired,
     allowAttachment: PropTypes.bool,
     answerText: PropTypes.string,
-    attachment: PropTypes.string,
+    attachment: PropTypes.object,
     files: PropTypes.arrayOf(FileProp),
     language: PropTypes.string,
     options: PropTypes.arrayOf(OptionProp),
@@ -71,22 +71,4 @@ export const ProgressProp =
 export const SubmissionProp =
   PropTypes.shape({
     answers: PropTypes.arrayOf(AnswerProp),
-  });
-
-export const ReduxFormProp =
-  PropTypes.shape({
-    registeredField: PropTypes.object,
-    values: PropTypes.any,
-  });
-
-export const ReduxFormInputProp =
-  PropTypes.shape({
-    checked: PropTypes.bool,
-    name: PropTypes.name,
-    onBlur: PropTypes.func,
-    onChange: PropTypes.func,
-    onDragStart: PropTypes.func,
-    onDrop: PropTypes.func,
-    onFocus: PropTypes.func,
-    value: PropTypes.any,
   });
