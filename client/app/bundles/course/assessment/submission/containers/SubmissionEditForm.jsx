@@ -8,7 +8,7 @@ import { QuestionTypes } from '../constants';
 import { AnswerProp } from '../propTypes';
 
 class SubmissionEditForm extends Component {
-  static renderQuestion(answer, values) {
+  static renderQuestion(answer, canGrade, values) {
     switch (answer.type) {
       case QuestionTypes.MultipleChoice:
         return Questions.renderMCQ(answer);
@@ -19,18 +19,18 @@ class SubmissionEditForm extends Component {
       case QuestionTypes.FileUpload:
         return Questions.renderFileUpload(answer, values);
       case QuestionTypes.Programming:
-        return Questions.renderProgramming(answer);
+        return Questions.renderProgramming(answer, canGrade, values);
       default:
         return null;
     }
   }
 
   render() {
-    const { answers, formValues, pristine, submitting, handleSubmit } = this.props;
+    const { answers, canGrade, formValues, pristine, submitting, handleSubmit } = this.props;
     return (
       <div>
         <form>
-          {answers.map(answer => SubmissionEditForm.renderQuestion(answer, formValues))}
+          {answers.map(answer => SubmissionEditForm.renderQuestion(answer, canGrade, formValues))}
         </form>
         <button onClick={handleSubmit} disabled={pristine || submitting}>Submit</button>
       </div>
@@ -39,8 +39,12 @@ class SubmissionEditForm extends Component {
 }
 
 SubmissionEditForm.propTypes = {
+  canGrade: PropTypes.bool.isRequired,
   answers: PropTypes.arrayOf(AnswerProp),
-  formValues: PropTypes.arrayOf(PropTypes.any),
+  formValues: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.any),
+    PropTypes.object,
+  ]),
   pristine: PropTypes.bool,
   submitting: PropTypes.bool,
   handleSubmit: PropTypes.func,
