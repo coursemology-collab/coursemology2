@@ -26,11 +26,17 @@ class VisibleSubmissionEditIndex extends Component {
   }
 
   renderContent() {
-    const { assessment, submission } = this.props;
+    const { assessment, submission, canGrade } = this.props;
     if (assessment.autograded) {
       return <p>This is autograded assessment.</p>;
     }
-    return <SubmissionEditForm handleSubmit={() => this.handleSubmit()} answers={submission.answers} />;
+    return (
+      <SubmissionEditForm
+        handleSubmit={() => this.handleSubmit()}
+        answers={submission.answers}
+        canGrade={canGrade}
+      />
+    );
   }
 
   render() {
