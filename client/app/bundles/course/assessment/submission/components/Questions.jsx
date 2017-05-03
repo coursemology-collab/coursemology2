@@ -4,7 +4,6 @@ import 'brace/theme/github';
 
 import React, { Component } from 'react';
 import { Field } from 'redux-form';
-import AceEditor from 'react-ace';
 import ReactTooltip from 'react-tooltip';
 import { Card, CardHeader, CardText } from 'material-ui/Card';
 import { Table, TableHeader, TableHeaderColumn, TableBody, TableRow, TableRowColumn } from 'material-ui/Table';
@@ -14,9 +13,24 @@ import RichTextField from 'lib/components/redux-form/RichTextField';
 
 import CheckboxFormGroup from '../components/CheckboxFormGroup';
 import FileInput from '../components/FileInput';
+import Editor from '../components/Editor';
 import { TestCaseTypes } from '../constants';
 
 export default class Questions extends Component {
+  static getUploadedFilename(values, key) {
+    if (values) {
+      return values[key] ? values[key].name : '';
+    }
+    return '';
+  }
+
+  static getEditorContent(values, key) {
+    if (values) {
+      return values[key] || '';
+    }
+    return '';
+  }
+
   static renderQuestionHeader(answer) {
     const title = answer.question.displayTitle;
     return (
@@ -62,13 +76,6 @@ export default class Questions extends Component {
     );
   }
 
-  static getUploadedFilename(values, key) {
-    if (values) {
-      return values[key] ? values[key].name : '';
-    }
-    return '';
-  }
-
   static renderTextResponse(answer, values) {
     const answerId = answer.id.toString();
     const allowUpload = answer.allowAttachment;
@@ -95,20 +102,15 @@ export default class Questions extends Component {
     );
   }
 
-  static renderProgrammingEditor(file, language) {
+  static renderProgrammingEditor(answerId, file, language, values) {
+    const id = `${answerId}-${file.filename.split('.')[0]}`;
     return (
       <div key={file.filename}>
         <h5>Content</h5>
-        <AceEditor
-          mode={language}
-          theme="github"
-          width="100%"
-          minLines={25}
-          maxLines={25}
-          value={file.content}
-          onChange={() => {}}
-          editorProps={{ $blockScrolling: true }}
-          setOptions={{ useSoftTabs: true }}
+        <Editor
+          name={id}
+          content={Questions.getEditorContent(values, id)}
+          language={language}
         />
       </div>
     );
@@ -186,7 +188,7 @@ export default class Questions extends Component {
         <h3>Test Cases</h3>
         {Questions.renderTestCases(
           testCases.filter(testCase => testCase.type === TestCaseTypes.Public),
-          Questions.renderTestCaseTitle('Public Test Cases', true)
+          Questions.renderTestCaseTitle('Public Test Cases', false)
         )}
         {canGrade ? Questions.renderTestCases(
           testCases.filter(testCase => testCase.type === TestCaseTypes.Private),
@@ -200,12 +202,12 @@ export default class Questions extends Component {
     );
   }
 
-  static renderProgramming(answer, canGrade) {
+  static renderProgramming(answer, canGrade, values) {
     const answerId = answer.id.toString();
     return (
       <div key={answerId}>
         {Questions.renderQuestionHeader(answer)}
-        {answer.files.map(file => Questions.renderProgrammingEditor(file, 'python'))}
+        {answer.files.map(file => Questions.renderProgrammingEditor(answerId, file, 'python', values))}
         {Questions.renderProgrammingTestCases(answer.testCases, canGrade)}
       </div>
     );
