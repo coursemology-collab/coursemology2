@@ -13,14 +13,32 @@ const OptionProp =
     selected: PropTypes.bool.isRequired,
   });
 
+const FileProp =
+  PropTypes.shape({
+    content: PropTypes.string,
+    filename: PropTypes.string,
+  });
+
+const TestCaseProp =
+  PropTypes.shape({
+    identifier: PropTypes.string,
+    expression: PropTypes.string,
+    expected: PropTypes.string,
+    hint: PropTypes.string,
+    type: PropTypes.string.isRequired,
+  });
+
 export const AnswerProp =
   PropTypes.shape({
     id: PropTypes.number.isRequired,
     allowAttachment: PropTypes.bool,
     answerText: PropTypes.string,
     attachment: PropTypes.string,
+    files: PropTypes.arrayOf(FileProp),
+    language: PropTypes.string,
     options: PropTypes.arrayOf(OptionProp),
     question: QuestionProp.isRequired,
+    testCases: PropTypes.arrayOf(TestCaseProp),
     type: PropTypes.string.isRequired,
   });
 

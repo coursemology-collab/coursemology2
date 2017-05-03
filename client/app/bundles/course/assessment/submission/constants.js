@@ -13,6 +13,7 @@ export const QuestionTypes = mirrorCreator([
   'Programming',
   'TextResponse',
   'FileUpload',
+  'Programming',
 ]);
 
 const actionTypes = mirrorCreator([
