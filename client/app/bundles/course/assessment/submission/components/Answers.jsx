@@ -3,8 +3,9 @@ import 'brace/mode/python';
 import 'brace/theme/github';
 
 import React, { Component } from 'react';
-import { Field } from 'redux-form';
+import { Field, FieldArray } from 'redux-form';
 import ReactTooltip from 'react-tooltip';
+import { RadioButton } from 'material-ui/RadioButton';
 import { Card, CardHeader, CardText } from 'material-ui/Card';
 import { Table, TableHeader, TableHeaderColumn, TableBody, TableRow, TableRowColumn } from 'material-ui/Table';
 
@@ -16,102 +17,77 @@ import FileInput from '../components/FileInput';
 import Editor from '../components/Editor';
 import { TestCaseTypes } from '../constants';
 
-export default class Questions extends Component {
-  static getUploadedFilename(values, key) {
-    if (values) {
-      return values[key] ? values[key].name : '';
-    }
-    return '';
-  }
 
-  static getEditorContent(values, key) {
-    if (values) {
-      return values[key] || '';
-    }
-    return '';
-  }
-
-  static renderQuestionHeader(answer) {
-    const title = answer.question.displayTitle;
+export default class Answers extends Component {
+  static renderMultipleChoice(answer, member) {
     return (
-      <div>
-        <h3>{title}</h3>
-        <div dangerouslySetInnerHTML={{ __html: answer.question.description }} />
-        <hr />
-      </div>
+      <Field
+        name={`${member}[selectedOption]`}
+        component={Answers.renderMultipleChoiceOptions}
+        {...{ answer, member }}
+      />
     );
   }
 
-  static renderMCQ(answer) {
-    const answerId = answer.id.toString();
+  static renderMultipleChoiceOptions(props) {
+    const { answer, input: { onChange, value } } = props;
     return (
-      <div key={answerId}>
-        {Questions.renderQuestionHeader(answer)}
-        {answer.options.map(opt =>
-          <label key={opt.id}>
-            <Field name={answerId} component="input" type="radio" value={opt.id.toString()} />
-            <div dangerouslySetInnerHTML={{ __html: opt.option.trim() }} />
+      <div>
+        {answer.options.map(option =>
+          <label key={option.id}>
+            <RadioButton
+              value={option.id}
+              onCheck={(event, buttonValue) => onChange(buttonValue)}
+              checked={option.id === value}
+            />
+            <div dangerouslySetInnerHTML={{ __html: option.option.trim() }} />
           </label>
         )}
       </div>
     );
   }
 
-  static renderMRQ(answer) {
-    const answerId = answer.id.toString();
+  static renderMultipleResponse(answer, member) {
     return (
-      <div key={answerId}>
-        {Questions.renderQuestionHeader(answer)}
-        <Field name={answerId} component={CheckboxFormGroup} options={answer.options} />
-      </div>
+      <FieldArray
+        name={`${member}[options]`}
+        component={CheckboxFormGroup}
+      />
     );
   }
 
-  static renderFileUploader(answerId, filename) {
+  static renderFileUploader(answer, member) {
     return (
-      <FileInput name={answerId} inputOptions={{ multiple: false }}>
+      <FileInput name={`${member}[attachment]`} inputOptions={{ multiple: false }}>
         <p>Choose file</p>
-        <p>{filename || 'No file chosen'}</p>
       </FileInput>
     );
   }
 
-  static renderTextResponse(answer, values) {
-    const answerId = answer.id.toString();
+  static renderTextResponse(answer, member) {
     const allowUpload = answer.allowAttachment;
 
     return (
-      <div key={answerId}>
-        {Questions.renderQuestionHeader(answer)}
-        <Field name={answerId} component={RichTextField} multiLine />
-        {allowUpload ? Questions.renderFileUploader(
-          `${answerId}-file`,
-          Questions.getUploadedFilename(values, `${answerId}-file`)
-        ) : null}
+      <div>
+        <Field name={`${member}[answerText]`} component={RichTextField} multiLine />
+        {allowUpload ? Answers.renderFileUploader(answer, member) : null}
       </div>
     );
   }
 
-  static renderFileUpload(answer, values) {
-    const answerId = answer.id.toString();
+  static renderFileUpload(answer, member) {
     return (
-      <div key={answerId}>
-        {Questions.renderQuestionHeader(answer)}
-        {Questions.renderFileUploader(answerId, Questions.getUploadedFilename(values, answerId))}
+      <div>
+        {Answers.renderFileUploader(answer, member)}
       </div>
     );
   }
 
-  static renderProgrammingEditor(answerId, file, language, values) {
-    const id = `${answerId}-${file.filename.split('.')[0]}`;
+  static renderProgrammingEditor(file, member, language) {
     return (
       <div key={file.filename}>
         <h5>Content</h5>
-        <Editor
-          name={id}
-          content={Questions.getEditorContent(values, id)}
-          language={language}
-        />
+        <Editor name={`${member}[content]`} filename={file.filename} language={language} />
       </div>
     );
   }
@@ -131,7 +107,7 @@ export default class Questions extends Component {
     return (
       <div>
         {title}
-        {warn ? Questions.renderExclamationTriangle() : null}
+        {warn ? Answers.renderExclamationTriangle() : null}
       </div>
     );
   }
@@ -186,29 +162,42 @@ export default class Questions extends Component {
     return (
       <div>
         <h3>Test Cases</h3>
-        {Questions.renderTestCases(
+        {Answers.renderTestCases(
           testCases.filter(testCase => testCase.type === TestCaseTypes.Public),
-          Questions.renderTestCaseTitle('Public Test Cases', false)
+          Answers.renderTestCaseTitle('Public Test Cases', false)
         )}
-        {canGrade ? Questions.renderTestCases(
+        {canGrade ? Answers.renderTestCases(
           testCases.filter(testCase => testCase.type === TestCaseTypes.Private),
-          Questions.renderTestCaseTitle('Private Test Cases', true)
+          Answers.renderTestCaseTitle('Private Test Cases', true)
         ) : null}
-        {canGrade ? Questions.renderTestCases(
+        {canGrade ? Answers.renderTestCases(
           testCases.filter(testCase => testCase.type === TestCaseTypes.Evaluation),
-          Questions.renderTestCaseTitle('Evaluation Test Cases', true)
+          Answers.renderTestCaseTitle('Evaluation Test Cases', true)
         ) : null}
       </div>
     );
   }
 
-  static renderProgramming(answer, canGrade, values) {
-    const answerId = answer.id.toString();
+  static renderProgrammingFiles(props) {
+    const { fields } = props;
     return (
-      <div key={answerId}>
-        {Questions.renderQuestionHeader(answer)}
-        {answer.files.map(file => Questions.renderProgrammingEditor(answerId, file, 'python', values))}
-        {Questions.renderProgrammingTestCases(answer.testCases, canGrade)}
+      <div>
+        {fields.map((member, index) => {
+          const file = fields.get(index);
+          return Answers.renderProgrammingEditor(file, member, 'python');
+        })}
+      </div>
+    );
+  }
+
+  static renderProgramming(answer, member, canGrade) {
+    return (
+      <div>
+        <FieldArray
+          name={`${member}[files]`}
+          component={Answers.renderProgrammingFiles}
+        />
+        {Answers.renderProgrammingTestCases(answer.testCases, canGrade)}
       </div>
     );
   }
