@@ -16,8 +16,8 @@ export default class SubmissionsAPI extends BaseAssessmentAPI {
     const config = {
       headers: {
         'Content-Type': 'multipart/form-data',
-        'Accept': 'file_types',
-      }
+        Accept: 'file_types',
+      },
     };
 
     const formData = new FormData();

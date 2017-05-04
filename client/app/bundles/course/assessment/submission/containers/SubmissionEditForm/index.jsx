@@ -1,8 +1,6 @@
 import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
 import { FieldArray, reduxForm } from 'redux-form';
 
-import { SubmissionProp } from '../../propTypes';
 import SubmissionAnswer from './SubmissionAnswer';
 
 class SubmissionEditForm extends Component {
@@ -45,7 +43,6 @@ class SubmissionEditForm extends Component {
 
 SubmissionEditForm.propTypes = {
   canGrade: PropTypes.bool.isRequired,
-  submission: SubmissionProp,
   pristine: PropTypes.bool,
   submitting: PropTypes.bool,
   handleSubmit: PropTypes.func,

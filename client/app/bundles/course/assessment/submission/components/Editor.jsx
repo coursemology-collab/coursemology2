@@ -5,7 +5,6 @@ import AceEditor from 'react-ace';
 class Editor extends Component {
   static propTypes = {
     filename: PropTypes.string,
-    content: PropTypes.string,
     language: PropTypes.string.isRequired,
     input: PropTypes.shape({
       onChange: PropTypes.func,

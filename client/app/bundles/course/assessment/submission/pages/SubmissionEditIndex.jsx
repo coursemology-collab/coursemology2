@@ -15,7 +15,7 @@ class VisibleSubmissionEditIndex extends Component {
 
   handleSubmit() {
     const { form, updateData, params } = this.props;
-    const data = { submission: form.values }
+    const data = { submission: form.values };
     updateData(params.submissionId, data);
   }
 

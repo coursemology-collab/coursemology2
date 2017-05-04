@@ -48,6 +48,7 @@ class ProgressPanel extends Component {
     );
   }
 
+  /* eslint-disable camelcase */
   renderGrading() {
     const { base_points, grade, graded_at, grader, maximum_grade, points_awarded } = this.props.progress;
     return (
@@ -73,6 +74,7 @@ class ProgressPanel extends Component {
       </Table>
     );
   }
+  /* eslint-enable camelcase */
 
   renderTimes() {
     const { attempted_at, due_at, submitted_at } = this.props.progress;
