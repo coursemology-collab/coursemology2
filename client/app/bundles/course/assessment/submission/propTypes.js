@@ -10,7 +10,6 @@ const OptionProp =
   PropTypes.shape({
     id: PropTypes.number.isRequired,
     option: PropTypes.string.isRequired,
-    selected: PropTypes.bool.isRequired,
   });
 
 const FileProp =
@@ -37,6 +36,7 @@ export const AnswerProp =
     files: PropTypes.arrayOf(FileProp),
     language: PropTypes.string,
     options: PropTypes.arrayOf(OptionProp),
+    option_ids: PropTypes.arrayOf(PropTypes.number),
     question: QuestionProp.isRequired,
     test_cases: PropTypes.arrayOf(TestCaseProp),
     type: PropTypes.string.isRequired,
