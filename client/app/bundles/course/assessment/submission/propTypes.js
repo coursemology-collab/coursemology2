@@ -3,7 +3,7 @@ import { PropTypes } from 'react';
 export const QuestionProp =
 PropTypes.shape({
   description: PropTypes.string.isRequired,
-  displayTitle: PropTypes.string.isRequired,
+  display_title: PropTypes.string.isRequired,
 });
 
 const OptionProp =
@@ -31,44 +31,50 @@ const TestCaseProp =
 export const AnswerProp =
   PropTypes.shape({
     id: PropTypes.number.isRequired,
-    allowAttachment: PropTypes.bool,
-    answerText: PropTypes.string,
+    allow_attachment: PropTypes.bool,
+    answer_text: PropTypes.string,
     attachment: PropTypes.object,
     files: PropTypes.arrayOf(FileProp),
     language: PropTypes.string,
     options: PropTypes.arrayOf(OptionProp),
     question: QuestionProp.isRequired,
-    testCases: PropTypes.arrayOf(TestCaseProp),
+    test_cases: PropTypes.arrayOf(TestCaseProp),
     type: PropTypes.string.isRequired,
   });
 
 export const AssessmentProp =
   PropTypes.shape({
     autograded: PropTypes.bool,
-    delayedGradePublication: PropTypes.bool,
+    delayed_grade_publication: PropTypes.bool,
     description: PropTypes.string,
     password: PropTypes.string,
-    passwordProtected: PropTypes.bool,
+    password_protected: PropTypes.bool,
     published: PropTypes.bool,
   });
 
 export const ProgressProp =
   PropTypes.shape({
-    attemptedAt: PropTypes.string,
-    basePoints: PropTypes.number,
-    dueAt: PropTypes.string,
+    attempted_at: PropTypes.string,
+    base_points: PropTypes.number,
+    due_at: PropTypes.string,
     grade: PropTypes.number,
-    gradedAt: PropTypes.string,
+    graded_at: PropTypes.string,
     grader: PropTypes.string,
     late: PropTypes.bool,
-    maximumGrade: PropTypes.number,
-    pointsAwarded: PropTypes.number,
-    submittedAt: PropTypes.string,
+    maximum_grade: PropTypes.number,
+    points_awarded: PropTypes.number,
+    submitted_at: PropTypes.string,
     submitter: PropTypes.string,
-    workflowState: PropTypes.string,
+    workflow_state: PropTypes.string,
   });
 
 export const SubmissionProp =
   PropTypes.shape({
     answers: PropTypes.arrayOf(AnswerProp),
+  });
+
+export const ReduxFormProp =
+  PropTypes.shape({
+    registeredField: PropTypes.object,
+    values: PropTypes.any,
   });

@@ -49,21 +49,21 @@ class ProgressPanel extends Component {
   }
 
   renderGrading() {
-    const { basePoints, grade, gradedAt, grader, maximumGrade, pointsAwarded } = this.props.progress;
+    const { base_points, grade, graded_at, grader, maximum_grade, points_awarded } = this.props.progress;
     return (
       <Table selectable={false} style={styles.table}>
         <TableBody displayRowCheckbox={false}>
           <TableRow>
             <TableRowColumn>Grade</TableRowColumn>
-            <TableRowColumn>{grade} / {maximumGrade}</TableRowColumn>
+            <TableRowColumn>{grade} / {maximum_grade}</TableRowColumn>
           </TableRow>
           <TableRow>
             <TableRowColumn>Experience Points</TableRowColumn>
-            <TableRowColumn>{pointsAwarded} / {basePoints}</TableRowColumn>
+            <TableRowColumn>{points_awarded} / {base_points}</TableRowColumn>
           </TableRow>
           <TableRow>
             <TableRowColumn>Graded At</TableRowColumn>
-            <TableRowColumn>{ProgressPanel.formatDateTime(gradedAt)}</TableRowColumn>
+            <TableRowColumn>{ProgressPanel.formatDateTime(graded_at)}</TableRowColumn>
           </TableRow>
           <TableRow>
             <TableRowColumn>Grader</TableRowColumn>
@@ -75,21 +75,21 @@ class ProgressPanel extends Component {
   }
 
   renderTimes() {
-    const { attemptedAt, dueAt, submittedAt } = this.props.progress;
+    const { attempted_at, due_at, submitted_at } = this.props.progress;
     return (
       <Table selectable={false} style={styles.table}>
         <TableBody displayRowCheckbox={false}>
           <TableRow>
             <TableRowColumn>Attempted At</TableRowColumn>
-            <TableRowColumn>{ProgressPanel.formatDateTime(attemptedAt)}</TableRowColumn>
+            <TableRowColumn>{ProgressPanel.formatDateTime(attempted_at)}</TableRowColumn>
           </TableRow>
           <TableRow>
             <TableRowColumn>Submitted At</TableRowColumn>
-            <TableRowColumn>{ProgressPanel.formatDateTime(submittedAt)}</TableRowColumn>
+            <TableRowColumn>{ProgressPanel.formatDateTime(submitted_at)}</TableRowColumn>
           </TableRow>
           <TableRow>
             <TableRowColumn>Due At</TableRowColumn>
-            <TableRowColumn>{ProgressPanel.formatDateTime(dueAt)}</TableRowColumn>
+            <TableRowColumn>{ProgressPanel.formatDateTime(due_at)}</TableRowColumn>
           </TableRow>
         </TableBody>
       </Table>
@@ -97,19 +97,19 @@ class ProgressPanel extends Component {
   }
 
   render() {
-    const { late, submitter, workflowState } = this.props.progress;
+    const { late, submitter, workflow_state } = this.props.progress;
     const title = {
       attempting: 'Attempting',
       submitted: 'Submitted',
       graded: 'Graded but not published',
       published: 'Graded',
-    }[workflowState];
+    }[workflow_state];
     return (
       <Card>
         <CardHeader
           title={`Submission by ${submitter}`}
           subtitle={title}
-          style={styles.header[workflowState]}
+          style={styles.header[workflow_state]}
           actAsExpander
           showExpandableButton
         />
