@@ -15,7 +15,7 @@ class SubmissionEditForm extends Component {
             return (
               <SubmissionAnswer
                 key={answer.id}
-                {...{ canGrade, member, index, fields }}
+                {...{ canGrade, member, answer }}
               />
             );
           })
