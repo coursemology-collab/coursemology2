@@ -1,13 +1,11 @@
-json.key_format! camelize: :lower
-
 @answers_hash = @submission.answers.latest_answers.includes(:grader)
   .map { |answer| [answer.question_id, answer] }.to_h
 
 @can_grade = can?(:grade, @submission)
 @can_update = can?(:update, @submission)
 
-json.can_grade @can_grade
-json.can_update @can_update
+json.canGrade @can_grade
+json.canUpdate @can_update
 
 json.progress do
   json.partial! 'progress'

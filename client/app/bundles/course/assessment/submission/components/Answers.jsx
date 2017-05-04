@@ -65,11 +65,11 @@ export default class Answers extends Component {
   }
 
   static renderTextResponse(answer, member) {
-    const allowUpload = answer.allowAttachment;
+    const allowUpload = answer.allow_attachment;
 
     return (
       <div>
-        <Field name={`${member}[answerText]`} component={RichTextField} multiLine />
+        <Field name={`${member}[answer_text]`} component={RichTextField} multiLine />
         {allowUpload ? Answers.renderFileUploader(answer, member) : null}
       </div>
     );
@@ -197,7 +197,7 @@ export default class Answers extends Component {
           name={`${member}[files]`}
           component={Answers.renderProgrammingFiles}
         />
-        {Answers.renderProgrammingTestCases(answer.testCases, canGrade)}
+        {Answers.renderProgrammingTestCases(answer.test_cases, canGrade)}
       </div>
     );
   }

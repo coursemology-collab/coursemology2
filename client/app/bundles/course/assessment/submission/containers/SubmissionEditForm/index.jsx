@@ -37,7 +37,7 @@ class SubmissionEditForm extends Component {
             {...{ canGrade, submission }}
           />
         </form>
-        <button onClick={handleSubmit} disabled={pristine || submitting}>Submit</button>
+        <button onClick={handleSubmit} disabled={pristine || submitting}>Save Draft</button>
       </div>
     );
   }
