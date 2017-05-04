@@ -18,9 +18,5 @@ json.assessment do
 end
 
 json.submission do
-  if @assessment.autograded?
-    json.partial! 'autograded'
-  else
-    json.partial! 'manually_graded'
-  end
+  json.partial! 'answers'
 end
