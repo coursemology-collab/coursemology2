@@ -3,8 +3,7 @@ question = answer.question.specific
 json.language question.language.name
 
 json.files answer.files do |file|
-  json.filename file.filename
-  json.content file.content
+  json.(file, :id, :filename, :content)
 end
 
 if question.test_cases.present?

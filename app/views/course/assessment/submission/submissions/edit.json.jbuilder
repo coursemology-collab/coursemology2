@@ -1,6 +1,3 @@
-@answers_hash = @submission.answers.latest_answers.includes(:grader)
-  .map { |answer| [answer.question_id, answer] }.to_h
-
 @can_grade = can?(:grade, @submission)
 @can_update = can?(:update, @submission)
 
@@ -17,6 +14,4 @@ json.assessment do
   json.password_protected @assessment.password_protected?
 end
 
-json.submission do
-  json.partial! 'answers'
-end
+json.partial! 'submission'

@@ -32,7 +32,7 @@ export const AnswerProp =
     id: PropTypes.number.isRequired,
     allow_attachment: PropTypes.bool,
     answer_text: PropTypes.string,
-    attachment: PropTypes.object,
+    file: PropTypes.object,
     files: PropTypes.arrayOf(FileProp),
     language: PropTypes.string,
     options: PropTypes.arrayOf(OptionProp),
