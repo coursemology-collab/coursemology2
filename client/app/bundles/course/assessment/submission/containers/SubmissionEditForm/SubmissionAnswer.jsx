@@ -42,7 +42,7 @@ class SubmissionAnswer extends React.Component {
 
     return (
       <div>
-        <h3>{answer.question.displayTitle}</h3>
+        <h3>{answer.question.display_title}</h3>
         <div dangerouslySetInnerHTML={{ __html: answer.question.description }} />
         <hr />
         <Field name={`${member}[id]`} component="hidden" />

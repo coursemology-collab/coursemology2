@@ -1,7 +1,8 @@
 json.answers @assessment.questions do |question|
   answer = @answers_hash[question.id]
 
-  json.partial! 'answer', answer: answer
+  json.partial! 'answer', answer: answer if answer
+
   json.type case question.actable_type
             when Course::Assessment::Question::MultipleResponse.name
               question.actable.multiple_choice? ? 'MultipleChoice' : 'MultipleResponse'

@@ -22,7 +22,7 @@ export default class Answers extends Component {
   static renderMultipleChoice(answer, member) {
     return (
       <Field
-        name={`${member}[selectedOption]`}
+        name={`${member}[option_ids][0]`}
         component={Answers.renderMultipleChoiceOptions}
         {...{ answer, member }}
       />
@@ -49,9 +49,10 @@ export default class Answers extends Component {
 
   static renderMultipleResponse(answer, member) {
     return (
-      <FieldArray
-        name={`${member}[options]`}
+      <Field
+        name={`${member}[option_ids]`}
         component={CheckboxFormGroup}
+        options={answer.options}
       />
     );
   }
