@@ -2,7 +2,7 @@ import AssessmentsAPI from './Assessments';
 import SubmissionsAPI from './Submissions';
 
 const AssessmentAPI = {
-  surveys: new AssessmentsAPI(),
+  assessments: new AssessmentsAPI(),
   submissions: new SubmissionsAPI(),
 };
 
