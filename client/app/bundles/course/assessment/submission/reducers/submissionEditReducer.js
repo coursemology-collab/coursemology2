@@ -31,6 +31,22 @@ export default function submissionEditReducer(state = initialState, action) {
         ...state,
         dataState: DATA_STATES.Error,
       };
+    case actions.UPDATE_SUBMISSION_REQUEST:
+      return {
+        ...state,
+        dataState: DATA_STATES.Fetching,
+      };
+    case actions.UPDATE_SUBMISSION_SUCCESS:
+      return {
+        ...state,
+        submission: action.submission,
+        dataState: DATA_STATES.Received,
+      };
+    case actions.UPDATE_SUBMISSION_FAILURE:
+      return {
+        ...state,
+        dataState: DATA_STATES.Error,
+      };
     default:
       return state;
   }

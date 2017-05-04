@@ -59,7 +59,7 @@ export default class Answers extends Component {
 
   static renderFileUploader(answer, member) {
     return (
-      <FileInput name={`${member}[attachment]`} inputOptions={{ multiple: false }}>
+      <FileInput name={`${member}[file]`} inputOptions={{ multiple: false }}>
         <p>Choose file</p>
       </FileInput>
     );

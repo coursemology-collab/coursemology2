@@ -27,14 +27,14 @@ class SubmissionEditForm extends Component {
   }
 
   render() {
-    const { canGrade, submission, pristine, submitting, handleSubmit } = this.props;
+    const { canGrade, pristine, submitting, handleSubmit } = this.props;
     return (
       <div>
         <form>
           <FieldArray
             name="answers"
             component={SubmissionEditForm.renderAnswers}
-            {...{ canGrade, submission }}
+            {...{ canGrade }}
           />
         </form>
         <button onClick={handleSubmit} disabled={pristine || submitting}>Save Draft</button>
@@ -45,7 +45,6 @@ class SubmissionEditForm extends Component {
 
 SubmissionEditForm.propTypes = {
   canGrade: PropTypes.bool,
-  submission: SubmissionProp,
   pristine: PropTypes.bool,
   submitting: PropTypes.bool,
   handleSubmit: PropTypes.func,

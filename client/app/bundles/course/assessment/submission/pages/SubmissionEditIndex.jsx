@@ -15,9 +15,8 @@ class VisibleSubmissionEditIndex extends Component {
 
   handleSubmit() {
     const { form, updateData, params } = this.props;
-    let data = { submission: form.values }
-    console.log(data);
-    // updateData(params.submissionId, data);
+    const data = { submission: form.values }
+    updateData(params.submissionId, data);
   }
 
   renderProgress() {
@@ -38,7 +37,6 @@ class VisibleSubmissionEditIndex extends Component {
         handleSubmit={() => this.handleSubmit()}
         initialValues={submission}
         canGrade={canGrade}
-        {...{ submission }}
       />
     );
   }
