@@ -2,8 +2,8 @@
 
 import React, { PropTypes } from 'react';
 import { Field } from 'redux-form';
-import { questionTypes } from '../../constants';
-import Answers from '../../components/Answers';
+import { questionTypes } from '../constants';
+import Answers from './Answers';
 
 class SubmissionAnswer extends React.Component {
   static propTypes = {
