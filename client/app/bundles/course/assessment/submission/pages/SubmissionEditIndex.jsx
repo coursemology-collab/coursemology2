@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import ProgressPanel from '../components/ProgressPanel';
 import SubmissionEditForm from '../containers/SubmissionEditForm';
 import { fetchSubmission, updateSubmission } from '../actions';
-import { AssessmentProp, ProgressProp, SubmissionProp } from '../propTypes';
+import { AssessmentProp, ProgressProp, ReduxFormProp, SubmissionProp } from '../propTypes';
 import { DATA_STATES } from '../constants';
 
 class VisibleSubmissionEditIndex extends Component {
@@ -14,6 +14,10 @@ class VisibleSubmissionEditIndex extends Component {
   }
 
   handleSubmit() {
+    const { form, updateData, params } = this.props;
+    let data = { submission: form.values }
+    console.log(data);
+    // updateData(params.submissionId, data);
   }
 
   renderProgress() {
@@ -63,6 +67,7 @@ VisibleSubmissionEditIndex.propTypes = {
   }),
   assessment: AssessmentProp.isRequired,
   canGrade: PropTypes.bool,
+  form: ReduxFormProp,
   progress: ProgressProp.isRequired,
   submission: SubmissionProp.isRequired,
   dataState: PropTypes.string.isRequired,
@@ -75,6 +80,7 @@ function mapStateToProps(state) {
   return {
     assessment: state.submissionEdit.assessment,
     canGrade: state.submissionEdit.canGrade,
+    form: state.form.submissionEdit,
     progress: state.submissionEdit.progress,
     submission: state.submissionEdit.submission,
     dataState: state.submissionEdit.dataState,
