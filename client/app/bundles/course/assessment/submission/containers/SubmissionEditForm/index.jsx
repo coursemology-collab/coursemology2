@@ -44,7 +44,8 @@ class SubmissionEditForm extends Component {
 }
 
 SubmissionEditForm.propTypes = {
-  canGrade: PropTypes.bool,
+  canGrade: PropTypes.bool.isRequired,
+  submission: SubmissionProp,
   pristine: PropTypes.bool,
   submitting: PropTypes.bool,
   handleSubmit: PropTypes.func,

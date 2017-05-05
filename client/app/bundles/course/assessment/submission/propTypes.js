@@ -44,12 +44,15 @@ export const AnswerProp =
 
 export const AssessmentProp =
   PropTypes.shape({
-    autograded: PropTypes.bool,
-    delayed_grade_publication: PropTypes.bool,
+    autograded: PropTypes.bool.isRequired,
+    delayed_grade_publication: PropTypes.bool.isRequired,
     description: PropTypes.string,
     password: PropTypes.string,
-    password_protected: PropTypes.bool,
+    password_protected: PropTypes.bool.isRequired,
     published: PropTypes.bool,
+    skippable: PropTypes.bool.isRequired,
+    tabbed_view: PropTypes.bool.isRequired,
+    title: PropTypes.string,
   });
 
 export const ProgressProp =
