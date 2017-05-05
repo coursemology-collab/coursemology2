@@ -1,12 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { Card } from 'material-ui/Card';
-import { Stepper, Step, StepLabel } from 'material-ui/Stepper';
+import { Stepper, Step, StepButton, StepLabel } from 'material-ui/Stepper';
 
 import { SubmissionProp } from '../../propTypes';
 import SubmissionAnswer from '../../components/SubmissionAnswer';
 
-class SubmissionEditTabbedForm extends Component {
+class SubmissionEditStepForm extends Component {
 
   static isLastQuestion(answers, stepIndex) {
     return stepIndex + 1 === answers.length;
@@ -35,7 +35,9 @@ class SubmissionEditTabbedForm extends Component {
 
   handleStepClick(index) {
     const { stepIndex } = this.state;
-    if (index < stepIndex) {
+    const { skippable } = this.props;
+
+    if (skippable || index < stepIndex) {
       this.setState({
         stepIndex: index,
       });
@@ -47,9 +49,35 @@ class SubmissionEditTabbedForm extends Component {
     const { submission: { answers }, handleSubmit } = this.props;
 
     handleSubmit();
-    if (!SubmissionEditTabbedForm.isLastQuestion(answers, stepIndex)) {
+    if (!SubmissionEditStepForm.isLastQuestion(answers, stepIndex)) {
       this.handleNext();
     }
+  }
+
+  renderStepper() {
+    const { stepIndex } = this.state;
+    const { skippable, submission: { answers } } = this.props;
+
+    if (skippable) {
+      return (
+        <Stepper activeStep={stepIndex} linear={false}>
+          {answers.map((answer, index) =>
+            <Step key={answer.id}>
+              <StepButton onClick={() => this.handleStepClick(index)} />
+            </Step>
+          )}
+        </Stepper>
+      );
+    }
+    return (
+      <Stepper activeStep={stepIndex}>
+        {answers.map((answer, index) =>
+          <Step key={answer.id} onClick={() => this.handleStepClick(index)}>
+            <StepLabel />
+          </Step>
+        )}
+      </Stepper>
+    );
   }
 
   render() {
@@ -57,18 +85,12 @@ class SubmissionEditTabbedForm extends Component {
     const { canGrade, submission: { answers }, pristine, submitting } = this.props;
     return (
       <div>
-        <Stepper activeStep={stepIndex}>
-          {answers.map((answer, index) =>
-            <Step key={answer.id} onClick={() => this.handleStepClick(index)}>
-              <StepLabel />
-            </Step>
-          )}
-        </Stepper>
+        {this.renderStepper()}
         <Card>
           <form>
             <Field
               name={`answers[${stepIndex}]`}
-              component={SubmissionEditTabbedForm.renderAnswers}
+              component={SubmissionEditStepForm.renderAnswers}
               {...{ canGrade, answer: answers[stepIndex] }}
             />
           </form>
@@ -79,7 +101,7 @@ class SubmissionEditTabbedForm extends Component {
   }
 }
 
-SubmissionEditTabbedForm.propTypes = {
+SubmissionEditStepForm.propTypes = {
   canGrade: PropTypes.bool.isRequired,
   skippable: PropTypes.bool.isRequired,
   submission: SubmissionProp,
@@ -90,4 +112,4 @@ SubmissionEditTabbedForm.propTypes = {
 
 export default reduxForm({
   form: 'submissionEdit',
-})(SubmissionEditTabbedForm);
+})(SubmissionEditStepForm);
