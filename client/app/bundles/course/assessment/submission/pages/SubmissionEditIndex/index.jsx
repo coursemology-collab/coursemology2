@@ -1,12 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
-import ProgressPanel from '../components/ProgressPanel';
-import SubmissionEditForm from '../containers/SubmissionEditForm';
-import SubmissionEditTabbedForm from '../containers/SubmissionEditTabbedForm';
-import { fetchSubmission, updateSubmission } from '../actions';
-import { AssessmentProp, ProgressProp, ReduxFormProp, SubmissionProp } from '../propTypes';
-import { DATA_STATES } from '../constants';
+import ProgressPanel from '../../components/ProgressPanel';
+import SubmissionEditForm from './SubmissionEditForm';
+import SubmissionEditStepForm from './SubmissionEditStepForm';
+import { fetchSubmission, updateSubmission } from '../../actions';
+import { AssessmentProp, ProgressProp, ReduxFormProp, SubmissionProp } from '../../propTypes';
+import { DATA_STATES } from '../../constants';
 
 class VisibleSubmissionEditIndex extends Component {
   componentDidMount() {
@@ -29,13 +29,14 @@ class VisibleSubmissionEditIndex extends Component {
   }
 
   renderContent() {
-    const { assessment, submission, canGrade } = this.props;
-    if (assessment.autograded || assessment.tabbedView) {
+    const { assessment: { autograded, skippable }, submission, canGrade } = this.props;
+    if (autograded) {
       return (
-        <SubmissionEditTabbedForm
+        <SubmissionEditStepForm
           handleSubmit={() => this.handleSubmit()}
           initialValues={submission}
           canGrade={canGrade}
+          skippable={skippable}
           {...{ submission }}
         />
       );
