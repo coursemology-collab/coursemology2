@@ -51,12 +51,6 @@ SubmissionEditForm.propTypes = {
   handleSubmit: PropTypes.func,
 };
 
-export default connect(
-  state => ({
-    formValues: state.form.submissionEdit ? state.form.submissionEdit.values : null,
-  })
-)(
-  reduxForm({
-    form: 'submissionEdit',
-  })(SubmissionEditForm)
-);
+export default reduxForm({
+  form: 'submissionEdit',
+})(SubmissionEditForm);
