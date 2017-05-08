@@ -26,7 +26,7 @@ class SubmissionEditTabForm extends Component {
         {fields.map((member, index) => {
           const answer = fields.get(index);
           return (
-            <Tab key={answer.id} label={index}>
+            <Tab key={answer.id} label={index + 1}>
               <SubmissionAnswer {...{ canGrade, member, answer }} />
               <Comments />
             </Tab>
