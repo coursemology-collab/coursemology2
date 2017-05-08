@@ -5,6 +5,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 
 import SubmissionAnswer from '../../components/SubmissionAnswer';
 import Comments from '../../components/Comments';
+import CommentField from '../../components/CommentField';
 
 const styles = {
   questionCardContainer: {
@@ -31,6 +32,7 @@ class SubmissionEditForm extends Component {
             <div key={answer.id} style={styles.questionContainer}>
               <SubmissionAnswer {...{ canGrade, member, answer }} />
               <Comments />
+              <CommentField />
               <hr />
             </div>
           );

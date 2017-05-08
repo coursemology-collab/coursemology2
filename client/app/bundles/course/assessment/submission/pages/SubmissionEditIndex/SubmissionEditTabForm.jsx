@@ -5,7 +5,7 @@ import { Card } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 
 import SubmissionAnswer from '../../components/SubmissionAnswer';
-import Comments from '../../components/Comments';
+import CommentField from '../../components/CommentField';
 
 const styles = {
   questionContainer: {
@@ -28,7 +28,7 @@ class SubmissionEditTabForm extends Component {
           return (
             <Tab key={answer.id} label={index + 1}>
               <SubmissionAnswer {...{ canGrade, member, answer }} />
-              <Comments />
+              <CommentField />
             </Tab>
           );
         })}

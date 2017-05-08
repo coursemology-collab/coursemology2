@@ -7,6 +7,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import { SubmissionProp } from '../../propTypes';
 import SubmissionAnswer from '../../components/SubmissionAnswer';
 import Comments from '../../components/Comments';
+import CommentField from '../../components/CommentField';
 
 const styles = {
   questionContainer: {
@@ -36,6 +37,7 @@ class SubmissionEditStepForm extends Component {
         />
         <hr />
         <Comments />
+        <CommentField />
       </div>
     );
   }
