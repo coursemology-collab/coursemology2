@@ -57,6 +57,7 @@ class Course::Assessment::Submission::SubmissionsController < \
 
   # Reload answer to either its latest status or to a fresh answer, depending on parameters.
   def reload_answer
+    puts "Performance reload_answer start: #{(Time.now.to_f*1000).to_i}"
     @answer = @submission.answers.find_by(id: reload_answer_params[:answer_id])
     @current_question = @answer.try(:question)
 
@@ -67,6 +68,7 @@ class Course::Assessment::Submission::SubmissionsController < \
     else
       @new_answer = @submission.answers.from_question(@current_question.id).last
     end
+    puts "Performance reload_answer end: #{(Time.now.to_f*1000).to_i}"
   end
 
   # Publish all the graded submissions.

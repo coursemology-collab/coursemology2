@@ -20,9 +20,11 @@ class Course::Assessment::Answer::AutoGradingJob < ApplicationJob
   # @param [String] redirect_to_path The path to redirect when job finishes.
   # @param [Boolean] reattempt Whether to create new answer based on current answer after grading.
   def perform_tracked(answer, redirect_to_path = nil, reattempt = false)
+    puts "Performance AutoGradingJob start: #{(Time.now.to_f * 1000).to_i}"
     ActsAsTenant.without_tenant do
       Course::Assessment::Answer::AutoGradingService.grade(answer, reattempt)
     end
+    puts "Performance AutoGradingJob end: #{(Time.now.to_f * 1000).to_i}"
 
     redirect_to redirect_to_path
   end
