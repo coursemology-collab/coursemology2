@@ -7,6 +7,8 @@ function reloadAnswer(answerId) {
     data: { answer_id: answerId },
     global: false,
   });
+  d = new Date();
+  console.log('reloadAnswer: ' + d.getTime());
 }
 
 function waitForJob(url, answerId, delay) {
@@ -78,6 +80,8 @@ function hideErrorMessage(answerId) {
 
 function onAnswerSubmit(e) {
   e.preventDefault();
+  d = new Date();
+  console.log('onAnswerSubmit: ' + d.getTime());
 
   const answerId = e.target.value;
   showSpinner($(this));

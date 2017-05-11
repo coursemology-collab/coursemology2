@@ -132,6 +132,7 @@ class Course::Assessment::Submission::UpdateService < SimpleDelegator
   end
 
   def submit_answer
+    puts "Performance submit_answer start: #{(Time.now.to_f*1000).to_i}"
     answer = @submission.answers.find(answer_id_param)
 
     if answer.update_attributes(submit_answer_params)
@@ -150,18 +151,22 @@ class Course::Assessment::Submission::UpdateService < SimpleDelegator
     else
       head :bad_request
     end
+    puts "Performance submit_answer end: #{(Time.now.to_f*1000).to_i}"
   end
 
   def grade_and_reattempt_answer(answer)
+    puts "Performance grade_and_reattempt_answer start: #{(Time.now.to_f*1000).to_i}"
     # The transaction is to make sure that auto grading and job are present when the answer is in
     # the submitted state.
-    answer.class.transaction do
+    job = answer.class.transaction do
       answer.finalise! if answer.attempting?
       # Only save if answer is graded in another server
       answer.save! unless answer.grade_inline?
       answer.auto_grade!(redirect_to_path: edit_submission_path,
                          reattempt: true, reduce_priority: false)
     end
+    puts "Performance grade_and_reattempt_answer end: #{(Time.now.to_f*1000).to_i}"
+    job
   end
 
   def unsubmit?
