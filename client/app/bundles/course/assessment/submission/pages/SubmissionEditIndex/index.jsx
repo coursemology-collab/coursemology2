@@ -55,6 +55,7 @@ class VisibleSubmissionEditIndex extends Component {
       questions,
       topics,
       explanations,
+      saveState,
     } = this.props;
 
     if (autograded) {
@@ -69,6 +70,7 @@ class VisibleSubmissionEditIndex extends Component {
           questions={questions}
           topics={topics}
           explanations={explanations}
+          saveState={saveState}
         />
       );
     } else if (tabbedView) { // eslint-disable-line camelcase
@@ -133,6 +135,7 @@ VisibleSubmissionEditIndex.propTypes = {
   topics: PropTypes.objectOf(TopicProp),
   explanations: PropTypes.objectOf(ExplanationProp),
   dataState: PropTypes.string.isRequired,
+  saveState: PropTypes.string.isRequired,
 
   fetchData: PropTypes.func.isRequired,
   updateData: PropTypes.func.isRequired,
@@ -151,6 +154,7 @@ function mapStateToProps(state) {
     topics: state.topics,
     explanations: state.explanations,
     dataState: state.submissionEdit.dataState,
+    saveState: state.submissionEdit.saveState,
   };
 }
 

@@ -37,17 +37,24 @@ export function updateSubmission(submissionId, payload) {
   };
 }
 
-export function updateAnswer(submissionId, payload) {
+export function updateAnswer(submissionId, payload, refresh = true) {
   return (dispatch) => {
     dispatch({ type: actionTypes.UPDATE_ANSWER_REQUEST });
 
     return CourseAPI.assessment.submissions.update(submissionId, payload)
       .then(response => response.data)
       .then((data) => {
-        dispatch({
-          type: actionTypes.UPDATE_ANSWER_SUCCESS,
-          payload: data,
-        });
+        if (refresh) {
+          dispatch({
+            type: actionTypes.UPDATE_ANSWER_SUCCESS,
+            payload: data,
+          });
+        } else {
+          dispatch({
+            type: actionTypes.UPDATE_ANSWER_SUCCESS_NO_REFRESH,
+            payload: data,
+          });
+        }
       })
       .catch(() => {
         dispatch({ type: actionTypes.UPDATE_ANSWER_FAILURE });
