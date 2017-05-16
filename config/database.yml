@@ -16,4 +16,4 @@ test:
 
 production:
   <<: *default
-  database: coursemology
+  database: coursemology_dev

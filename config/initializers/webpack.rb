@@ -7,7 +7,7 @@ Rails.application.configure do
   config.webpack.dev_server.manifest_port = 8080
 
   if Rails.env.development?
-    config.webpack.dev_server.enabled = true
+    config.webpack.dev_server.enabled = false
   else
     config.webpack.dev_server.enabled = false
   end
