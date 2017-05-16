@@ -54,6 +54,18 @@ class SubmissionEditStepForm extends Component {
     return saveState === SAVE_STATES.Saved && !SubmissionEditStepForm.isLastQuestion(questions, stepIndex);
   }
 
+  shouldDisableContinueButton() {
+    const { stepIndex } = this.state;
+    const { explanations, questions, submitting } = this.props;
+    const questionId = questions.allIds[stepIndex];
+    const explanationId = questions.byId[questionId].explanationId;
+
+    if (explanations[explanationId] && explanations[explanationId].correct && !submitting) {
+      return false;
+    }
+    return true;
+  }
+
   handleNext() {
     const { stepIndex } = this.state;
     this.setState({
@@ -134,7 +146,7 @@ class SubmissionEditStepForm extends Component {
               labelColor={white}
               label="Continue"
               onTouchTap={() => this.handleNext()}
-              disabled={submitting}
+              disabled={this.shouldDisableContinueButton()}
             /> : null
           }
         </div>
