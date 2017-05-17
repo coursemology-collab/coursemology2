@@ -32,33 +32,31 @@ export default function submissionEditReducer(state = initialState, action) {
         ...state,
         dataState: DATA_STATES.Error,
       };
-    case actions.UPDATE_SUBMISSION_REQUEST:
+    case actions.SAVE_DRAFT_REQUEST:
+    case actions.SUBMISSION_REQUEST:
+    case actions.UNSUBMIT_REQUEST:
+    case actions.AUTOGRADE_REQUEST:
       return {
         ...state,
         saveState: SAVE_STATES.Saving,
       };
-    case actions.UPDATE_SUBMISSION_SUCCESS:
+    case actions.SAVE_DRAFT_SUCCESS:
+    case actions.SUBMISSION_SUCCESS:
+    case actions.UNSUBMIT_SUCCESS:
       return {
         ...state,
         progress: action.payload.progress,
         saveState: SAVE_STATES.Saved,
       };
-    case actions.UPDATE_SUBMISSION_FAILURE:
-      return {
-        ...state,
-        saveState: SAVE_STATES.Error,
-      };
-    case actions.UPDATE_ANSWER_REQUEST:
-      return {
-        ...state,
-        saveState: SAVE_STATES.Saving,
-      };
-    case actions.UPDATE_ANSWER_SUCCESS:
+    case actions.AUTOGRADE_SUCCESS:
       return {
         ...state,
         saveState: SAVE_STATES.Saved,
       };
-    case actions.UPDATE_ANSWER_FAILURE:
+    case actions.SAVE_DRAFT_FAILURE:
+    case actions.SUBMISSION_FAILURE:
+    case actions.UNSUBMIT_FAILURE:
+    case actions.AUTOGRADE_FAILURE:
       return {
         ...state,
         saveState: SAVE_STATES.Error,

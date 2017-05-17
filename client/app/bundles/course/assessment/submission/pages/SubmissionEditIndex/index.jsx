@@ -5,7 +5,7 @@ import ProgressPanel from '../../components/ProgressPanel';
 import SubmissionEditForm from './SubmissionEditForm';
 import SubmissionEditStepForm from './SubmissionEditStepForm';
 import SubmissionEditTabForm from './SubmissionEditTabForm';
-import { updateAnswer, fetchSubmission, updateSubmission } from '../../actions';
+import { fetchSubmission, saveDraft, submit, unsubmit, autograde } from '../../actions';
 import {
   AnswerProp, AssessmentProp, ProgressProp, QuestionProp,
   ReduxFormProp, TopicProp, ExplanationProp,
@@ -18,24 +18,27 @@ class VisibleSubmissionEditIndex extends Component {
     fetchData(params.submissionId);
   }
 
-  handleSubmit(action) {
-    const { form, updateData, match: { params } } = this.props;
-    const data = { submission: { answers: Object.values(form.values) } };
-    if (action) data.submission[action] = true;
-    updateData(params.submissionId, data);
+  handleSubmit() {
+    const { form, match: { params }, submitAnswer } = this.props;
+    const answers = Object.values(form.values);
+    submitAnswer(params.submissionId, answers);
   }
 
-  handleSubmitAnswer(answerId, action) {
-    const { form, updateAnswerData, match: { params } } = this.props;
-    const data = {
-      submission: {
-        answers: [
-          form.values[answerId],
-        ],
-      },
-    };
-    if (action) data.submission[action] = true;
-    updateAnswerData(params.submissionId, data);
+  handleUnsubmit() {
+    const { match: { params }, unsubmitAnswer } = this.props;
+    unsubmitAnswer(params.submissionId);
+  }
+
+  handleSaveDraft() {
+    const { form, match: { params }, saveDraftAnswer } = this.props;
+    const answers = Object.values(form.values);
+    saveDraftAnswer(params.submissionId, answers);
+  }
+
+  handleAutograde(answerId) {
+    const { form, match: { params }, autogradeAnswer } = this.props;
+    const answers = [form.values[answerId]];
+    autogradeAnswer(params.submissionId, answers);
   }
 
   renderProgress() {
@@ -62,7 +65,10 @@ class VisibleSubmissionEditIndex extends Component {
       return (
         <SubmissionEditStepForm
           enableReinitialize
-          handleSubmit={(answer, action) => this.handleSubmitAnswer(answer, action)}
+          handleSubmit={() => this.handleSubmit()}
+          handleUnsubmit={() => this.handleUnsubmit()}
+          handleSaveDraft={() => this.handleSaveDraft()}
+          handleAutograde={answerId => this.handleAutograde(answerId)}
           initialValues={answers}
           canGrade={canGrade}
           maxStep={maxStep}
@@ -73,11 +79,13 @@ class VisibleSubmissionEditIndex extends Component {
           saveState={saveState}
         />
       );
-    } else if (tabbedView) { // eslint-disable-line camelcase
+    } else if (tabbedView) {
       return (
         <SubmissionEditTabForm
           enableReinitialize
-          handleSubmit={action => this.handleSubmit(action)}
+          handleSaveDraft={() => this.handleSaveDraft()}
+          handleSubmit={() => this.handleSubmit()}
+          handleUnsubmit={() => this.handleUnsubmit()}
           initialValues={answers}
           canGrade={canGrade}
           questions={questions}
@@ -88,7 +96,9 @@ class VisibleSubmissionEditIndex extends Component {
     return (
       <SubmissionEditForm
         enableReinitialize
-        handleSubmit={action => this.handleSubmit(action)}
+        handleSaveDraft={() => this.handleSaveDraft()}
+        handleSubmit={() => this.handleSubmit()}
+        handleUnsubmit={() => this.handleUnsubmit()}
         initialValues={answers}
         canGrade={canGrade}
         questions={questions}
@@ -138,8 +148,10 @@ VisibleSubmissionEditIndex.propTypes = {
   saveState: PropTypes.string.isRequired,
 
   fetchData: PropTypes.func.isRequired,
-  updateData: PropTypes.func.isRequired,
-  updateAnswerData: PropTypes.func.isRequired,
+  submitAnswer: PropTypes.func.isRequired,
+  unsubmitAnswer: PropTypes.func.isRequired,
+  saveDraftAnswer: PropTypes.func.isRequired,
+  autogradeAnswer: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state) {
@@ -161,8 +173,10 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     fetchData: id => dispatch(fetchSubmission(id)),
-    updateData: (id, payload) => dispatch(updateSubmission(id, payload)),
-    updateAnswerData: (id, payload) => dispatch(updateAnswer(id, payload)),
+    submitAnswer: (id, answers) => dispatch(submit(id, answers)),
+    unsubmitAnswer: id => dispatch(unsubmit(id)),
+    saveDraftAnswer: (id, answers) => dispatch(saveDraft(id, answers)),
+    autogradeAnswer: (id, answers) => dispatch(autograde(id, answers)),
   };
 }
 

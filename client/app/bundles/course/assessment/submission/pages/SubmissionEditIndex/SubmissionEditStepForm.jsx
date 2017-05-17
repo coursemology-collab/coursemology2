@@ -83,17 +83,6 @@ class SubmissionEditStepForm extends Component {
     }
   }
 
-  handleQuestionSubmit(action) {
-    const { stepIndex } = this.state;
-    const { questions, handleSubmit } = this.props;
-
-    const questionId = questions.allIds[stepIndex];
-    const question = questions.byId[questionId];
-    const answerId = question.answerId;
-
-    handleSubmit(answerId, action);
-  }
-
   renderExplanationPanel(questionId) {
     const { questions, explanations } = this.props;
     const explanationId = questions.byId[questionId].explanationId;
@@ -121,7 +110,10 @@ class SubmissionEditStepForm extends Component {
 
   renderStepQuestion() {
     const { stepIndex } = this.state;
-    const { canGrade, questions, topics, pristine, submitting } = this.props;
+    const {
+      canGrade, questions, topics, pristine, submitting,
+      handleAutograde, handleSaveDraft, handleSubmit, handleUnsubmit,
+    } = this.props;
 
     const id = questions.allIds[stepIndex];
     const question = questions.byId[id];
@@ -136,7 +128,7 @@ class SubmissionEditStepForm extends Component {
             style={styles.formButton}
             secondary
             label="Submit"
-            onTouchTap={() => this.handleQuestionSubmit('auto_grade')}
+            onTouchTap={() => handleAutograde(answerId)}
             disabled={submitting}
           />
           {this.shouldRenderContinueButton() ?
@@ -149,21 +141,28 @@ class SubmissionEditStepForm extends Component {
               disabled={this.shouldDisableContinueButton()}
             /> : null
           }
-        </div>
-        <div style={styles.formButtonContainer}>
           <RaisedButton
             style={styles.formButton}
             primary
             label="Save Draft"
-            onTouchTap={() => this.handleQuestionSubmit()}
+            onTouchTap={() => handleSaveDraft(answerId)}
             disabled={pristine || submitting}
           />
+        </div>
+        <div style={styles.formButtonContainer}>
           <RaisedButton
             style={styles.formButton}
             secondary
             label="Finalise Submission"
-            onTouchTap={() => this.handleQuestionSubmit('finalise')}
+            onTouchTap={handleSubmit}
             disabled={pristine || submitting}
+          />
+          <RaisedButton
+            style={styles.formButton}
+            backgroundColor={red900}
+            secondary
+            label="Unsubmit Submission"
+            onTouchTap={handleUnsubmit}
           />
         </div>
         <hr />
@@ -225,6 +224,9 @@ SubmissionEditStepForm.propTypes = {
   explanations: PropTypes.objectOf(ExplanationProp),
   saveState: PropTypes.string.isRequired,
   handleSubmit: PropTypes.func,
+  handleUnsubmit: PropTypes.func,
+  handleSaveDraft: PropTypes.func,
+  handleAutograde: PropTypes.func,
 };
 
 export default reduxForm({
