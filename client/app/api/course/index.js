@@ -1,4 +1,5 @@
 import AssessmentAPI from './Assessment';
+import CommentsAPI from './Comments';
 import VirtualClassroomsAPI from './VirtualClassrooms';
 import MaterialsAPI from './Materials';
 import MaterialFoldersAPI from './MaterialFolders';
@@ -7,6 +8,7 @@ import SurveyAPI from './Survey';
 
 const CourseAPI = {
   assessment: AssessmentAPI,
+  comments: new CommentsAPI(),
   virtualClassrooms: new VirtualClassroomsAPI(),
   materials: new MaterialsAPI(),
   materialFolders: new MaterialFoldersAPI(),
