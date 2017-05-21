@@ -1,5 +1,4 @@
 import actions from '../constants';
-import arrayToObjectById from './utils';
 
 export default function (state = {}, action) {
   switch (action.type) {
@@ -9,16 +8,17 @@ export default function (state = {}, action) {
     case actions.UNSUBMIT_SUCCESS:
       return {
         ...state,
-        ...arrayToObjectById(action.payload.answers),
+        ...action.payload.answers,
       };
-    case actions.AUTOGRADE_SUCCESS:
-      return {
-        ...arrayToObjectById(
-          Object.values(state).filter(answer => (
-            answer.questionId !== action.payload.answers[0].questionId
-          )).concat(action.payload.answers)
-        ),
-      };
+    case actions.AUTOGRADE_SUCCESS: {
+      const { question, id } = action.payload.answer;
+      return Object.keys(state).reduce((obj, key) => {
+        if (state[key].question !== question) {
+          return { ...obj, [key]: state[key] };
+        }
+        return obj;
+      }, { [id]: action.payload.answer });
+    }
     default:
       return state;
   }

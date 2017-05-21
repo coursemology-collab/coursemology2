@@ -23,14 +23,14 @@ const styles = {
 class SubmissionEditTabForm extends Component {
 
   renderQuestions() {
-    const { canGrade, posts, questions, topics } = this.props;
+    const { canGrade, posts, questionIds, questions, topics } = this.props;
     return (
       <Tabs>
-        {questions.allIds.map((id, index) => {
-          const question = questions.byId[id];
-          const answerId = question.answerId;
-          const topic = topics[question.topicId];
-          const postsInTopic = topic.postIds.map(postId => posts[postId]);
+        {questionIds.map((id, index) => {
+          const question = questions[id];
+          const answerId = question.answer;
+          const topic = topics[question.topic];
+          const postsInTopic = topic.posts.map(postId => posts[postId]);
           return (
             <Tab key={id} label={index + 1}>
               <SubmissionAnswer {...{ canGrade, answerId, question }} />
@@ -79,10 +79,8 @@ class SubmissionEditTabForm extends Component {
 SubmissionEditTabForm.propTypes = {
   canGrade: PropTypes.bool.isRequired,
   posts: PropTypes.objectOf(PostProp),
-  questions: PropTypes.shape({
-    byIds: PropTypes.objectOf(QuestionProp),
-    allIds: PropTypes.arrayOf(PropTypes.number),
-  }),
+  questionIds: PropTypes.arrayOf(PropTypes.number),
+  questions: PropTypes.objectOf(QuestionProp),
   topics: PropTypes.objectOf(TopicProp),
   pristine: PropTypes.bool,
   submitting: PropTypes.bool,

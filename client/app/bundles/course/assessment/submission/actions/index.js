@@ -1,5 +1,16 @@
+import { normalize } from 'normalizr';
 import CourseAPI from 'api/course';
 import actionTypes from '../constants';
+import assessmentSchema from '../schema';
+
+function normalizeSubmissionData(data) {
+  const normalizedData = normalize(data.assessment, assessmentSchema);
+  return {
+    ...normalizedData.entities,
+    assessment: normalizedData.result,
+    submission: data.submission,
+  };
+}
 
 export function fetchSubmission(id) {
   return (dispatch) => {
@@ -10,10 +21,10 @@ export function fetchSubmission(id) {
       .then((data) => {
         dispatch({
           type: actionTypes.FETCH_SUBMISSION_SUCCESS,
-          payload: data,
+          payload: normalizeSubmissionData(data),
         });
       })
-      .catch(() => dispatch({ type: actionTypes.FETCH_SUBMISSION_FAILURE }));
+      .catch((e) => console.log(e) || dispatch({ type: actionTypes.FETCH_SUBMISSION_FAILURE }));
   };
 }
 
@@ -27,7 +38,7 @@ export function saveDraft(submissionId, answers) {
       .then((data) => {
         dispatch({
           type: actionTypes.SAVE_DRAFT_SUCCESS,
-          payload: data,
+          payload: normalizeSubmissionData(data),
         });
       })
       .catch(() => dispatch({ type: actionTypes.SAVE_DRAFT_FAILURE }));
@@ -44,7 +55,7 @@ export function submit(submissionId, answers) {
       .then((data) => {
         dispatch({
           type: actionTypes.SUBMISSION_SUCCESS,
-          payload: data,
+          payload: normalizeSubmissionData(data),
         });
       })
       .catch(() => dispatch({ type: actionTypes.SUBMISSION_FAILURE }));
@@ -61,7 +72,7 @@ export function unsubmit(submissionId) {
       .then((data) => {
         dispatch({
           type: actionTypes.UNSUBMIT_SUCCESS,
-          payload: data,
+          payload: normalizeSubmissionData(data),
         });
       })
       .catch(() => dispatch({ type: actionTypes.UNSUBMIT_FAILURE }));

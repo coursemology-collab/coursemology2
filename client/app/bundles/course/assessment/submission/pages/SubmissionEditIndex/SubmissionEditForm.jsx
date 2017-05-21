@@ -25,14 +25,14 @@ const styles = {
 class SubmissionEditForm extends Component {
 
   renderQuestions() {
-    const { canGrade, questions, posts, topics } = this.props;
+    const { canGrade, questionIds, questions, posts, topics } = this.props;
     return (
       <div>
-        {questions.allIds.map((id) => {
-          const question = questions.byId[id];
-          const answerId = question.answerId;
-          const topic = topics[question.topicId];
-          const postsInTopic = topic.postIds.map(postId => posts[postId]);
+        {questionIds.map((id) => {
+          const question = questions[id];
+          const answerId = question.answer;
+          const topic = topics[question.topic];
+          const postsInTopic = topic.posts.map(postId => posts[postId]);
           return (
             <div key={id} style={styles.questionContainer}>
               <SubmissionAnswer {...{ canGrade, answerId, question }} />
@@ -83,11 +83,9 @@ class SubmissionEditForm extends Component {
 
 SubmissionEditForm.propTypes = {
   canGrade: PropTypes.bool.isRequired,
-  questions: PropTypes.shape({
-    byIds: PropTypes.objectOf(QuestionProp),
-    allIds: PropTypes.arrayOf(PropTypes.number),
-  }),
   posts: PropTypes.objectOf(PostProp),
+  questionIds: PropTypes.arrayOf(PropTypes.number),
+  questions: PropTypes.objectOf(QuestionProp),
   topics: PropTypes.objectOf(TopicProp),
   pristine: PropTypes.bool,
   submitting: PropTypes.bool,

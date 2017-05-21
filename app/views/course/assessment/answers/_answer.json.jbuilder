@@ -1,5 +1,5 @@
 json.id answer.id
-json.questionId answer.question_id
+json.question answer.question_id
 
 answer = answer.specific
 json.partial! answer, answer: answer, can_grade: can_grade
