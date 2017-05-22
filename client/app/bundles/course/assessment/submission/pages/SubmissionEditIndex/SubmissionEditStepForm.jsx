@@ -59,7 +59,7 @@ class SubmissionEditStepForm extends Component {
     const { stepIndex } = this.state;
     const { explanations, questionIds, questions, submitting } = this.props;
     const questionId = questionIds[stepIndex];
-    const explanationId = questions[questionId].explanation;
+    const { explanationId } = questions[questionId];
 
     if (explanations[explanationId] && explanations[explanationId].correct && !submitting) {
       return false;
@@ -86,7 +86,7 @@ class SubmissionEditStepForm extends Component {
 
   renderExplanationPanel(questionId) {
     const { questions, explanations } = this.props;
-    const explanationId = questions[questionId].explanation;
+    const { explanationId } = questions[questionId];
 
     if (explanationId) {
       const explanation = explanations[explanationId];
@@ -118,9 +118,9 @@ class SubmissionEditStepForm extends Component {
 
     const id = questionIds[stepIndex];
     const question = questions[id];
-    const answerId = question.answer;
-    const topic = topics[question.topic];
-    const postsInTopic = topic.posts.map(postId => posts[postId]);
+    const { answerId } = question;
+    const topic = topics[question.topicId];
+    const postsInTopic = topic.postIds.map(postId => posts[postId]);
     return (
       <div>
         <SubmissionAnswer {...{ canGrade, answerId, question }} />
@@ -177,7 +177,6 @@ class SubmissionEditStepForm extends Component {
   renderStepper() {
     const { stepIndex } = this.state;
     const { skippable, questionIds } = this.props;
-
     if (skippable) {
       return (
         <Stepper activeStep={stepIndex} linear={false}>

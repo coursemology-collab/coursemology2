@@ -28,9 +28,9 @@ class SubmissionEditTabForm extends Component {
       <Tabs>
         {questionIds.map((id, index) => {
           const question = questions[id];
-          const answerId = question.answer;
-          const topic = topics[question.topic];
-          const postsInTopic = topic.posts.map(postId => posts[postId]);
+          const { answerId } = question;
+          const topic = topics[question.topicId];
+          const postsInTopic = topic.postIds.map(postId => posts[postId]);
           return (
             <Tab key={id} label={index + 1}>
               <SubmissionAnswer {...{ canGrade, answerId, question }} />

@@ -1,4 +1,5 @@
 import actions from '../constants';
+import arrayToObjectById from './utils';
 
 export default function (state = {}, action) {
   switch (action.type) {
@@ -8,16 +9,16 @@ export default function (state = {}, action) {
     case actions.UNSUBMIT_SUCCESS:
       return {
         ...state,
-        ...action.payload.questions,
+        ...arrayToObjectById(action.payload.questions),
       };
     case actions.AUTOGRADE_SUCCESS: {
-      const questionId = action.payload.answer.question;
+      const { questionId } = action.payload.answers[0];
       return {
         ...state,
         [questionId]: {
           ...state[questionId],
-          answer: action.payload.answer.id,
-          explanation: action.payload.explanation.id,
+          answerId: action.payload.answers[0].id,
+          explanationId: action.payload.explanations[0].id,
         },
       };
     }

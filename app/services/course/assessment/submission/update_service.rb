@@ -146,8 +146,8 @@ class Course::Assessment::Submission::UpdateService < SimpleDelegator
     else
       current_question = answer.try(:question)
       new_answer = @submission.answers.from_question(current_question.id).last
-      render partial: 'answer', locals: { latest_attempt: new_answer,
-                                           previous_attempt: answer.reload,
+      render partial: 'answers', locals: { answers: [new_answer],
+                                           explanations: [answer.reload],
                                            can_grade: can?(:grade, @submission) }
     end
   end

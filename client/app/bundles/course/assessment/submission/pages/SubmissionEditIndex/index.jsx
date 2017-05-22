@@ -51,7 +51,7 @@ class VisibleSubmissionEditIndex extends Component {
 
   renderContent() {
     const {
-      assessment: { autograded, tabbedView, skippable, questions: questionIds },
+      assessment: { autograded, tabbedView, skippable, questionIds },
       submission: { canGrade, maxStep },
       answers,
       explanations,
@@ -139,6 +139,7 @@ VisibleSubmissionEditIndex.propTypes = {
   }),
   answers: PropTypes.objectOf(AnswerProp),
   assessment: AssessmentProp,
+  explanations: PropTypes.objectOf(AnswerProp),
   form: ReduxFormProp,
   posts: PropTypes.objectOf(PostProp),
   questions: PropTypes.objectOf(QuestionProp),

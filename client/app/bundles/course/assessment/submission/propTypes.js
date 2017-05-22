@@ -25,9 +25,9 @@ PropTypes.shape({
   maximumGrade: PropTypes.number.isRequired,
   options: PropTypes.arrayOf(OptionProp),
   type: PropTypes.string.isRequired,
-  answer: PropTypes.number,
-  explanation: PropTypes.number,
-  topic: PropTypes.number,
+  answerId: PropTypes.number.isRequired,
+  explanationId: PropTypes.number,
+  topicId: PropTypes.number.isRequired,
   testCases: PropTypes.arrayOf(TestCaseProp),
 });
 
@@ -40,7 +40,7 @@ const FileProp =
 export const PostProp =
   PropTypes.shape({
     id: PropTypes.number.isRequired,
-    topic: PropTypes.number.isRequired,
+    topicId: PropTypes.number.isRequired,
     title: PropTypes.string,
     text: PropTypes.string,
     creator: PropTypes.string.isRequired,
@@ -50,7 +50,7 @@ export const PostProp =
 export const AnswerProp =
   PropTypes.shape({
     id: PropTypes.number.isRequired,
-    question: PropTypes.number.isRequired,
+    questionId: PropTypes.number.isRequired,
     answer_text: PropTypes.string,
     file: PropTypes.object,
     files: PropTypes.arrayOf(FileProp),
@@ -68,7 +68,7 @@ export const AssessmentProp =
     skippable: PropTypes.bool.isRequired,
     tabbedView: PropTypes.bool.isRequired,
     title: PropTypes.string,
-    questions: PropTypes.arrayOf(PropTypes.number),
+    questionIds: PropTypes.arrayOf(PropTypes.number),
   });
 
 export const SubmissionProp =
