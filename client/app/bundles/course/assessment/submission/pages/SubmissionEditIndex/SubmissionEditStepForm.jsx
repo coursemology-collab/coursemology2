@@ -5,7 +5,7 @@ import { white, green500, green900, red300, red900 } from 'material-ui/styles/co
 import { Stepper, Step, StepButton, StepLabel } from 'material-ui/Stepper';
 import RaisedButton from 'material-ui/RaisedButton';
 
-import { QuestionProp, TopicProp, ExplanationProp } from '../../propTypes';
+import { AnswerProp, PostProp, QuestionProp, TopicProp } from '../../propTypes';
 import SubmissionAnswer from '../../components/SubmissionAnswer';
 import Comments from '../../components/Comments';
 import CommentField from '../../components/CommentField';
@@ -37,8 +37,8 @@ const styles = {
 
 class SubmissionEditStepForm extends Component {
 
-  static isLastQuestion(questions, stepIndex) {
-    return stepIndex + 1 === questions.allIds.length;
+  static isLastQuestion(questionIds, stepIndex) {
+    return stepIndex + 1 === questionIds.length;
   }
 
   constructor(props) {
@@ -50,15 +50,16 @@ class SubmissionEditStepForm extends Component {
 
   shouldRenderContinueButton() {
     const { stepIndex } = this.state;
-    const { questions, saveState } = this.props;
-    return saveState === SAVE_STATES.Saved && !SubmissionEditStepForm.isLastQuestion(questions, stepIndex);
+    const { questionIds, saveState } = this.props;
+    return saveState === SAVE_STATES.Saved &&
+      !SubmissionEditStepForm.isLastQuestion(questionIds, stepIndex);
   }
 
   shouldDisableContinueButton() {
     const { stepIndex } = this.state;
-    const { explanations, questions, submitting } = this.props;
-    const questionId = questions.allIds[stepIndex];
-    const explanationId = questions.byId[questionId].explanationId;
+    const { explanations, questionIds, questions, submitting } = this.props;
+    const questionId = questionIds[stepIndex];
+    const explanationId = questions[questionId].explanation;
 
     if (explanations[explanationId] && explanations[explanationId].correct && !submitting) {
       return false;
@@ -85,7 +86,7 @@ class SubmissionEditStepForm extends Component {
 
   renderExplanationPanel(questionId) {
     const { questions, explanations } = this.props;
-    const explanationId = questions.byId[questionId].explanationId;
+    const explanationId = questions[questionId].explanation;
 
     if (explanationId) {
       const explanation = explanations[explanationId];
@@ -111,14 +112,15 @@ class SubmissionEditStepForm extends Component {
   renderStepQuestion() {
     const { stepIndex } = this.state;
     const {
-      canGrade, questions, topics, pristine, submitting,
+      canGrade, posts, questionIds, questions, topics, pristine, submitting,
       handleAutograde, handleSaveDraft, handleSubmit, handleUnsubmit,
     } = this.props;
 
-    const id = questions.allIds[stepIndex];
-    const question = questions.byId[id];
-    const answerId = question.answerId;
-    const topic = topics[question.topicId];
+    const id = questionIds[stepIndex];
+    const question = questions[id];
+    const answerId = question.answer;
+    const topic = topics[question.topic];
+    const postsInTopic = topic.posts.map(postId => posts[postId]);
     return (
       <div>
         <SubmissionAnswer {...{ canGrade, answerId, question }} />
@@ -166,7 +168,7 @@ class SubmissionEditStepForm extends Component {
           />
         </div>
         <hr />
-        <Comments topic={topic} />
+        <Comments posts={postsInTopic} />
         <CommentField />
       </div>
     );
@@ -174,12 +176,12 @@ class SubmissionEditStepForm extends Component {
 
   renderStepper() {
     const { stepIndex } = this.state;
-    const { skippable, questions: { allIds: questions } } = this.props;
+    const { skippable, questionIds } = this.props;
 
     if (skippable) {
       return (
         <Stepper activeStep={stepIndex} linear={false}>
-          {questions.map((questionId, index) =>
+          {questionIds.map((questionId, index) =>
             <Step key={questionId}>
               <StepButton onClick={() => this.handleStepClick(index)} />
             </Step>
@@ -189,7 +191,7 @@ class SubmissionEditStepForm extends Component {
     }
     return (
       <Stepper activeStep={stepIndex}>
-        {questions.map((questionId, index) =>
+        {questionIds.map((questionId, index) =>
           <Step key={questionId} onClick={() => this.handleStepClick(index)}>
             <StepLabel />
           </Step>
@@ -216,12 +218,11 @@ SubmissionEditStepForm.propTypes = {
   pristine: PropTypes.bool,
   skippable: PropTypes.bool.isRequired,
   submitting: PropTypes.bool,
-  questions: PropTypes.shape({
-    byIds: PropTypes.objectOf(QuestionProp),
-    allIds: PropTypes.arrayOf(PropTypes.number),
-  }),
+  explanations: PropTypes.objectOf(AnswerProp),
+  posts: PropTypes.objectOf(PostProp),
+  questionIds: PropTypes.arrayOf(PropTypes.number),
+  questions: PropTypes.objectOf(QuestionProp),
   topics: PropTypes.objectOf(TopicProp),
-  explanations: PropTypes.objectOf(ExplanationProp),
   saveState: PropTypes.string.isRequired,
   handleSubmit: PropTypes.func,
   handleUnsubmit: PropTypes.func,

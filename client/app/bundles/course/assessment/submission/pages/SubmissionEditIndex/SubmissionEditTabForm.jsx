@@ -5,7 +5,7 @@ import { Card } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import { red900 } from 'material-ui/styles/colors';
 
-import { QuestionProp, TopicProp } from '../../propTypes';
+import { PostProp, QuestionProp, TopicProp } from '../../propTypes';
 import SubmissionAnswer from '../../components/SubmissionAnswer';
 import Comments from '../../components/Comments';
 import CommentField from '../../components/CommentField';
@@ -23,17 +23,18 @@ const styles = {
 class SubmissionEditTabForm extends Component {
 
   renderQuestions() {
-    const { canGrade, questions, topics } = this.props;
+    const { canGrade, posts, questionIds, questions, topics } = this.props;
     return (
       <Tabs>
-        {questions.allIds.map((id, index) => {
-          const question = questions.byId[id];
-          const answerId = question.answerId;
-          const topic = topics[question.topicId];
+        {questionIds.map((id, index) => {
+          const question = questions[id];
+          const answerId = question.answer;
+          const topic = topics[question.topic];
+          const postsInTopic = topic.posts.map(postId => posts[postId]);
           return (
             <Tab key={id} label={index + 1}>
               <SubmissionAnswer {...{ canGrade, answerId, question }} />
-              <Comments topic={topic} />
+              <Comments posts={postsInTopic} />
               <CommentField />
             </Tab>
           );
@@ -77,10 +78,9 @@ class SubmissionEditTabForm extends Component {
 
 SubmissionEditTabForm.propTypes = {
   canGrade: PropTypes.bool.isRequired,
-  questions: PropTypes.shape({
-    byIds: PropTypes.objectOf(QuestionProp),
-    allIds: PropTypes.arrayOf(PropTypes.number),
-  }),
+  posts: PropTypes.objectOf(PostProp),
+  questionIds: PropTypes.arrayOf(PropTypes.number),
+  questions: PropTypes.objectOf(QuestionProp),
   topics: PropTypes.objectOf(TopicProp),
   pristine: PropTypes.bool,
   submitting: PropTypes.bool,
