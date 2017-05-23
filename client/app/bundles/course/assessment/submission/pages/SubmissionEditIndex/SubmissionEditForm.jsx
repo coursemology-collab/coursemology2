@@ -46,8 +46,24 @@ class SubmissionEditForm extends Component {
     );
   }
 
+  renderUnsubmitButton() {
+    const { canGrade, submitted, handleUnsubmit } = this.props;
+    if (canGrade && submitted) {
+      return (
+        <RaisedButton
+          style={styles.formButton}
+          backgroundColor={red900}
+          secondary
+          label="Unsubmit Submission"
+          onTouchTap={handleUnsubmit}
+        />
+      );
+    }
+    return null;
+  }
+
   render() {
-    const { pristine, submitting, handleSubmit, handleUnsubmit, handleSaveDraft } = this.props;
+    const { pristine, submitting, handleSubmit, handleSaveDraft } = this.props;
 
     return (
       <Card style={styles.questionCardContainer}>
@@ -68,14 +84,7 @@ class SubmissionEditForm extends Component {
           onTouchTap={handleSubmit}
           disabled={submitting}
         />
-        <RaisedButton
-          style={styles.formButton}
-          backgroundColor={red900}
-          secondary
-          label="Unsubmit Submission"
-          onTouchTap={handleUnsubmit}
-          disabled={submitting}
-        />
+        {this.renderUnsubmitButton()}
       </Card>
     );
   }
@@ -83,6 +92,7 @@ class SubmissionEditForm extends Component {
 
 SubmissionEditForm.propTypes = {
   canGrade: PropTypes.bool.isRequired,
+  submitted: PropTypes.bool.isRequired,
   posts: PropTypes.objectOf(PostProp),
   questionIds: PropTypes.arrayOf(PropTypes.number),
   questions: PropTypes.objectOf(QuestionProp),

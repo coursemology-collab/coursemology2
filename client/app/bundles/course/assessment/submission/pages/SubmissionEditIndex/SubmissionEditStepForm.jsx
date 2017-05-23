@@ -109,11 +109,27 @@ class SubmissionEditStepForm extends Component {
     return null;
   }
 
+  renderUnsubmitButton() {
+    const { canGrade, submitted, handleUnsubmit } = this.props;
+    if (canGrade && submitted) {
+      return (
+        <RaisedButton
+          style={styles.formButton}
+          backgroundColor={red900}
+          secondary
+          label="Unsubmit Submission"
+          onTouchTap={handleUnsubmit}
+        />
+      );
+    }
+    return null;
+  }
+
   renderStepQuestion() {
     const { stepIndex } = this.state;
     const {
       canGrade, posts, questionIds, questions, topics, pristine, submitting,
-      handleAutograde, handleSaveDraft, handleSubmit, handleUnsubmit,
+      handleAutograde, handleSaveDraft, handleSubmit,
     } = this.props;
 
     const id = questionIds[stepIndex];
@@ -159,13 +175,7 @@ class SubmissionEditStepForm extends Component {
             onTouchTap={handleSubmit}
             disabled={pristine || submitting}
           />
-          <RaisedButton
-            style={styles.formButton}
-            backgroundColor={red900}
-            secondary
-            label="Unsubmit Submission"
-            onTouchTap={handleUnsubmit}
-          />
+          {this.renderUnsubmitButton()}
         </div>
         <hr />
         <Comments posts={postsInTopic} />
@@ -214,6 +224,7 @@ class SubmissionEditStepForm extends Component {
 SubmissionEditStepForm.propTypes = {
   canGrade: PropTypes.bool.isRequired,
   maxStep: PropTypes.number.isRequired,
+  submitted: PropTypes.bool.isRequired,
   pristine: PropTypes.bool,
   skippable: PropTypes.bool.isRequired,
   submitting: PropTypes.bool,
