@@ -43,6 +43,22 @@ class SubmissionEditTabForm extends Component {
     );
   }
 
+  renderSaveDraftButton() {
+    const { pristine, submitting, submitted, handleSaveDraft } = this.props;
+    if (!submitted) {
+      return (
+        <RaisedButton
+          style={styles.formButton}
+          primary
+          label="Save Draft"
+          onTouchTap={handleSaveDraft}
+          disabled={pristine || submitting}
+        />
+      );
+    }
+    return null;
+  }
+
   renderSubmitButton() {
     const { submitting, submitted, handleSubmit } = this.props;
     if (!submitted) {
@@ -76,18 +92,11 @@ class SubmissionEditTabForm extends Component {
   }
 
   render() {
-    const { pristine, submitting, handleSaveDraft } = this.props;
     return (
       <Card style={styles.questionContainer}>
         <form>{this.renderQuestions()}</form>
         <hr />
-        <RaisedButton
-          style={styles.formButton}
-          primary
-          label="Save Draft"
-          onTouchTap={handleSaveDraft}
-          disabled={pristine || submitting}
-        />
+        {this.renderSaveDraftButton()}
         {this.renderSubmitButton()}
         {this.renderUnsubmitButton()}
       </Card>

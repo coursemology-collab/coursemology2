@@ -109,6 +109,22 @@ class SubmissionEditStepForm extends Component {
     return null;
   }
 
+  renderSaveDraftButton() {
+    const { pristine, submitting, submitted, handleSaveDraft } = this.props;
+    if (!submitted) {
+      return (
+        <RaisedButton
+          style={styles.formButton}
+          primary
+          label="Save Draft"
+          onTouchTap={handleSaveDraft}
+          disabled={pristine || submitting}
+        />
+      );
+    }
+    return null;
+  }
+
   renderSubmitButton() {
     const { submitting, submitted, handleSubmit } = this.props;
     if (!submitted) {
@@ -143,10 +159,7 @@ class SubmissionEditStepForm extends Component {
 
   renderStepQuestion() {
     const { stepIndex } = this.state;
-    const {
-      canGrade, posts, questionIds, questions, topics, pristine, submitting,
-      handleAutograde, handleSaveDraft,
-    } = this.props;
+    const { canGrade, posts, questionIds, questions, topics, submitting, handleAutograde } = this.props;
 
     const id = questionIds[stepIndex];
     const question = questions[id];
@@ -175,13 +188,7 @@ class SubmissionEditStepForm extends Component {
               disabled={this.shouldDisableContinueButton()}
             /> : null
           }
-          <RaisedButton
-            style={styles.formButton}
-            primary
-            label="Save Draft"
-            onTouchTap={() => handleSaveDraft(answerId)}
-            disabled={pristine || submitting}
-          />
+          {this.renderSaveDraftButton()}
         </div>
         <div style={styles.formButtonContainer}>
           {this.renderSubmitButton()}
