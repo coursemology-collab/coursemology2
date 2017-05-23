@@ -109,6 +109,35 @@ class SubmissionEditStepForm extends Component {
     return null;
   }
 
+  renderSubmitButton(answerId) {
+    const { submitting, handleAutograde } = this.props;
+    return (
+      <RaisedButton
+        style={styles.formButton}
+        secondary
+        label="Submit"
+        onTouchTap={() => handleAutograde(answerId)}
+        disabled={submitting}
+      />
+    );
+  }
+
+  renderContinueButton() {
+    if (this.shouldRenderContinueButton()) {
+      return (
+        <RaisedButton
+          style={styles.formButton}
+          backgroundColor={green500}
+          labelColor={white}
+          label="Continue"
+          onTouchTap={() => this.handleNext()}
+          disabled={this.shouldDisableContinueButton()}
+        />
+      );
+    }
+    return null;
+  }
+
   renderSaveDraftButton() {
     const { pristine, submitting, submitted, handleSaveDraft } = this.props;
     if (!submitted) {
@@ -125,7 +154,7 @@ class SubmissionEditStepForm extends Component {
     return null;
   }
 
-  renderSubmitButton() {
+  renderFinaliseSubmitButton() {
     const { submitting, submitted, handleSubmit } = this.props;
     if (!submitted) {
       return (
@@ -159,7 +188,7 @@ class SubmissionEditStepForm extends Component {
 
   renderStepQuestion() {
     const { stepIndex } = this.state;
-    const { canGrade, posts, questionIds, questions, topics, submitting, handleAutograde } = this.props;
+    const { canGrade, posts, questionIds, questions, topics } = this.props;
 
     const id = questionIds[stepIndex];
     const question = questions[id];
@@ -171,27 +200,12 @@ class SubmissionEditStepForm extends Component {
         <SubmissionAnswer {...{ canGrade, answerId, question }} />
         {this.renderExplanationPanel(id)}
         <div style={styles.formButtonContainer}>
-          <RaisedButton
-            style={styles.formButton}
-            secondary
-            label="Submit"
-            onTouchTap={() => handleAutograde(answerId)}
-            disabled={submitting}
-          />
-          {this.shouldRenderContinueButton() ?
-            <RaisedButton
-              style={styles.formButton}
-              backgroundColor={green500}
-              labelColor={white}
-              label="Continue"
-              onTouchTap={() => this.handleNext()}
-              disabled={this.shouldDisableContinueButton()}
-            /> : null
-          }
+          {this.renderSubmitButton(answerId)}
+          {this.renderContinueButton()}
           {this.renderSaveDraftButton()}
         </div>
         <div style={styles.formButtonContainer}>
-          {this.renderSubmitButton()}
+          {this.renderFinaliseSubmitButton()}
           {this.renderUnsubmitButton()}
         </div>
         <hr />
