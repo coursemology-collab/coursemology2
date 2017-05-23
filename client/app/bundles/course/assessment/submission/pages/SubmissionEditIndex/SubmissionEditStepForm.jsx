@@ -109,6 +109,22 @@ class SubmissionEditStepForm extends Component {
     return null;
   }
 
+  renderSubmitButton() {
+    const { submitting, submitted, handleSubmit } = this.props;
+    if (!submitted) {
+      return (
+        <RaisedButton
+          style={styles.formButton}
+          secondary
+          label="Finalise Submission"
+          onTouchTap={handleSubmit}
+          disabled={submitting}
+        />
+      );
+    }
+    return null;
+  }
+
   renderUnsubmitButton() {
     const { canGrade, submitted, handleUnsubmit } = this.props;
     if (canGrade && submitted) {
@@ -129,7 +145,7 @@ class SubmissionEditStepForm extends Component {
     const { stepIndex } = this.state;
     const {
       canGrade, posts, questionIds, questions, topics, pristine, submitting,
-      handleAutograde, handleSaveDraft, handleSubmit,
+      handleAutograde, handleSaveDraft,
     } = this.props;
 
     const id = questionIds[stepIndex];
@@ -168,13 +184,7 @@ class SubmissionEditStepForm extends Component {
           />
         </div>
         <div style={styles.formButtonContainer}>
-          <RaisedButton
-            style={styles.formButton}
-            secondary
-            label="Finalise Submission"
-            onTouchTap={handleSubmit}
-            disabled={pristine || submitting}
-          />
+          {this.renderSubmitButton()}
           {this.renderUnsubmitButton()}
         </div>
         <hr />

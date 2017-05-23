@@ -46,6 +46,22 @@ class SubmissionEditForm extends Component {
     );
   }
 
+  renderSubmitButton() {
+    const { submitting, submitted, handleSubmit } = this.props;
+    if (!submitted) {
+      return (
+        <RaisedButton
+          style={styles.formButton}
+          secondary
+          label="Finalise Submission"
+          onTouchTap={handleSubmit}
+          disabled={submitting}
+        />
+      );
+    }
+    return null;
+  }
+
   renderUnsubmitButton() {
     const { canGrade, submitted, handleUnsubmit } = this.props;
     if (canGrade && submitted) {
@@ -63,7 +79,7 @@ class SubmissionEditForm extends Component {
   }
 
   render() {
-    const { pristine, submitting, handleSubmit, handleSaveDraft } = this.props;
+    const { pristine, submitting, handleSaveDraft } = this.props;
 
     return (
       <Card style={styles.questionCardContainer}>
@@ -77,13 +93,7 @@ class SubmissionEditForm extends Component {
           onTouchTap={handleSaveDraft}
           disabled={pristine || submitting}
         />
-        <RaisedButton
-          style={styles.formButton}
-          secondary
-          label="Finalise Submission"
-          onTouchTap={handleSubmit}
-          disabled={submitting}
-        />
+        {this.renderSubmitButton()}
         {this.renderUnsubmitButton()}
       </Card>
     );
