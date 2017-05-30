@@ -66,7 +66,7 @@ export default class Answers extends Component {
   }
 
   static renderTextResponse(question, answerId) {
-    const allowUpload = question.allow_attachment;
+    const allowUpload = question.allowAttachment;
 
     return (
       <div>
