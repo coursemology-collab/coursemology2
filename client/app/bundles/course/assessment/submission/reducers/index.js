@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import { reducer as formReducer } from 'redux-form';
-import submissionEditReducer from './submissionEditReducer';
+import { reducer as form } from 'redux-form';
+import submissionEdit from './submissionEdit';
 import answers from './answers';
 import commentForms from './commentForms';
 import explanations from './explanations';
@@ -9,8 +9,8 @@ import questions from './questions';
 import topics from './topics';
 
 export default combineReducers({
-  submissionEdit: submissionEditReducer,
-  form: formReducer,
+  submissionEdit,
+  form,
   answers,
   commentForms,
   explanations,
