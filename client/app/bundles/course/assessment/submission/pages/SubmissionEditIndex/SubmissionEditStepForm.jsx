@@ -8,6 +8,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 
 import { AnswerProp, QuestionProp, TopicProp } from '../../propTypes';
 import SubmissionAnswer from '../../components/SubmissionAnswer';
+import GradingPanel from '../../containers/GradingPanel';
 import Comments from '../../components/Comments';
 import { SAVE_STATES } from '../../constants';
 
@@ -82,6 +83,14 @@ class SubmissionEditStepForm extends Component {
         stepIndex: index,
       });
     }
+  }
+
+  renderGradingPanel() {
+    const { submitted } = this.props;
+    if (submitted) {
+      return <GradingPanel />;
+    }
+    return null;
   }
 
   renderExplanationPanel(questionId) {
@@ -198,6 +207,7 @@ class SubmissionEditStepForm extends Component {
       <div>
         <SubmissionAnswer {...{ canGrade, readOnly: submitted, answerId, question }} />
         {this.renderExplanationPanel(id)}
+        {this.renderGradingPanel()}
         <div style={styles.formButtonContainer}>
           {this.renderSubmitButton(answerId)}
           {this.renderContinueButton()}

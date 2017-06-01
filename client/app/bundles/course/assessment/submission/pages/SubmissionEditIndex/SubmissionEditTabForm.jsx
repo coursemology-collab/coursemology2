@@ -8,6 +8,7 @@ import { red900 } from 'material-ui/styles/colors';
 
 import { QuestionProp, TopicProp } from '../../propTypes';
 import SubmissionAnswer from '../../components/SubmissionAnswer';
+import GradingPanel from '../../containers/GradingPanel';
 import Comments from '../../components/Comments';
 
 const styles = {
@@ -39,6 +40,14 @@ class SubmissionEditTabForm extends Component {
         })}
       </Tabs>
     );
+  }
+
+  renderGradingPanel() {
+    const { submitted } = this.props;
+    if (submitted) {
+      return <GradingPanel />;
+    }
+    return null;
   }
 
   renderSaveDraftButton() {
@@ -94,6 +103,7 @@ class SubmissionEditTabForm extends Component {
       <Card style={styles.questionContainer}>
         <form>{this.renderQuestions()}</form>
         <hr />
+        {this.renderGradingPanel()}
         {this.renderSaveDraftButton()}
         {this.renderSubmitButton()}
         {this.renderUnsubmitButton()}
