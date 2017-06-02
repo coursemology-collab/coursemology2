@@ -9,6 +9,7 @@ import { QuestionProp, SubmissionProp } from '../propTypes';
 
 const styles = {
   panel: {
+    marginTop: 20,
     marginBottom: 20,
   },
   table: {
@@ -22,10 +23,20 @@ const styles = {
 };
 
 class VisibleGradingPanel extends Component {
+  static calculateTotalGrade(grading) {
+    return Object.values(grading).reduce((a, b) => a + b, 0);
+  }
+
   static calculateMaxGrade(questions) {
     let maxGrade = 0;
     Object.values(questions).forEach((question) => { maxGrade += question.maximumGrade; });
     return maxGrade;
+  }
+
+  static generateTotalGrade(grading, questions) {
+    const totalGrade = VisibleGradingPanel.calculateTotalGrade(grading);
+    const maxGrade = VisibleGradingPanel.calculateMaxGrade(questions);
+    return `${totalGrade} / ${maxGrade}`;
   }
 
   renderSubmissionTable() {
@@ -35,6 +46,7 @@ class VisibleGradingPanel extends Component {
         submitter, workflowState, basePoints, dueAt,
         attemptedAt, submittedAt, grader, gradedAt,
       },
+      grading,
     } = this.props;
     return (
       <Table selectable={false} style={styles.table}>
@@ -49,7 +61,7 @@ class VisibleGradingPanel extends Component {
           </TableRow>
           <TableRow>
             <TableHeaderColumn style={styles.hdColumn} columnNumber={0}>Total Grade</TableHeaderColumn>
-            <TableRowColumn>{`todo / ${VisibleGradingPanel.calculateMaxGrade(questions)}`}</TableRowColumn>
+            <TableRowColumn>{VisibleGradingPanel.generateTotalGrade(grading, questions)}</TableRowColumn>
           </TableRow>
           <TableRow>
             <TableHeaderColumn style={styles.hdColumn} columnNumber={0}>Experience Points Awarded</TableHeaderColumn>
@@ -81,7 +93,7 @@ class VisibleGradingPanel extends Component {
   }
 
   renderGradeTable() {
-    const { questions } = this.props;
+    const { questions, grading } = this.props;
     return (
       <div>
         <h1>Grade Summary</h1>
@@ -101,7 +113,7 @@ class VisibleGradingPanel extends Component {
                 >
                   {question.displayTitle}
                 </TableHeaderColumn>
-                <TableRowColumn>{`todo / ${question.maximumGrade}`}</TableRowColumn>
+                <TableRowColumn>{`${grading[question.id]} / ${question.maximumGrade}`}</TableRowColumn>
               </TableRow>
             )}
           </TableBody>
@@ -126,12 +138,14 @@ class VisibleGradingPanel extends Component {
 VisibleGradingPanel.propTypes = {
   questions: PropTypes.objectOf(QuestionProp),
   submission: SubmissionProp.isRequired,
+  grading: PropTypes.objectOf(PropTypes.number),
 };
 
 function mapStateToProps(state) {
   return {
     questions: state.questions,
     submission: state.submissionEdit.submission,
+    grading: state.grading,
   };
 }
 

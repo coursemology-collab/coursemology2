@@ -1,6 +1,12 @@
 // eslint-disable-next-line import/extensions, import/no-extraneous-dependencies, import/no-unresolved
 import moment from 'lib/moment';
 
+export function arrayToObjectById(array) {
+  return array.reduce((obj, answer) => (
+    { ...obj, [answer.id]: answer }
+  ), {});
+}
+
 export function formatDateTime(dateTime) {
   return dateTime ? moment(dateTime).format('DD MMM YYYY, h:mma') : null;
 }

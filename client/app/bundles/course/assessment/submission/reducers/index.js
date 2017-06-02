@@ -7,6 +7,7 @@ import explanations from './explanations';
 import posts from './posts';
 import questions from './questions';
 import topics from './topics';
+import grading from './grading';
 
 export default combineReducers({
   submissionEdit,
@@ -17,4 +18,5 @@ export default combineReducers({
   posts,
   questions,
   topics,
+  grading,
 });
