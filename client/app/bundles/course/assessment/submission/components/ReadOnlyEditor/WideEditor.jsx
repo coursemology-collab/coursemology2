@@ -10,6 +10,18 @@ import Annotations from '../../containers/Annotations';
 import { AnnotationProp } from '../../propTypes';
 
 const styles = {
+  layout: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+  },
+  editorContainer: {
+    borderStyle: 'solid',
+    borderWidth: 1,
+    borderColor: grey200,
+    borderRadius: 5,
+    overflow: 'auto',
+    width: '50%',
+  },
   editor: {
     borderStyle: 'solid',
     borderWidth: 1,
@@ -17,6 +29,7 @@ const styles = {
     borderRadius: 5,
     padding: 5,
     width: '100%',
+    overflow: 'hidden',
   },
   editorLine: {
     paddingLeft: 5,
@@ -43,7 +56,7 @@ const styles = {
   },
 };
 
-export default class NarrowEditor extends Component {
+export default class WideEditor extends Component {
   renderCommentIcon(lineNumber) {
     const { expanded, annotations, toggleLine } = this.props;
 
@@ -68,7 +81,7 @@ export default class NarrowEditor extends Component {
   renderComments(lineNumber) {
     const { answerId, fileId, annotations, expanded, collapseLine } = this.props;
     const annotation = annotations.find(a => a.line === lineNumber);
-    const placement = 'bottom';
+    const placement = 'left';
 
     return (
       <Overlay
@@ -102,33 +115,37 @@ export default class NarrowEditor extends Component {
     /* eslint-disable react/no-array-index-key */
     const { content } = this.props;
     return (
-      <table style={styles.editor}>
-        <tbody>
-          <tr>
-            <td style={{ width: 75 }}>
-              {content.map((line, index) =>
-                <div key={`${index}-${line}`}>
-                  {this.renderLineNumberColumn(index + 1)}
-                </div>
-              )}
-            </td>
-            <td>
-              {content.map((line, index) => {
-                if (line.trim().length === 0) {
-                  return <div key={`${index}-break`}><br /></div>;
-                }
-                return <div key={`${index}-${line}`} style={styles.editorLine}>{line}</div>;
-              })}
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <div style={styles.layout}>
+        <div style={styles.editorContainer}>
+          <table style={styles.editor}>
+            <tbody>
+              <tr>
+                <td style={{ width: 75 }}>
+                  {content.map((line, index) =>
+                    <div key={`${index}-${line}`}>
+                      {this.renderLineNumberColumn(index + 1)}
+                    </div>
+                  )}
+                </td>
+                <td>
+                  {content.map((line, index) => {
+                    if (line.trim().length === 0) {
+                      return <div key={`${index}-break`}><br /></div>;
+                    }
+                    return <div key={`${index}-${line}`} style={styles.editorLine}>{line}</div>;
+                  })}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     );
     /* eslint-enable react/no-array-index-key */
   }
 }
 
-NarrowEditor.propTypes = {
+WideEditor.propTypes = {
   expanded: PropTypes.arrayOf(PropTypes.bool).isRequired,
   answerId: PropTypes.number.isRequired,
   fileId: PropTypes.number.isRequired,
@@ -139,7 +156,7 @@ NarrowEditor.propTypes = {
   toggleLine: PropTypes.func,
 };
 
-NarrowEditor.defaultProps = {
+WideEditor.defaultProps = {
   expandLine: () => {},
   collapseLine: () => {},
   toggleLine: () => {},
