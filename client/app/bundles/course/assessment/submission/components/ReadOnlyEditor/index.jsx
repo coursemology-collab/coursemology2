@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Overlay } from 'react-overlays';
 import { grey200, blue500 } from 'material-ui/styles/colors';
 
+import NarrowEditor from './NarrowEditor';
 import Checkbox from './Checkbox';
 import OverlayTooltip from './OverlayTooltip';
 import AddCommentIcon from './AddCommentIcon';
@@ -15,14 +16,6 @@ const EDITOR_MODE_NARROW = 'narrow';
 const EDITOR_MODE_WIDE = 'wide';
 
 const styles = {
-  readOnlyEditor: {
-    borderStyle: 'solid',
-    borderWidth: 1,
-    borderColor: grey200,
-    borderRadius: 5,
-    padding: 5,
-    width: '100%',
-  },
   readOnlyWideEditor: {
     borderStyle: 'solid',
     borderWidth: 1,
@@ -89,36 +82,29 @@ export default class ReadOnlyEditor extends Component {
     window.removeEventListener('resize', this.windowResizing.bind(this));
   }
 
-  setAllCommentStateExpanded() {
-    const { expanded } = this.state;
-    const { annotations } = this.props;
+  // setAllCommentStateExpanded() {
+  //   const { expanded } = this.state;
+  //   const { annotations } = this.props;
 
-    const newExpanded = expanded.slice(0);
-    newExpanded.forEach((state, index) => {
-      const lineNumber = index + 1;
-      const annotation = annotations.find(a => a.line === lineNumber);
-      if (!state && annotation) {
-        newExpanded[index] = true;
-      }
-    });
-    this.setState({ expanded: newExpanded });
-  }
+  //   const newExpanded = expanded.slice(0);
+  //   newExpanded.forEach((state, index) => {
+  //     const lineNumber = index + 1;
+  //     const annotation = annotations.find(a => a.line === lineNumber);
+  //     if (!state && annotation) {
+  //       newExpanded[index] = true;
+  //     }
+  //   });
+  //   this.setState({ expanded: newExpanded });
+  // }
 
-  setAllCommentStateCollapsed() {
-    const { expanded } = this.state;
-    const newExpanded = expanded.slice(0);
-    newExpanded.forEach((_, index) => { newExpanded[index] = false; });
-    this.setState({ expanded: newExpanded });
-  }
+  // setAllCommentStateCollapsed() {
+  //   const { expanded } = this.state;
+  //   const newExpanded = expanded.slice(0);
+  //   newExpanded.forEach((_, index) => { newExpanded[index] = false; });
+  //   this.setState({ expanded: newExpanded });
+  // }
 
-  setCommentState(lineNumber, state) {
-    const { expanded } = this.state;
-    const newExpanded = expanded.slice(0);
-    newExpanded[lineNumber - 1] = state;
-    this.setState({ expanded: newExpanded });
-  }
-
-  expandTheOnlyCommentState(lineNumber) {
+  setExpandedLine(lineNumber) {
     const { expanded } = this.state;
     const newExpanded = [];
     for (let i = 0; i < expanded.length; i += 1) {
@@ -131,6 +117,17 @@ export default class ReadOnlyEditor extends Component {
     this.setState({ expanded: newExpanded });
   }
 
+  toggleCommentState(lineNumber) {
+    const { expanded } = this.state;
+    if (expanded[lineNumber - 1]) {
+      const newExpanded = expanded.slice(0);
+      newExpanded[lineNumber - 1] = false;
+      this.setState({ expanded: newExpanded });
+    } else {
+      this.setExpandedLine(lineNumber);
+    }
+  }
+
   windowResizing(e) {
     if (e.currentTarget.innerWidth < EDITOR_THRESHOLD) {
       this.setState({ editorMode: EDITOR_MODE_NARROW });
@@ -139,18 +136,7 @@ export default class ReadOnlyEditor extends Component {
     }
   }
 
-  toggleCommentState(lineNumber) {
-    const { expanded } = this.state;
-    if (expanded[lineNumber - 1]) {
-      const newExpanded = expanded.slice(0);
-      newExpanded[lineNumber - 1] = false;
-      this.setState({ expanded: newExpanded });
-    } else {
-      this.expandTheOnlyCommentState(lineNumber);
-    }
-  }
-
-  renderExpandAllCheckbox() {
+  /* renderExpandAllCheckbox() {
     const { expanded } = this.state;
     return (
       <div style={{ display: 'flex', marginBottom: 5 }}>
@@ -169,7 +155,7 @@ export default class ReadOnlyEditor extends Component {
         Expand all comments
       </div>
     );
-  }
+  } */
 
   renderCommentIcon(lineNumber) {
     const { expanded } = this.state;
@@ -226,35 +212,6 @@ export default class ReadOnlyEditor extends Component {
     );
   }
 
-  renderNarrowEditor() {
-    /* eslint-disable react/no-array-index-key */
-    const { content } = this.props;
-    return (
-      <table style={styles.readOnlyEditor}>
-        <tbody>
-          <tr>
-            <td style={{ width: 75 }}>
-              {content.map((line, index) =>
-                <div key={`${index}-${line}`}>
-                  {this.renderLineNumberColumn(index + 1)}
-                </div>
-              )}
-            </td>
-            <td>
-              {content.map((line, index) => {
-                if (line.trim().length === 0) {
-                  return <div key={`${index}-break`}><br /></div>;
-                }
-                return <div key={`${index}-${line}`} style={styles.readOnlyEditorLineContent}>{line}</div>;
-              })}
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    );
-    /* eslint-enable react/no-array-index-key */
-  }
-
   renderWideEditor() {
     /* eslint-disable react/no-array-index-key */
     const { content } = this.props;
@@ -286,17 +243,22 @@ export default class ReadOnlyEditor extends Component {
     /* eslint-enable react/no-array-index-key */
   }
 
-  renderEditor() {
-    const { editorMode } = this.state;
-    if (editorMode === EDITOR_MODE_NARROW) {
-      return this.renderNarrowEditor();
-    }
-    return this.renderWideEditor();
-  }
-
   render() {
-    return (
-      <div style={{ display: 'flex', justifyContent: 'flex-end' }}>{this.renderEditor()}</div>
-    );
+    const { expanded, editorMode } = this.state;
+    const { answerId, fileId, annotations, content } = this.props;
+    if (editorMode === EDITOR_MODE_NARROW) {
+      return (
+        <NarrowEditor
+          expanded={expanded}
+          answerId={answerId}
+          fileId={fileId}
+          annotations={annotations}
+          content={content}
+          expandLine={lineNumber => this.setExpandedLine(lineNumber)}
+          toggleLine={lineNumber => this.toggleCommentState(lineNumber)}
+        />
+      );
+    }
+    return <div style={{ display: 'flex', justifyContent: 'flex-end' }}>{this.renderWideEditor()}</div>;
   }
 }
