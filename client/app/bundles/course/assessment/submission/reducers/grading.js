@@ -1,6 +1,11 @@
 import actions from '../constants';
 
-export default function (state = {}, action) {
+const initialState = {
+  questions: {},
+  expMultiplier: 1,
+};
+
+export default function (state = initialState, action) {
   switch (action.type) {
     case actions.FETCH_SUBMISSION_SUCCESS:
     case actions.SAVE_DRAFT_SUCCESS:
@@ -10,16 +15,33 @@ export default function (state = {}, action) {
     case actions.PUBLISH_SUCCESS: {
       return {
         ...state,
-        ...action.payload.answers.reduce((obj, answer) =>
-          ({ ...obj, [answer.questionId]: answer.grading })
-        , {}),
+        questions: {
+          ...action.payload.answers.reduce((obj, answer) =>
+            ({ ...obj, [answer.questionId]: answer.grading })
+          , {}),
+        },
       };
     }
     case actions.UPDATE_GRADING: {
-      const newState = { ...state };
-      newState[action.id].grade = action.grade;
-      return newState;
+      const newQuestionGrades = state.questions;
+      newQuestionGrades[action.id].grade = action.grade;
+      return {
+        ...state,
+        questions: newQuestionGrades,
+      };
     }
+    case actions.UPDATE_EXP: {
+      return {
+        ...state,
+        exp: action.exp,
+      };
+    }
+    case actions.UPDATE_MULTIPLIER:
+      return {
+        ...state,
+        exp: action.exp,
+        expMultiplier: action.multiplier,
+      };
     default:
       return state;
   }
