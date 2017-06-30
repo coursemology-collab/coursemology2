@@ -241,6 +241,7 @@ class SubmissionEditStepForm extends Component {
           {this.renderSaveDraftButton()}
         </div>
         <div style={styles.formButtonContainer}>
+          {this.renderSaveGradeButton()}
           {this.renderFinaliseSubmitButton()}
           {this.renderUnsubmitButton()}
         </div>
