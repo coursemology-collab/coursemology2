@@ -1,12 +1,15 @@
+/* eslint-disable react/no-danger */
+
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { reduxForm } from 'redux-form';
 import { injectIntl, intlShape } from 'react-intl';
-import { Card } from 'material-ui/Card';
+import { Tabs, Tab } from 'material-ui/Tabs';
+import { Card, CardHeader, CardText } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
-import { red900, yellow900, white } from 'material-ui/styles/colors';
+import { red900, yellow900, green900, red300, green500, white } from 'material-ui/styles/colors';
 
-import { QuestionProp, TopicProp } from '../../propTypes';
+import { ExplanationProp, QuestionProp, TopicProp } from '../../propTypes';
 import SubmissionAnswer from '../../components/SubmissionAnswer';
 import QuestionGrade from '../../containers/QuestionGrade';
 import GradingPanel from '../../containers/GradingPanel';
@@ -21,6 +24,11 @@ const styles = {
   questionCardContainer: {
     marginTop: 20,
     padding: 40,
+  },
+  explanationContainer: {
+    marginTop: 30,
+    marginBottom: 30,
+    borderRadius: 5,
   },
   questionContainer: {
     paddingTop: 10,
@@ -81,6 +89,53 @@ class SubmissionEditForm extends Component {
     return null;
   }
 
+  renderExplanationPanel(questionId) {
+    const { explanations } = this.props;
+    const explanation = explanations[questionId];
+
+    if (explanation && explanation.correct !== null) {
+      return (
+        <Card style={styles.explanationContainer}>
+          <CardHeader
+            style={{
+              ...styles.explanationHeader,
+              backgroundColor: explanation.correct ? green500 : red300,
+            }}
+            title={explanation.correct ? 'Correct!' : 'Wrong!'}
+            titleColor={explanation.correct ? green900 : red900}
+          />
+          <CardText>
+            {explanation.explanations.map(exp => <div dangerouslySetInnerHTML={{ __html: exp }} />)}
+          </CardText>
+        </Card>
+      );
+    }
+    return null;
+  }
+
+  renderTabbedQuestions() {
+    const { canGrade, attempting, questionIds, questions, topics } = this.props;
+    return (
+      <Tabs>
+        {questionIds.map((id, index) => {
+          const question = questions[id];
+          const { answerId, topicId } = question;
+          const topic = topics[topicId];
+          return (
+            <Tab key={id} label={index + 1}>
+              <SubmissionAnswer {...{ canGrade, readOnly: !attempting, answerId, question }} />
+              {this.renderExplanationPanel(id)}
+              {this.renderQuestionGrading(id)}
+              {this.renderProgrammingQuestionActions(id)}
+              <Comments topic={topic} />
+              <hr />
+            </Tab>
+          );
+        })}
+      </Tabs>
+    );
+  }
+
   renderQuestions() {
     const { canGrade, attempting, questionIds, questions, topics } = this.props;
     return (
@@ -92,6 +147,7 @@ class SubmissionEditForm extends Component {
           return (
             <div key={id} style={styles.questionContainer}>
               <SubmissionAnswer {...{ canGrade, readOnly: !attempting, answerId, question }} />
+              {this.renderExplanationPanel(id)}
               {this.renderQuestionGrading(id)}
               {this.renderProgrammingQuestionActions(id)}
               <Comments topic={topic} />
@@ -136,6 +192,21 @@ class SubmissionEditForm extends Component {
           primary
           label={intl.formatMessage(translations.saveGrade)}
           onTouchTap={handleSaveGrade}
+        />
+      );
+    }
+    return null;
+  }
+
+  renderAutogradeSubmissionButton() {
+    const { intl, canGrade, submitted, handleAutogradeSubmission } = this.props;
+    if (canGrade && submitted) {
+      return (
+        <RaisedButton
+          style={styles.formButton}
+          primary
+          label={intl.formatMessage(translations.autograde)}
+          onTouchTap={handleAutogradeSubmission}
         />
       );
     }
@@ -237,21 +308,6 @@ class SubmissionEditForm extends Component {
     );
   }
 
-  renderResetDialog() {
-    const { resetConfirmation, resetAnswerId } = this.state;
-    const { handleReset } = this.props;
-    return (
-      <ResetDialog
-        open={resetConfirmation}
-        onCancel={() => this.setState({ resetConfirmation: false, resetAnswerId: null })}
-        onConfirm={() => {
-          this.setState({ resetConfirmation: false, resetAnswerId: null });
-          handleReset(resetAnswerId);
-        }}
-      />
-    );
-  }
-
   renderUnsubmitDialog() {
     const { unsubmitConfirmation } = this.state;
     const { handleUnsubmit } = this.props;
@@ -267,14 +323,31 @@ class SubmissionEditForm extends Component {
     );
   }
 
+  renderResetDialog() {
+    const { resetConfirmation, resetAnswerId } = this.state;
+    const { handleReset } = this.props;
+    return (
+      <ResetDialog
+        open={resetConfirmation}
+        onCancel={() => this.setState({ resetConfirmation: false, resetAnswerId: null })}
+        onConfirm={() => {
+          this.setState({ resetConfirmation: false, resetAnswerId: null });
+          handleReset(resetAnswerId);
+        }}
+      />
+    );
+  }
+
   render() {
+    const { tabbedView } = this.props;
     return (
       <Card style={styles.questionCardContainer}>
-        <form>{this.renderQuestions()}</form>
+        <form>{tabbedView ? this.renderTabbedQuestions() : this.renderQuestions()}</form>
         {this.renderGradingPanel()}
 
         {this.renderSaveDraftButton()}
         {this.renderSaveGradeButton()}
+        {this.renderAutogradeSubmissionButton()}
         {this.renderSubmitButton()}
         {this.renderUnsubmitButton()}
         {this.renderMarkButton()}
@@ -294,6 +367,7 @@ SubmissionEditForm.propTypes = {
 
   canGrade: PropTypes.bool.isRequired,
   canUpdate: PropTypes.bool.isRequired,
+  tabbedView: PropTypes.bool.isRequired,
 
   attempting: PropTypes.bool.isRequired,
   submitted: PropTypes.bool.isRequired,
@@ -305,8 +379,10 @@ SubmissionEditForm.propTypes = {
   topics: PropTypes.objectOf(TopicProp),
   pristine: PropTypes.bool,
   submitting: PropTypes.bool,
+  explanations: PropTypes.objectOf(ExplanationProp),
   delayedGradePublication: PropTypes.bool.isRequired,
 
+  handleAutogradeSubmission: PropTypes.func,
   handleSaveDraft: PropTypes.func,
   handleSubmit: PropTypes.func,
   handleUnsubmit: PropTypes.func,
