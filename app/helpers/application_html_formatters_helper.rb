@@ -127,8 +127,8 @@ module ApplicationHTMLFormattersHelper
   end
 
   def highlight_code_block(code, language = nil, _start_line = 1)
-    code = html_escape(code) unless code.html_safe?
     code = code.gsub(/\r\n|\r/, "\n")
+    code = html_escape(code) unless code.html_safe?
 
     code = content_tag(:pre, lang: language ? language.rouge_lexer : nil) do
       content_tag(:code) { code }
