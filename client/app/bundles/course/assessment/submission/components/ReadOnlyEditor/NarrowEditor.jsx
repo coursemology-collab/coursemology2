@@ -108,14 +108,14 @@ export default class NarrowEditor extends Component {
       <table className="codehilite" style={styles.editor}>
         <tbody>
           <tr>
-            <td style={{ width: 75, userSelect: 'none' }}>
+            <td style={{ width: 75, userSelect: 'none', paddingBottom: 20 }}>
               {content.map((line, index) =>
                 <div key={`${index}-${line}`}>
                   {this.renderLineNumberColumn(index + 1)}
                 </div>
               )}
             </td>
-            <td style={{ overflow: 'scroll' }}>
+            <td style={{ overflowX: 'scroll' }}>
               {content.map((line, index) => (
                 <div key={`${index}-${line}`} style={styles.editorLine} >
                   <pre style={{ overflow: 'visible' }}>
