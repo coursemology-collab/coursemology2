@@ -31,14 +31,16 @@ export default class ReadOnlyEditor extends Component {
 
     const initialEditorMode = window.innerWidth < EDITOR_THRESHOLD ? EDITOR_MODE_NARROW : EDITOR_MODE_WIDE;
     this.state = { expanded, editorMode: initialEditorMode };
+
+    this.windowResizing = this.windowResizing.bind(this);
   }
 
   componentDidMount() {
-    window.addEventListener('resize', this.windowResizing.bind(this));
+    window.addEventListener('resize', this.windowResizing);
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.windowResizing.bind(this));
+    window.removeEventListener('resize', this.windowResizing);
   }
 
   // setAllCommentStateExpanded() {
