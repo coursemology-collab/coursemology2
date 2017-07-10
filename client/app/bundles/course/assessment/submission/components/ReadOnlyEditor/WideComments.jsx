@@ -63,7 +63,7 @@ export default class WideComments extends Component {
         comments.push(<div style={styles.collapsed} key={i} />);
       }
     }
-    return <div>{comments}</div>;
+    return <div style={{ paddingBottom: 20 }}>{comments}</div>;
   }
 }
 
