@@ -3,6 +3,9 @@ import axios from 'axios';
 import CourseAPI from 'api/course';
 import actionTypes from '../constants';
 
+const JOB_POLL_DELAY = 500;
+const JOB_STAGGER_DELAY = 400;
+
 function pollJob(url, onSuccess, onFailure) {
   const poller = setInterval(() => {
     axios.get(url, { params: { format: 'json' } })
@@ -20,7 +23,22 @@ function pollJob(url, onSuccess, onFailure) {
         clearInterval(poller);
         onFailure();
       });
-  }, 500);
+  }, JOB_POLL_DELAY);
+}
+
+function getEvaluationResult(submissionId, answerId, questionId) {
+  return (dispatch) => {
+    CourseAPI.assessment.submissions.reloadAnswer(submissionId, { answer_id: answerId })
+      .then(response => response.data)
+      .then((data) => {
+        dispatch({
+          type: actionTypes.AUTOGRADE_SUCCESS,
+          payload: data,
+          questionId,
+        });
+      })
+      .catch(() => dispatch({ type: actionTypes.AUTOGRADE_FAILURE, questionId }));
+  };
 }
 
 export function fetchSubmission(id) {
@@ -30,6 +48,15 @@ export function fetchSubmission(id) {
     return CourseAPI.assessment.submissions.edit(id)
       .then(response => response.data)
       .then((data) => {
+        data.answers.filter(a => a.job).forEach((answer, index) => {
+          setTimeout(() => {
+            pollJob(answer.job,
+              () => dispatch(getEvaluationResult(id, answer.fields.id)),
+              () => dispatch({ type: actionTypes.AUTOGRADE_FAILURE })
+            );
+          }, JOB_STAGGER_DELAY * index);
+        });
+
         dispatch({
           type: actionTypes.FETCH_SUBMISSION_SUCCESS,
           payload: data,
@@ -115,24 +142,13 @@ export function unsubmit(submissionId) {
   };
 }
 
-function getEvaluationResult(submissionId, answerId) {
-  return (dispatch) => {
-    CourseAPI.assessment.submissions.reloadAnswer(submissionId, { answer_id: answerId })
-      .then(response => response.data)
-      .then((data) => {
-        dispatch({
-          type: actionTypes.AUTOGRADE_SUCCESS,
-          payload: data,
-        });
-      })
-      .catch(() => dispatch({ type: actionTypes.AUTOGRADE_FAILURE }));
-  };
-}
-
 export function autogradeAnswer(submissionId, answers) {
   const payload = { submission: { answers, auto_grade: true } };
+  const answer = answers[0];
+  const questionId = answer.questionId;
+
   return (dispatch) => {
-    dispatch({ type: actionTypes.AUTOGRADE_REQUEST });
+    dispatch({ type: actionTypes.AUTOGRADE_REQUEST, questionId });
 
     return CourseAPI.assessment.submissions.update(submissionId, payload)
       .then(response => response.data)
@@ -141,24 +157,25 @@ export function autogradeAnswer(submissionId, answers) {
           window.location = data.redirect_url;
         } else if (data.redirect_url) {
           pollJob(data.redirect_url,
-            () => dispatch(getEvaluationResult(submissionId, answers[0].id)),
-            () => dispatch({ type: actionTypes.AUTOGRADE_FAILURE })
+            () => dispatch(getEvaluationResult(submissionId, answer.id, questionId)),
+            () => dispatch({ type: actionTypes.AUTOGRADE_FAILURE, questionId })
           );
         } else {
           dispatch({
             type: actionTypes.AUTOGRADE_SUCCESS,
             payload: data,
+            questionId,
           });
         }
       })
-      .catch(() => dispatch({ type: actionTypes.AUTOGRADE_FAILURE }));
+      .catch(() => dispatch({ type: actionTypes.AUTOGRADE_FAILURE, questionId }));
   };
 }
 
-export function resetAnswer(submissionId, answerId) {
+export function resetAnswer(submissionId, answerId, questionId) {
   const payload = { answer_id: answerId, reset_answer: true };
   return (dispatch) => {
-    dispatch({ type: actionTypes.RESET_REQUEST });
+    dispatch({ type: actionTypes.RESET_REQUEST, questionId });
 
     return CourseAPI.assessment.submissions.reloadAnswer(submissionId, payload)
       .then(response => response.data)
@@ -166,9 +183,10 @@ export function resetAnswer(submissionId, answerId) {
         dispatch({
           type: actionTypes.RESET_SUCCESS,
           payload: data,
+          questionId,
         });
       })
-      .catch(() => dispatch({ type: actionTypes.RESET_FAILURE }));
+      .catch(() => dispatch({ type: actionTypes.RESET_FAILURE, questionId }));
   };
 }
 
