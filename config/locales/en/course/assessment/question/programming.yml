@@ -28,9 +28,3 @@ en:
           form_build_log:
             stdout: 'Standard Output'
             stderr: 'Standard Error'
-          form_test_cases:
-            test_cases: 'Test Cases'
-            public: 'Public Test Cases'
-            private: 'Private Test Cases'
-            privacy_warning: 'You are able to view these test cases because you are staff. Students will not be able to see them.'
-            evaluation: 'Evaluation Test Cases'
