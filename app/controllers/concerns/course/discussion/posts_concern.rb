@@ -19,7 +19,7 @@ module Course::Discussion::PostsConcern
   end
 
   def update
-    @post.update_attributes(post_params)
+    return unless @post.update_attributes(post_params)
 
     respond_to do |format|
       format.js
@@ -28,7 +28,7 @@ module Course::Discussion::PostsConcern
   end
 
   def destroy
-    @post.destroy
+    return unless @post.destroy
 
     respond_to do |format|
       format.js

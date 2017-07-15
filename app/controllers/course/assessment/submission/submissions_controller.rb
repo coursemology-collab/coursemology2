@@ -67,6 +67,7 @@ class Course::Assessment::Submission::SubmissionsController < \
 
     if @answer.nil?
       head :bad_request
+      return
     elsif reload_answer_params[:reset_answer]
       @new_answer = @answer.reset_answer
     else

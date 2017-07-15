@@ -63,7 +63,7 @@ RSpec.describe Course::Assessment::Submission::SubmissionsController do
           subject
         end
 
-        it { is_expected.to render_template('edit') }
+        it { is_expected.to have_http_status(400) }
       end
     end
 
@@ -85,7 +85,7 @@ RSpec.describe Course::Assessment::Submission::SubmissionsController do
       context 'when answer_id does not exist' do
         subject do
           post :reload_answer, course_id: course, assessment_id: assessment.id,
-                               id: submission.id, answer_id: -1, format: :js
+                               id: submission.id, answer_id: -1, format: :json
         end
 
         it { is_expected.to have_http_status(:bad_request) }
