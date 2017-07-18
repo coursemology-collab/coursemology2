@@ -78,7 +78,7 @@ export default class WideEditor extends Component {
         <table className="codehilite" style={styles.editor}>
           <tbody>
             <tr>
-              <td style={{ width: 75, userSelect: 'none', paddingBottom: 20 }}>
+              <td style={{ width: 50, userSelect: 'none', paddingBottom: 20 }}>
                 {content.map((line, index) =>
                   <div key={`${index}-${line}`}>
                     {this.renderLineNumberColumn(index + 1)}

@@ -55,6 +55,7 @@ export default class NarrowEditor extends Component {
 
     return (
       <Overlay
+        style={{ zIndex: lineNumber }}
         show={expanded[lineNumber - 1]}
         onHide={() => collapseLine(lineNumber)}
         placement={placement}
@@ -71,11 +72,11 @@ export default class NarrowEditor extends Component {
     const { annotations, expandLine, toggleLine } = this.props;
     const annotation = annotations.find(a => a.line === lineNumber);
     return (
-      <div style={annotation ? styles.editorLineNumberWithComments : styles.editorLineNumber}>
-        <div
-          onClick={() => toggleLine(lineNumber)}
-          ref={(c) => { this[`comment-${lineNumber}`] = c; }}
-        >
+      <div
+        onClick={() => toggleLine(lineNumber)}
+        style={annotation ? styles.editorLineNumberWithComments : styles.editorLineNumber}
+      >
+        <div ref={(c) => { this[`comment-${lineNumber}`] = c; }}>
           {lineNumber}
         </div>
         {this.renderComments(lineNumber)}
@@ -92,7 +93,7 @@ export default class NarrowEditor extends Component {
       <table className="codehilite" style={styles.editor}>
         <tbody>
           <tr>
-            <td style={{ width: 75, userSelect: 'none', paddingBottom: 20 }}>
+            <td style={{ width: 50, userSelect: 'none', paddingBottom: 20 }}>
               {content.map((line, index) =>
                 <div key={`${index}-${line}`}>
                   {this.renderLineNumberColumn(index + 1)}
