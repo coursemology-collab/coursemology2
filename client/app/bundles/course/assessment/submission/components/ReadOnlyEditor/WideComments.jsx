@@ -30,7 +30,7 @@ export default class WideComments extends Component {
 
     if (expanded[lineNumber - 1]) {
       return (
-        <div key={lineNumber} style={styles.expanded}>
+        <div key={lineNumber} style={{ ...styles.expanded, zIndex: lineNumber + styles.expanded.zIndex }}>
           <RaisedButton
             style={styles.minimiseButton}
             onClick={() => collapseLine(lineNumber)}

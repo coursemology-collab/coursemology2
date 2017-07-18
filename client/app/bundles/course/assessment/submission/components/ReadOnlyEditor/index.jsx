@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import NarrowEditor from './NarrowEditor';
 import WideEditor from './WideEditor';
+import Checkbox from './Checkbox';
 import { AnnotationProp } from '../../propTypes';
 
 const EDITOR_THRESHOLD = 1063;
@@ -43,20 +44,20 @@ export default class ReadOnlyEditor extends Component {
     window.removeEventListener('resize', this.windowResizing);
   }
 
-  // setAllCommentStateExpanded() {
-  //   const { expanded } = this.state;
-  //   const { annotations } = this.props;
+  setAllCommentStateExpanded() {
+    const { expanded } = this.state;
+    const { annotations } = this.props;
 
-  //   const newExpanded = expanded.slice(0);
-  //   newExpanded.forEach((state, index) => {
-  //     const lineNumber = index + 1;
-  //     const annotation = annotations.find(a => a.line === lineNumber);
-  //     if (!state && annotation) {
-  //       newExpanded[index] = true;
-  //     }
-  //   });
-  //   this.setState({ expanded: newExpanded });
-  // }
+    const newExpanded = expanded.slice(0);
+    newExpanded.forEach((state, index) => {
+      const lineNumber = index + 1;
+      const annotation = annotations.find(a => a.line === lineNumber);
+      if (!state && annotation) {
+        newExpanded[index] = true;
+      }
+    });
+    this.setState({ expanded: newExpanded });
+  }
 
   setAllCommentStateCollapsed() {
     const { expanded } = this.state;
@@ -96,6 +97,37 @@ export default class ReadOnlyEditor extends Component {
     }
   }
 
+  isAllExpanded() {
+    const { expanded } = this.state;
+    const { annotations } = this.props;
+    for (let i = 0; i < expanded.length; i++) {
+      if (!expanded[i] && annotations.find(a => a.line === i + 1)) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  isIndeterminateState() {
+    const { expanded } = this.state;
+    const { annotations } = this.props;
+
+    let hasExpanded = false;
+    let hasCollapsed = false;
+    for (let i = 0; i < expanded.length; i++) {
+      if (expanded[i]) {
+        hasExpanded = true;
+      } else if (annotations.find(a => a.line === i + 1)) {
+        hasCollapsed = true;
+      }
+
+      if (hasExpanded && hasCollapsed) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   windowResizing(e) {
     this.setAllCommentStateCollapsed();
     if (e.currentTarget.innerWidth < EDITOR_THRESHOLD) {
@@ -105,8 +137,7 @@ export default class ReadOnlyEditor extends Component {
     }
   }
 
-  /* renderExpandAllCheckbox() {
-    const { expanded } = this.state;
+  renderExpandAllCheckbox() {
     return (
       <div style={{ display: 'flex', marginBottom: 5 }}>
         <Checkbox
@@ -118,20 +149,38 @@ export default class ReadOnlyEditor extends Component {
               this.setAllCommentStateCollapsed();
             }
           }}
-          checked={expanded.indexOf(false) === -1}
-          indeterminate={expanded.indexOf(true) !== -1 && expanded.indexOf(false) !== -1}
+          checked={this.isAllExpanded()}
+          indeterminate={this.isIndeterminateState()}
         />
         Expand all comments
       </div>
     );
-  } */
+  }
 
   render() {
     const { expanded, editorMode } = this.state;
     const { answerId, fileId, annotations, content } = this.props;
     if (editorMode === EDITOR_MODE_NARROW) {
       return (
-        <NarrowEditor
+        <div>
+          {this.renderExpandAllCheckbox()}
+          <NarrowEditor
+            expanded={expanded}
+            answerId={answerId}
+            fileId={fileId}
+            annotations={annotations}
+            content={content}
+            expandLine={lineNumber => this.setExpandedLine(lineNumber)}
+            collapseLine={lineNumber => this.setCollapsedLine(lineNumber)}
+            toggleLine={lineNumber => this.toggleCommentLine(lineNumber)}
+          />
+        </div>
+      );
+    }
+    return (
+      <div>
+        {this.renderExpandAllCheckbox()}
+        <WideEditor
           expanded={expanded}
           answerId={answerId}
           fileId={fileId}
@@ -141,19 +190,7 @@ export default class ReadOnlyEditor extends Component {
           collapseLine={lineNumber => this.setCollapsedLine(lineNumber)}
           toggleLine={lineNumber => this.toggleCommentLine(lineNumber)}
         />
-      );
-    }
-    return (
-      <WideEditor
-        expanded={expanded}
-        answerId={answerId}
-        fileId={fileId}
-        annotations={annotations}
-        content={content}
-        expandLine={lineNumber => this.setExpandedLine(lineNumber)}
-        collapseLine={lineNumber => this.setCollapsedLine(lineNumber)}
-        toggleLine={lineNumber => this.toggleCommentLine(lineNumber)}
-      />
+      </div>
     );
   }
 }
