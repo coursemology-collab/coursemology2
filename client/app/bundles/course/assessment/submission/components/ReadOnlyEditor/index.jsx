@@ -68,14 +68,8 @@ export default class ReadOnlyEditor extends Component {
 
   setExpandedLine(lineNumber) {
     const { expanded } = this.state;
-    const newExpanded = [];
-    for (let i = 0; i < expanded.length; i += 1) {
-      if (i !== lineNumber - 1) {
-        newExpanded.push(false);
-      } else {
-        newExpanded.push(true);
-      }
-    }
+    const newExpanded = expanded.slice(0);
+    newExpanded[lineNumber - 1] = true;
     this.setState({ expanded: newExpanded });
   }
 
@@ -88,13 +82,9 @@ export default class ReadOnlyEditor extends Component {
 
   toggleCommentLine(lineNumber) {
     const { expanded } = this.state;
-    if (expanded[lineNumber - 1]) {
-      const newExpanded = expanded.slice(0);
-      newExpanded[lineNumber - 1] = false;
-      this.setState({ expanded: newExpanded });
-    } else {
-      this.setExpandedLine(lineNumber);
-    }
+    const newExpanded = expanded.slice(0);
+    newExpanded[lineNumber - 1] = !newExpanded[lineNumber - 1];
+    this.setState({ expanded: newExpanded });
   }
 
   isAllExpanded() {
