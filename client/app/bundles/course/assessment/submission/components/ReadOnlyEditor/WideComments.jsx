@@ -39,7 +39,7 @@ export default class WideComments extends Component {
             style={styles.minimiseButton}
             onClick={() => collapseLine(lineNumber)}
           >
-            Click to close
+            <span className="fa fa-chevron-down" />
           </RaisedButton>
           <Annotations answerId={answerId} fileId={fileId} lineNumber={lineNumber} annotation={annotation} />
         </div>
