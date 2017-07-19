@@ -13,7 +13,7 @@ RSpec.describe 'Course: Assessment: Submissions: Exam' do
     let(:mrq_questions) { assessment.reload.questions.map(&:specific) }
     let(:student) { create(:course_student, course: course).user }
     let(:submission) do
-      create(:submission, assessment: assessment, creator: student)
+      create(:submission, :attempting, :with_submission_questions, assessment: assessment, creator: student)
     end
 
     before { login_as(user, scope: :user) }
