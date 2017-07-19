@@ -45,12 +45,25 @@ const styles = {
 };
 
 export default class WideEditor extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = { lineHovered: -1 };
+  }
+
   renderLineNumberColumn(lineNumber) {
-    const { expandLine } = this.props;
+    const { lineHovered } = this.state;
+    const { toggleLine, expandLine } = this.props;
+
     return (
-      <div style={styles.editorLineNumber}>
+      <div
+        style={styles.editorLineNumber}
+        onClick={() => toggleLine(lineNumber)}
+        onMouseOver={() => this.setState({ lineHovered: lineNumber })}
+        onMouseOut={() => this.setState({ lineHovered: -1 })}
+      >
         {lineNumber}
-        <AddCommentIcon onClick={() => expandLine(lineNumber)} />
+        <AddCommentIcon onClick={() => expandLine(lineNumber)} hovered={lineHovered === lineNumber} />
       </div>
     );
   }
@@ -129,9 +142,11 @@ WideEditor.propTypes = {
   content: PropTypes.arrayOf(PropTypes.string).isRequired,
   expandLine: PropTypes.func,
   collapseLine: PropTypes.func,
+  toggleLine: PropTypes.func,
 };
 
 WideEditor.defaultProps = {
   expandLine: () => {},
   collapseLine: () => {},
+  toggleLine: () => {},
 };

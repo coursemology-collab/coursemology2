@@ -47,6 +47,11 @@ const styles = {
 };
 
 export default class NarrowEditor extends Component {
+  
+  constructor(props) {
+    super(props);
+    this.state = { lineHovered: -1 };
+  }
 
   renderComments(lineNumber) {
     const { answerId, fileId, annotations, expanded, collapseLine } = this.props;
@@ -69,18 +74,21 @@ export default class NarrowEditor extends Component {
   }
 
   renderLineNumberColumn(lineNumber) {
+    const { lineHovered } = this.state;
     const { annotations, expandLine, toggleLine } = this.props;
     const annotation = annotations.find(a => a.line === lineNumber);
     return (
       <div
-        onClick={() => toggleLine(lineNumber)}
         style={annotation ? styles.editorLineNumberWithComments : styles.editorLineNumber}
+        onClick={() => toggleLine(lineNumber)}
+        onMouseOver={() => this.setState({ lineHovered: lineNumber })}
+        onMouseOut={() => this.setState({ lineHovered: -1 })}
       >
         <div ref={(c) => { this[`comment-${lineNumber}`] = c; }}>
           {lineNumber}
         </div>
         {this.renderComments(lineNumber)}
-        <AddCommentIcon onClick={() => expandLine(lineNumber)} />
+        <AddCommentIcon onClick={() => expandLine(lineNumber)} hovered={lineHovered === lineNumber} />
       </div>
     );
   }
