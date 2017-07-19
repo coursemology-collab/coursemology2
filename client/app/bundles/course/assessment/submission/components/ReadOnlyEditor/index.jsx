@@ -153,7 +153,6 @@ export default class ReadOnlyEditor extends Component {
     if (editorMode === EDITOR_MODE_NARROW) {
       return (
         <div>
-          {this.renderExpandAllCheckbox()}
           <NarrowEditor
             expanded={expanded}
             answerId={answerId}
