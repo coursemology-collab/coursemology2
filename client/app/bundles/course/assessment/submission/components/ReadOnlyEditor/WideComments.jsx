@@ -10,13 +10,17 @@ import { AnnotationProp } from '../../propTypes';
 const styles = {
   collapsed: {
     height: 20,
-    overflow: 'hidden',
   },
   expanded: {
     maxHeight: 20,
     overflow: 'visible',
     position: 'relative',
     zIndex: 5,
+  },
+  postPreview: {
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
   },
   minimiseButton: {
     height: 20,
@@ -48,7 +52,7 @@ export default class WideComments extends Component {
         zDepth={1}
         onClick={() => expandLine(lineNumber)}
       >
-        <PostPreview annotation={annotation} />
+        <PostPreview style={styles.postPreview} annotation={annotation} />
       </Paper>
     );
   }
