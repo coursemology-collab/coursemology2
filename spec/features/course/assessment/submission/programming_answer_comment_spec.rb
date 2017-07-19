@@ -8,16 +8,18 @@ RSpec.describe 'Course: Assessment: Submissions: Programming Answers: Commenting
     let(:course) { create(:course) }
     let(:assessment) { create(:assessment, :published_with_programming_question, course: course) }
     let(:student) { create(:course_student, course: course).user }
-    let(:submission) { create(:submission, assessment: assessment, creator: student) }
+    let(:submission) do
+      create(:submission, :attempting, :with_submission_questions, assessment: assessment,
+                                                                   creator: student)
+    end
     before { login_as(user, scope: :user) }
 
     context 'As a course student' do
       let(:user) { student }
-      let(:answers) { assessment.questions.attempt(submission) }
       let(:annotation) do
-        file = answers.first.actable.files.first
+        file = submission.answers.first.actable.files.first
         file.content = "test\n\n\n\nlines"
-        answers.each(&:save!)
+        file.save!
 
         submission.finalise!
         submission.publish!
