@@ -110,6 +110,7 @@ class VisibleSubmissionEditIndex extends Component {
       questions,
       questionsFlags,
       topics,
+      isAutograding,
       isSaving,
     } = this.props;
 
@@ -170,6 +171,7 @@ class VisibleSubmissionEditIndex extends Component {
         tabbedView={tabbedView}
         topics={topics}
         delayedGradePublication={delayedGradePublication}
+        isAutograding={isAutograding}
         isSaving={isSaving}
       />
     );
@@ -212,6 +214,7 @@ VisibleSubmissionEditIndex.propTypes = {
   questionsFlags: PropTypes.objectOf(QuestionFlagsProp),
   submission: SubmissionProp,
   topics: PropTypes.objectOf(TopicProp),
+  isAutograding: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool.isRequired,
   isSaving: PropTypes.bool.isRequired,
 };
@@ -229,6 +232,7 @@ function mapStateToProps(state) {
     submission: state.submission,
     questions: state.questions,
     questionsFlags: state.questionsFlags,
+    isAutograding: state.submissionFlags.isAutograding,
     topics: state.topics,
     isLoading: state.submissionFlags.isLoading,
     isSaving: state.submissionFlags.isSaving,
