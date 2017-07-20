@@ -48,36 +48,51 @@ export default class WideEditor extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { lineHovered: -1 };
+    this.state = {
+      activeComment: 0,
+      lineHovered: 0,
+    };
+  }
+
+  toggleComment(lineNumber) {
+    this.props.toggleLine(lineNumber);
+    this.setState({ activeComment: lineNumber });
+  }
+
+  expandComment(lineNumber) {
+    this.props.expandLine(lineNumber);
+    this.setState({ activeComment: lineNumber });
   }
 
   renderLineNumberColumn(lineNumber) {
     const { lineHovered } = this.state;
-    const { toggleLine, expandLine } = this.props;
 
     return (
       <div
         style={styles.editorLineNumber}
-        onClick={() => toggleLine(lineNumber)}
+        onClick={() => this.toggleComment(lineNumber)}
         onMouseOver={() => this.setState({ lineHovered: lineNumber })}
         onMouseOut={() => this.setState({ lineHovered: -1 })}
       >
         {lineNumber}
-        <AddCommentIcon onClick={() => expandLine(lineNumber)} hovered={lineHovered === lineNumber} />
+        <AddCommentIcon onClick={() => this.expandComment(lineNumber)} hovered={lineHovered === lineNumber} />
       </div>
     );
   }
 
   renderComments() {
-    const { answerId, fileId, expanded, annotations, expandLine, collapseLine } = this.props;
+    const { activeComment } = this.state;
+    const { answerId, fileId, expanded, annotations, collapseLine } = this.props;
     return (
       <WideComments
+        activeComment={activeComment}
         answerId={answerId}
         fileId={fileId}
         annotations={annotations}
         expanded={expanded}
-        expandLine={lineNumber => expandLine(lineNumber)}
+        expandLine={lineNumber => this.expandComment(lineNumber)}
         collapseLine={lineNumber => collapseLine(lineNumber)}
+        onClick={lineNumber => this.setState({ activeComment: lineNumber })}
       />
     );
   }
