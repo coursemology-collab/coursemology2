@@ -8,7 +8,8 @@ import { Tabs, Tab } from 'material-ui/Tabs';
 import { Card, CardHeader, CardText } from 'material-ui/Card';
 import CircularProgress from 'material-ui/CircularProgress';
 import RaisedButton from 'material-ui/RaisedButton';
-import { red200, red900, yellow900, green200, green900, white } from 'material-ui/styles/colors';
+import Paper from 'material-ui/Paper';
+import { red200, red900, yellow900, green200, green900, grey100, white } from 'material-ui/styles/colors';
 
 /* eslint-disable import/extensions, import/no-extraneous-dependencies, import/no-unresolved */
 import ConfirmationDialog from 'lib/components/ConfirmationDialog';
@@ -52,9 +53,22 @@ class SubmissionEditForm extends Component {
   }
 
   renderQuestionGrading(id) {
-    const { attempting, canGrade } = this.props;
+    const { attempting, published, canGrade, grading, questions } = this.props;
     if (!attempting && canGrade) {
       return <QuestionGrade id={id} />;
+    }
+
+    if (published) {
+      return (
+        <Paper>
+          <div style={{ backgroundColor: grey100, display: 'inline-block', padding: 20 }}>
+            Grading
+          </div>
+          <div style={{ display: 'inline-block', paddingLeft: 10 }}>
+            {`${grading[id].grade} / ${questions[id].maximumGrade}`}
+          </div>
+        </Paper>
+      );
     }
     return null;
   }
@@ -100,10 +114,10 @@ class SubmissionEditForm extends Component {
   }
 
   renderExplanationPanel(questionId) {
-    const { intl, explanations } = this.props;
+    const { intl, explanations, attempting } = this.props;
     const explanation = explanations[questionId];
 
-    if (explanation && explanation.correct === false) {
+    if (explanation && explanation.correct === false && attempting) {
       let title = '';
       if (explanation.failureType === 'public_test') {
         title = intl.formatMessage(translations.publicTestCaseFailure);

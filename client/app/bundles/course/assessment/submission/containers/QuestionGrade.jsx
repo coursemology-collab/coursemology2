@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Card, CardHeader, CardText } from 'material-ui/Card';
+import Paper from 'material-ui/Paper';
 import { grey100 } from 'material-ui/styles/colors';
 
 import { QuestionGradeProp, QuestionProp } from '../propTypes';
@@ -46,9 +46,11 @@ class VisibleQuestionGrade extends Component {
     const maxGrade = question.maximumGrade;
 
     return (
-      <Card style={styles.container}>
-        <CardHeader style={{ backgroundColor: grey100 }} title="Grading" />
-        <CardText>
+      <Paper style={styles.container}>
+        <div style={{ backgroundColor: grey100, display: 'inline-block', padding: 20 }}>
+          Grading
+        </div>
+        <div style={{ display: 'inline-block', paddingLeft: 10 }}>
           <input
             style={{ width: 100 }}
             type="number"
@@ -59,8 +61,8 @@ class VisibleQuestionGrade extends Component {
             onChange={e => this.handleGradingField(e.target.value)}
           />
           {` / ${maxGrade}`}
-        </CardText>
-      </Card>
+        </div>
+      </Paper>
     );
   }
 }

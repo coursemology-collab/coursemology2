@@ -18,10 +18,11 @@ const styles = {
   table: {
     maxWidth: 600,
   },
-  hdColumn: {
+  headerColumn: {
     color: 'black',
     fontWeight: 'bold',
     fontSize: 14,
+    overflow: 'hidden',
   },
 };
 
@@ -122,7 +123,7 @@ class VisibleGradingPanel extends Component {
 
     const tableRow = (field, value) => (
       <TableRow>
-        <TableHeaderColumn style={styles.hdColumn} columnNumber={0}>
+        <TableHeaderColumn style={styles.headerColumn} columnNumber={0}>
           <FormattedMessage {...translations[field]} />
         </TableHeaderColumn>
         <TableRowColumn>{value}</TableRowColumn>
@@ -151,10 +152,7 @@ class VisibleGradingPanel extends Component {
     const questionGrade = questionGrading && questionGrading.grade !== null ? questionGrading.grade : '';
     return (
       <TableRow key={question.id}>
-        <TableHeaderColumn
-          style={styles.hdColumn}
-          columnNumber={0}
-        >
+        <TableHeaderColumn style={styles.headerColumn} columnNumber={0} colSpan={2}>
           {question.displayTitle}
         </TableHeaderColumn>
         <TableRowColumn>{`${questionGrade} / ${question.maximumGrade}`}</TableRowColumn>
@@ -163,9 +161,9 @@ class VisibleGradingPanel extends Component {
   }
 
   renderGradeTable() {
-    const { intl, questions, submission: { canGrade } } = this.props;
+    const { intl, questions, submission: { canGrade, workflowState } } = this.props;
 
-    if (!canGrade) {
+    if (!canGrade && workflowState !== workflowStates.Published) {
       return null;
     }
 
@@ -175,10 +173,10 @@ class VisibleGradingPanel extends Component {
         <Table selectable={false} style={styles.table}>
           <TableHeader adjustForCheckbox={false} displaySelectAll={false} enableSelectAll={false}>
             <TableRow>
-              <TableHeaderColumn style={styles.hdColumn}>
+              <TableHeaderColumn style={styles.headerColumn} colSpan={2}>
                 {intl.formatMessage(translations.question)}
               </TableHeaderColumn>
-              <TableHeaderColumn style={styles.hdColumn}>
+              <TableHeaderColumn style={styles.headerColumn}>
                 {intl.formatMessage(translations.totalGrade)}
               </TableHeaderColumn>
             </TableRow>

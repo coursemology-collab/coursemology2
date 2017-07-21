@@ -159,7 +159,7 @@ class VisibleTestCaseView extends Component {
         <CardHeader title={title} />
         <CardText>
           <Table selectable={false} style={{}}>
-            <TableHeader displaySelectAll={false}>
+            <TableHeader adjustForCheckbox={false} displaySelectAll={false}>
               <TableRow>
                 { canGrade ? tableHeaderColumnFor('identifier') : null }
                 { tableHeaderColumnFor('expression') }
@@ -197,7 +197,7 @@ class VisibleTestCaseView extends Component {
         {tableRowColumnFor(testCase.expression)}
         {tableRowColumnFor(<ExpandableText text={testCase.expected || ''} /> || '')}
         { canGrade ? tableRowColumnFor(<ExpandableText text={testCase.output || ''} /> || '') : null }
-        <TableRowColumn>{testCaseIcon}</TableRowColumn>
+        {tableRowColumnFor(testCaseIcon)}
       </TableRow>
     );
   }
