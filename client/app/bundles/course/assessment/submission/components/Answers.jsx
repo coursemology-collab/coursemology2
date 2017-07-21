@@ -5,6 +5,8 @@ import 'brace/theme/github';
 import React, { Component } from 'react';
 import { Field, FieldArray } from 'redux-form';
 import { RadioButton } from 'material-ui/RadioButton';
+import { Table, TableBody, TableHeader, TableHeaderColumn,
+         TableRow, TableRowColumn } from 'material-ui/Table';
 
 // eslint-disable-next-line import/extensions, import/no-extraneous-dependencies, import/no-unresolved
 import RichTextField from 'lib/components/redux-form/RichTextField';
@@ -66,6 +68,30 @@ export default class Answers extends Component {
     );
   }
 
+  static renderTextResponseSolutions(question) {
+    return (
+      <div>
+        <h4>Solutions</h4>
+        <Table selectable={false}>
+          <TableHeader adjustForCheckbox={false} displaySelectAll={false}>
+            <TableHeaderColumn>Type</TableHeaderColumn>
+            <TableHeaderColumn>Solution</TableHeaderColumn>
+            <TableHeaderColumn>Grade</TableHeaderColumn>
+          </TableHeader>
+          <TableBody displayRowCheckbox={false}>
+            {question.solutions.map(solution => (
+              <TableRow>
+                <TableRowColumn>{solution.solutionType}</TableRowColumn>
+                <TableRowColumn>{solution.solution}</TableRowColumn>
+                <TableRowColumn>{solution.grade}</TableRowColumn>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
+    );
+  }
+
   static renderTextResponse(question, readOnly, answerId) {
     const allowUpload = question.allowAttachment;
 
@@ -77,6 +103,7 @@ export default class Answers extends Component {
           multiLine
           {...{ disabled: readOnly }}
         />
+        {question.solutions ? Answers.renderTextResponseSolutions(question) : null}
         <UploadedFileView questionId={question.id} />
         {allowUpload && !readOnly ? Answers.renderFileUploader(question, readOnly, answerId) : null}
       </div>
