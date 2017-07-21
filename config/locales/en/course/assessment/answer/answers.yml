@@ -5,11 +5,6 @@ en:
         error: >
           (T_T) Sorry, the autograder is having mood swings and quit on us.
           Try submitting your code again in a couple of minutes.
-        manually_graded:
-          run_code_with_limit: 'Run ( %{limit} times left )'
-          run_code_evaluation_warning: >
-            You are able to see this because you are a staff and can view evaluation tests.
-            Students cannot see these tests nor this button.
         reset_answer:
           button: 'Reset Answer'
           tooltip: 'Reset your current answer to the template'

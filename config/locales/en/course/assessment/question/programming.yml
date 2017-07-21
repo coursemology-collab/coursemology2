@@ -25,6 +25,3 @@ en:
                 evaluation_timeout: >-
                   no response was received from an evaluator within the required time.
                 evaluation_error: 'an error occurred during evaluation, see logs.'
-          form_build_log:
-            stdout: 'Standard Output'
-            stderr: 'Standard Error'
