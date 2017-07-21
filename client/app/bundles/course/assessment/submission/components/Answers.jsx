@@ -7,6 +7,7 @@ import { Field, FieldArray } from 'redux-form';
 import { RadioButton } from 'material-ui/RadioButton';
 import { Table, TableBody, TableHeader, TableHeaderColumn,
          TableRow, TableRowColumn } from 'material-ui/Table';
+import { green50 } from 'material-ui/styles/colors';
 
 // eslint-disable-next-line import/extensions, import/no-extraneous-dependencies, import/no-unresolved
 import RichTextField from 'lib/components/redux-form/RichTextField';
@@ -40,7 +41,10 @@ export default class Answers extends Component {
             onCheck={(event, buttonValue) => onChange(buttonValue)}
             checked={option.id === value}
             label={(
-              <div dangerouslySetInnerHTML={{ __html: option.option.trim() }} />
+              <div
+                style={option.correct && readOnly ? { backgroundColor: green50 } : null}
+                dangerouslySetInnerHTML={{ __html: option.option.trim() }}
+              />
             )}
             disabled={readOnly}
           />

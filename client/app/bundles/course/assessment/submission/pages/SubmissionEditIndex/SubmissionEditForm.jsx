@@ -9,7 +9,7 @@ import { Card, CardHeader, CardText } from 'material-ui/Card';
 import CircularProgress from 'material-ui/CircularProgress';
 import RaisedButton from 'material-ui/RaisedButton';
 import Paper from 'material-ui/Paper';
-import { red200, red900, yellow900, green200, green900, grey100, white } from 'material-ui/styles/colors';
+import { red100, red200, red900, yellow900, green200, green900, grey100, white } from 'material-ui/styles/colors';
 
 /* eslint-disable import/extensions, import/no-extraneous-dependencies, import/no-unresolved */
 import ConfirmationDialog from 'lib/components/ConfirmationDialog';
@@ -36,6 +36,7 @@ const styles = {
     paddingTop: 10,
   },
   formButton: {
+    marginTop: 20,
     marginRight: 10,
   },
 };
@@ -77,8 +78,8 @@ class SubmissionEditForm extends Component {
     const { intl, attempting, canGrade, questions, questionsFlags,
             handleAutograde, isSaving } = this.props;
     const question = questions[id];
-    const { answerId, attemptsLeft, attemptLimit } = question;
-    const { isAutograding, isResetting } = questionsFlags[id];
+    const { answerId, attemptsLeft, attemptLimit, autogradable } = question;
+    const { hasError, isAutograding, isResetting } = questionsFlags[id] || {};
 
     if (!attempting) {
       return null;
@@ -91,6 +92,9 @@ class SubmissionEditForm extends Component {
 
       return (
         <div>
+          {hasError ? <Paper style={{ padding: 10, backgroundColor: red100, marginBottom: 20 }}>
+            {intl.formatMessage(translations.autogradeFailure)}
+          </Paper> : null}
           <RaisedButton
             style={styles.formButton}
             backgroundColor={white}
@@ -98,14 +102,14 @@ class SubmissionEditForm extends Component {
             onTouchTap={() => this.setState({ resetConfirmation: true, resetAnswerId: answerId })}
             disabled={isAutograding || isResetting || isSaving}
           />
-          <RaisedButton
+          {autogradable ? <RaisedButton
             style={styles.formButton}
             backgroundColor={red900}
             secondary
             label={runCodeLabel}
             onTouchTap={() => handleAutograde(answerId)}
             disabled={isAutograding || isResetting || isSaving || (!canGrade && attemptsLeft === 0)}
-          />
+          /> : null}
           {isAutograding || isResetting ? <CircularProgress size={36} style={{ position: 'absolute' }} /> : null}
         </div>
       );

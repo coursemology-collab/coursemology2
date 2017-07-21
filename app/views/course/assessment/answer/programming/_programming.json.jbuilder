@@ -13,8 +13,11 @@ json.fields do
   end
 end
 
-if answer.submitted? && job = auto_grading.try(:job)
-  json.job job_path(job) if job.submitted?
+if answer.submitted? && job = answer.try(:auto_grading).try(:job)
+  json.job do
+    json.path job_path(job) if job.submitted?
+    json.status job.status
+  end
 end
 
 can_read_tests = can?(:read_tests, submission)
@@ -33,11 +36,11 @@ json.testCases do
     json.set! test_case_type do
       if test_cases_and_results[test_case_type].present?
         json.array! test_cases_and_results[test_case_type] do |test_case, test_result|
-          json.identifier test_case.identifier
+          json.identifier test_case.identifier if can_grade
           json.expression test_case.expression
           json.expected test_case.expected
           if test_result
-            json.output get_output(test_result)
+            json.output get_output(test_result) if can_grade
             json.passed test_result.passed?
           end
         end

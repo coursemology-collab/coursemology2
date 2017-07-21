@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import { Card, CardHeader, CardText } from 'material-ui/Card';
 import { Table, TableHeader, TableBody, TableRow, TableHeaderColumn, TableRowColumn } from 'material-ui/Table';
+import ReactTooltip from 'react-tooltip';
 
 import { formatDateTime } from '../utils';
 import { GradingProp, QuestionProp, SubmissionProp } from '../propTypes';
@@ -69,6 +70,23 @@ class VisibleGradingPanel extends Component {
     return <div>{`${VisibleGradingPanel.calculateTotalGrade(questions)} / ${maximumGrade}`}</div>;
   }
 
+  renderSubmissionStatus() {
+    const { intl, submission: { workflowState } } = this.props;
+    return (<div>
+      {intl.formatMessage(translations[workflowState])}
+      {workflowState === workflowStates.Graded ? (
+        <span style={{ display: 'inline-block', marginLeft: 5 }}>
+          <a data-tip data-for="staff-only-test-cases" data-offset="{'left' : -8}">
+            <i className="fa fa-exclamation-triangle" />
+          </a>
+          <ReactTooltip id="staff-only-test-cases" effect="solid">
+            <FormattedMessage {...translations.unpublishedGrades} />
+          </ReactTooltip>
+        </span>
+      ) : null}
+    </div>);
+  }
+
   renderExperiencePoints() {
     const {
       grading: { questions, exp, expMultiplier },
@@ -115,7 +133,7 @@ class VisibleGradingPanel extends Component {
       submission: {
         submitter, workflowState, dueAt, attemptedAt,
         submittedAt, grader, gradedAt, canGrade,
-      }, intl,
+      },
     } = this.props;
 
     const published = workflowState === workflowStates.Published;
@@ -134,7 +152,7 @@ class VisibleGradingPanel extends Component {
       <Table selectable={false} style={styles.table}>
         <TableBody displayRowCheckbox={false}>
           {tableRow('student', submitter)}
-          {tableRow('status', intl.formatMessage(translations[workflowState]))}
+          {tableRow('status', this.renderSubmissionStatus())}
           {shouldRenderGrading ? tableRow('totalGrade', this.renderTotalGrade()) : null}
           {shouldRenderGrading ? tableRow('expAwarded', this.renderExperiencePoints()) : null}
           {tableRow('dueAt', formatDateTime(dueAt))}
@@ -169,7 +187,7 @@ class VisibleGradingPanel extends Component {
 
     return (
       <div>
-        <h1>Grade Summary</h1>
+        <h4>Grade Summary</h4>
         <Table selectable={false} style={styles.table}>
           <TableHeader adjustForCheckbox={false} displaySelectAll={false} enableSelectAll={false}>
             <TableRow>

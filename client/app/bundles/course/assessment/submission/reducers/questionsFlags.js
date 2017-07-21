@@ -3,14 +3,12 @@ import actions from '../constants';
 export default function (state = {}, action) {
   switch (action.type) {
     case actions.FETCH_SUBMISSION_SUCCESS:
-      return action.payload.questions.map(question => ({
-        id: question.id,
-        answer: action.payload.answers.find(a => a.questionId === question.id),
-      })).reduce((obj, question) => ({
+      return action.payload.answers.reduce((obj, answer) => ({
         ...obj,
-        [question.id]: {
+        [answer.questionId]: {
           isResetting: false,
-          isAutograding: !!question.answer && !!question.answer.job,
+          isAutograding: !!answer.job && answer.job.status === 'submitted',
+          hasError: !!answer.job && answer.job.status === 'errored',
         },
       }), {});
     case actions.AUTOGRADE_REQUEST: {
@@ -23,7 +21,17 @@ export default function (state = {}, action) {
         },
       };
     }
-    case actions.AUTOGRADE_SUCCESS:
+    case actions.AUTOGRADE_SUCCESS: {
+      const { questionId } = action;
+      return {
+        ...state,
+        [questionId]: {
+          ...state[questionId],
+          isAutograding: false,
+          hasError: false,
+        },
+      };
+    }
     case actions.AUTOGRADE_FAILURE: {
       const { questionId } = action;
       return {
@@ -31,6 +39,7 @@ export default function (state = {}, action) {
         [questionId]: {
           ...state[questionId],
           isAutograding: false,
+          hasError: true,
         },
       };
     }

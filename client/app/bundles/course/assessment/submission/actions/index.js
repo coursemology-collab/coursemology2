@@ -57,11 +57,11 @@ export function fetchSubmission(id) {
     return CourseAPI.assessment.submissions.edit(id)
       .then(response => response.data)
       .then((data) => {
-        data.answers.filter(a => a.job).forEach((answer, index) => {
+        data.answers.filter(a => a.job && a.job.path).forEach((answer, index) => {
           setTimeout(() => {
-            pollJob(answer.job,
-              () => dispatch(getEvaluationResult(id, answer.fields.id)),
-              () => dispatch({ type: actionTypes.AUTOGRADE_FAILURE })
+            pollJob(answer.job.path,
+              () => dispatch(getEvaluationResult(id, answer.fields.id, answer.questionId)),
+              () => dispatch({ type: actionTypes.AUTOGRADE_FAILURE, questionId: answer.questionId })
             );
           }, JOB_STAGGER_DELAY * index);
         });
@@ -71,7 +71,7 @@ export function fetchSubmission(id) {
           payload: data,
         });
       })
-      .catch(() => dispatch({ type: actionTypes.FETCH_SUBMISSION_FAILURE }));
+      .catch((e) => console.log(e) || dispatch({ type: actionTypes.FETCH_SUBMISSION_FAILURE }));
   };
 }
 
