@@ -14,15 +14,22 @@ json.fields do
 end
 
 if answer.submitted? && job = answer.try(:auto_grading).try(:job)
-  json.job do
+  json.autograding do
     json.path job_path(job) if job.submitted?
     json.status job.status
   end
 end
 
+if answer.submitted? && !answer.auto_grading
+  json.autograding do
+    json.status :submitted
+  end
+end
+
+
 can_read_tests = can?(:read_tests, submission)
-show_private = can_read_tests || last_attempt&.correct? && assessment.show_private?
-show_evaluation = can_read_tests || last_attempt&.correct? && assessment.show_evaluation?
+show_private = can_read_tests || submission.published? && assessment.show_private?
+show_evaluation = can_read_tests || submission.published? && assessment.show_evaluation?
 
 test_cases_by_type = question.test_cases_by_type
 test_cases_and_results = get_test_cases_and_results(test_cases_by_type, auto_grading)
@@ -73,7 +80,7 @@ json.explanation do
       json.failureType 'private_test'
     end
 
-    json.correct last_attempt.correct
+    json.correct last_attempt&.auto_grading && last_attempt.correct
     json.explanations explanations
   end
 end

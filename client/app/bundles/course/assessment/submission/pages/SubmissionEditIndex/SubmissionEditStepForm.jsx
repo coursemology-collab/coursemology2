@@ -40,7 +40,7 @@ const styles = {
     padding: 12,
   },
   formButton: {
-    marginTop: 20,
+    marginBottom: 10,
     marginRight: 10,
   },
 };
@@ -172,10 +172,8 @@ class SubmissionEditStepForm extends Component {
     return null;
   }
 
-  renderAutogradingErrorPanel() {
-    const { stepIndex } = this.state;
-    const { intl, questionIds, questionsFlags } = this.props;
-    const id = questionIds[stepIndex];
+  renderAutogradingErrorPanel(id) {
+    const { intl, questionsFlags } = this.props;
     const { hasError } = questionsFlags[id] || {};
 
     if (hasError) {
@@ -323,7 +321,7 @@ class SubmissionEditStepForm extends Component {
 
   renderStepQuestion() {
     const { stepIndex } = this.state;
-    const { canGrade, attempting, questionIds, questions, topics } = this.props;
+    const { attempting, questionIds, questions, topics } = this.props;
 
     const id = questionIds[stepIndex];
     const question = questions[id];
@@ -331,7 +329,8 @@ class SubmissionEditStepForm extends Component {
     const topic = topics[topicId];
     return (
       <div>
-        <SubmissionAnswer {...{ canGrade, readOnly: !attempting, answerId, question }} />
+        <SubmissionAnswer {...{ readOnly: !attempting, answerId, question }} />
+        {this.renderAutogradingErrorPanel(id)}
         {this.renderExplanationPanel(question)}
         {this.renderQuestionGrading(id)}
         {this.renderGradingPanel()}

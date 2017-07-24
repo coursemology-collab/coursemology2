@@ -3,12 +3,13 @@ import actions from '../constants';
 export default function (state = {}, action) {
   switch (action.type) {
     case actions.FETCH_SUBMISSION_SUCCESS:
+    case actions.FINALISE_SUCCESS:
       return action.payload.answers.reduce((obj, answer) => ({
         ...obj,
         [answer.questionId]: {
           isResetting: false,
-          isAutograding: !!answer.job && answer.job.status === 'submitted',
-          hasError: !!answer.job && answer.job.status === 'errored',
+          isAutograding: !!answer.autograding && answer.autograding.status === 'submitted',
+          hasError: !!answer.autograding && answer.autograding.status === 'errored',
         },
       }), {});
     case actions.AUTOGRADE_REQUEST: {

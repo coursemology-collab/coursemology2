@@ -9,7 +9,8 @@ import { Card, CardHeader, CardText } from 'material-ui/Card';
 import CircularProgress from 'material-ui/CircularProgress';
 import RaisedButton from 'material-ui/RaisedButton';
 import Paper from 'material-ui/Paper';
-import { red100, red200, red900, yellow900, green200, green900, grey100, white } from 'material-ui/styles/colors';
+import { red100, red200, red900, yellow900,
+         green200, green900, grey100, white } from 'material-ui/styles/colors';
 
 /* eslint-disable import/extensions, import/no-extraneous-dependencies, import/no-unresolved */
 import ConfirmationDialog from 'lib/components/ConfirmationDialog';
@@ -36,7 +37,7 @@ const styles = {
     paddingTop: 10,
   },
   formButton: {
-    marginTop: 20,
+    marginBottom: 10,
     marginRight: 10,
   },
 };
@@ -151,7 +152,7 @@ class SubmissionEditForm extends Component {
   }
 
   renderTabbedQuestions() {
-    const { intl, canGrade, attempting, questionIds, questions, topics } = this.props;
+    const { intl, attempting, questionIds, questions, topics } = this.props;
     return (
       <Tabs>
         {questionIds.map((id, index) => {
@@ -160,7 +161,7 @@ class SubmissionEditForm extends Component {
           const topic = topics[topicId];
           return (
             <Tab key={id} label={intl.formatMessage(translations.questionNumber, { number: index + 1 })}>
-              <SubmissionAnswer {...{ canGrade, readOnly: !attempting, answerId, question }} />
+              <SubmissionAnswer {...{ readOnly: !attempting, answerId, question }} />
               {question.type === questionTypes.Programming ? this.renderExplanationPanel(id) : null}
               {this.renderQuestionGrading(id)}
               {this.renderProgrammingQuestionActions(id)}
@@ -174,7 +175,7 @@ class SubmissionEditForm extends Component {
   }
 
   renderQuestions() {
-    const { canGrade, attempting, questionIds, questions, topics } = this.props;
+    const { attempting, questionIds, questions, topics } = this.props;
     return (
       <div>
         {questionIds.map((id) => {
@@ -183,7 +184,7 @@ class SubmissionEditForm extends Component {
           const topic = topics[topicId];
           return (
             <div key={id} style={styles.questionContainer}>
-              <SubmissionAnswer {...{ canGrade, readOnly: !attempting, answerId, question }} />
+              <SubmissionAnswer {...{ readOnly: !attempting, answerId, question }} />
               {question.type === questionTypes.Programming ? this.renderExplanationPanel(id) : null}
               {this.renderQuestionGrading(id)}
               {this.renderProgrammingQuestionActions(id)}

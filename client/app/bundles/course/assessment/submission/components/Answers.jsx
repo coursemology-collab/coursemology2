@@ -73,18 +73,21 @@ export default class Answers extends Component {
   }
 
   static renderTextResponseSolutions(question) {
+    /* eslint-disable react/no-array-index-key */
     return (
       <div>
         <h4>Solutions</h4>
         <Table selectable={false}>
           <TableHeader adjustForCheckbox={false} displaySelectAll={false}>
-            <TableHeaderColumn>Type</TableHeaderColumn>
-            <TableHeaderColumn>Solution</TableHeaderColumn>
-            <TableHeaderColumn>Grade</TableHeaderColumn>
+            <TableRow>
+              <TableHeaderColumn>Type</TableHeaderColumn>
+              <TableHeaderColumn>Solution</TableHeaderColumn>
+              <TableHeaderColumn>Grade</TableHeaderColumn>
+            </TableRow>
           </TableHeader>
           <TableBody displayRowCheckbox={false}>
-            {question.solutions.map(solution => (
-              <TableRow>
+            {question.solutions.map((solution, index) => (
+              <TableRow key={index}>
                 <TableRowColumn>{solution.solutionType}</TableRowColumn>
                 <TableRowColumn>{solution.solution}</TableRowColumn>
                 <TableRowColumn>{solution.grade}</TableRowColumn>
@@ -94,6 +97,7 @@ export default class Answers extends Component {
         </Table>
       </div>
     );
+    /* eslint-enable react/no-array-index-key */
   }
 
   static renderTextResponse(question, readOnly, answerId) {
@@ -163,7 +167,7 @@ export default class Answers extends Component {
     );
   }
 
-  static renderProgramming(question, readOnly, answerId, canGrade) {
+  static renderProgramming(question, readOnly, answerId) {
     return (
       <div>
         <FieldArray
@@ -171,7 +175,7 @@ export default class Answers extends Component {
           component={Answers.renderProgrammingFiles}
           {...{ readOnly }}
         />
-        <TestCaseView questionId={question.id} canGrade={canGrade} />
+        <TestCaseView questionId={question.id} />
       </div>
     );
   }
