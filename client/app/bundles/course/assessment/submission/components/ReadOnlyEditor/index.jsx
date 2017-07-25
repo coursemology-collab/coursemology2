@@ -12,10 +12,10 @@ const EDITOR_MODE_WIDE = 'wide';
 
 export default class ReadOnlyEditor extends Component {
   static propTypes = {
-    answerId: PropTypes.number.isRequired,
-    fileId: PropTypes.number.isRequired,
     annotations: PropTypes.arrayOf(AnnotationProp),
+    answerId: PropTypes.number.isRequired,
     content: PropTypes.arrayOf(PropTypes.string),
+    fileId: PropTypes.number.isRequired,
   }
 
   static defaultProps = {

@@ -11,6 +11,10 @@ export default class AddCommentIcon extends Component {
     onClick: () => {},
   };
 
+  shouldComponentUpdate(nextProps) {
+    return nextProps.hovered !== this.props.hovered;
+  }
+
   render() {
     const { hovered, onClick } = this.props;
     return (

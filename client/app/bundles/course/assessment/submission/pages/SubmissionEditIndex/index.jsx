@@ -142,6 +142,7 @@ class VisibleSubmissionEditIndex extends Component {
           canGrade={canGrade}
           attempting={workflowState === workflowStates.Attempting}
           submitted={workflowState === workflowStates.Submitted}
+          published={workflowState === workflowStates.Published}
           maxStep={maxStep}
           skippable={skippable}
           posts={posts}
@@ -174,9 +175,9 @@ class VisibleSubmissionEditIndex extends Component {
         attempting={workflowState === workflowStates.Attempting}
         submitted={workflowState === workflowStates.Submitted}
         graded={workflowState === workflowStates.Graded}
+        published={workflowState === workflowStates.Published}
         newSubmission={newSubmission}
         passwordProtected={passwordProtected}
-        published={workflowState === workflowStates.Published}
         posts={posts}
         questionIds={questionIds}
         questions={questions}

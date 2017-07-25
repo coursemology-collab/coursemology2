@@ -57,24 +57,11 @@ class SubmissionEditForm extends Component {
   }
 
   renderQuestionGrading(id) {
-    const { attempting, published, canGrade, grading, questions } = this.props;
-    if (!attempting && canGrade) {
-      return <QuestionGrade id={id} />;
-    }
+    const { attempting, published, canGrade } = this.props;
+    const editable = !attempting && canGrade;
+    const visible = editable || published;
 
-    if (published) {
-      return (
-        <Paper>
-          <div style={{ backgroundColor: grey100, display: 'inline-block', padding: 20 }}>
-            Grading
-          </div>
-          <div style={{ display: 'inline-block', paddingLeft: 10 }}>
-            {`${grading[id].grade} / ${questions[id].maximumGrade}`}
-          </div>
-        </Paper>
-      );
-    }
-    return null;
+    return visible ? <QuestionGrade id={id} editable={editable} /> : null;
   }
 
   renderProgrammingQuestionActions(id) {

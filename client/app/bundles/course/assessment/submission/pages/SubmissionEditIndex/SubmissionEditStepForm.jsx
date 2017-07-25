@@ -116,11 +116,11 @@ class SubmissionEditStepForm extends Component {
   }
 
   renderQuestionGrading(id) {
-    const { attempting, canGrade } = this.props;
-    if (!attempting && canGrade) {
-      return <QuestionGrade id={id} />;
-    }
-    return null;
+    const { attempting, published, canGrade } = this.props;
+    const editable = !attempting && canGrade;
+    const visible = editable || published;
+
+    return visible ? <QuestionGrade id={id} editable={editable} /> : null;
   }
 
   renderGradingPanel() {
@@ -458,6 +458,7 @@ SubmissionEditStepForm.propTypes = {
   skippable: PropTypes.bool.isRequired,
 
   attempting: PropTypes.bool.isRequired,
+  published: PropTypes.bool.isRequired,
 
   explanations: PropTypes.objectOf(ExplanationProp),
   allCorrect: PropTypes.bool.isRequired,
