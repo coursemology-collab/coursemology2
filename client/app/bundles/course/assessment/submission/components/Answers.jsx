@@ -112,7 +112,7 @@ export default class Answers extends Component {
           {...{ disabled: readOnly }}
         />
         {question.solutions ? Answers.renderTextResponseSolutions(question) : null}
-        <UploadedFileView questionId={question.id} />
+        {allowUpload ? <UploadedFileView questionId={question.id} /> : null}
         {allowUpload && !readOnly ? Answers.renderFileUploader(question, readOnly, answerId) : null}
       </div>
     );
