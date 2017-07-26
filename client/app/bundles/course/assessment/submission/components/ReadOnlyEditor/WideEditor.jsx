@@ -125,16 +125,18 @@ export default class WideEditor extends Component {
                   </div>
                 )}
               </td>
-              <td style={{ overflowX: 'scroll' }}>
-                {content.map((line, index) => (
-                  <div key={`${index}-${line}`} style={styles.editorLine} >
-                    <pre style={{ overflow: 'visible' }}>
-                      <code
-                        dangerouslySetInnerHTML={{ __html: line }}
-                        style={{ whiteSpace: 'inherit' }}
-                      /></pre>
-                  </div>
-                ))}
+              <td style={{ display: 'block', overflowX: 'scroll' }}>
+                <div style={{ display: 'inline-block' }}>
+                  {content.map((line, index) => (
+                    <div key={`${index}-${line}`} style={styles.editorLine} >
+                      <pre style={{ overflow: 'visible' }}>
+                        <code
+                          dangerouslySetInnerHTML={{ __html: line }}
+                          style={{ whiteSpace: 'inherit' }}
+                        /></pre>
+                    </div>
+                  ))}
+                </div>
               </td>
             </tr>
           </tbody>
