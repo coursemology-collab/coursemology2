@@ -22,9 +22,11 @@ class VisibleSubmissionEditIndex extends Component {
     super(props);
     const { location: { search } } = props;
     const query = new URLSearchParams(search);
-    this.state = {
-      newSubmission: !!query.get('new_submission'),
-    };
+
+    const newSubmission = !!query.get('new_submission') && query.get('new_submission') === 'true';
+    const step = parseInt(query.get('step'), 10) - 1 || 0;
+
+    this.state = { newSubmission, step };
   }
 
   componentDidMount() {
@@ -109,7 +111,7 @@ class VisibleSubmissionEditIndex extends Component {
   }
 
   renderContent() {
-    const { newSubmission } = this.state;
+    const { newSubmission, step } = this.state;
     const {
       assessment: { autograded, delayedGradePublication, tabbedView,
                     skippable, questionIds, passwordProtected },
@@ -144,6 +146,7 @@ class VisibleSubmissionEditIndex extends Component {
           submitted={workflowState === workflowStates.Submitted}
           published={workflowState === workflowStates.Published}
           maxStep={maxStep}
+          step={step}
           skippable={skippable}
           posts={posts}
           questionIds={questionIds}
@@ -182,6 +185,7 @@ class VisibleSubmissionEditIndex extends Component {
         questionIds={questionIds}
         questions={questions}
         questionsFlags={questionsFlags}
+        step={step}
         tabbedView={tabbedView}
         topics={topics}
         delayedGradePublication={delayedGradePublication}
