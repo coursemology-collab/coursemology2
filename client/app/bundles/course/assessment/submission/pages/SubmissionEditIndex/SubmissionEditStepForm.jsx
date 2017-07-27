@@ -53,7 +53,7 @@ class SubmissionEditStepForm extends Component {
 
   constructor(props) {
     super(props);
-    let initialStep = props.step;
+    let initialStep = props.step || 0;
     initialStep = initialStep < 0 ? 0 : initialStep;
     initialStep = initialStep > props.maxStep ? props.maxStep : initialStep;
 
@@ -464,7 +464,7 @@ SubmissionEditStepForm.propTypes = {
 
   canGrade: PropTypes.bool.isRequired,
   maxStep: PropTypes.number.isRequired,
-  step: PropTypes.number.isRequired,
+  step: PropTypes.number,
   skippable: PropTypes.bool.isRequired,
 
   attempting: PropTypes.bool.isRequired,

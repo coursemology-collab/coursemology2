@@ -24,7 +24,8 @@ class VisibleSubmissionEditIndex extends Component {
     const query = new URLSearchParams(search);
 
     const newSubmission = !!query.get('new_submission') && query.get('new_submission') === 'true';
-    const step = parseInt(query.get('step'), 10) - 1 || 0;
+    const stepString = query.get('step');
+    const step = isNaN(stepString) || stepString === null ? null : parseInt(stepString, 10) - 1;
 
     this.state = { newSubmission, step };
   }

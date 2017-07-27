@@ -60,9 +60,12 @@ class SubmissionEditForm extends Component {
   componentDidMount() {
     const { questionIds } = this.props;
     let initialStep = this.props.step;
-    initialStep = initialStep < 0 ? 0 : initialStep;
-    initialStep = initialStep >= questionIds.length - 1 ? questionIds.length - 1 : initialStep;
-    scroller.scrollTo(`step${initialStep}`, { offset: -60 });
+
+    if (initialStep !== null) {
+      initialStep = initialStep < 0 ? 0 : initialStep;
+      initialStep = initialStep >= questionIds.length - 1 ? questionIds.length - 1 : initialStep;
+      scroller.scrollTo(`step${initialStep}`, { offset: -60 });
+    }
   }
 
   renderQuestionGrading(id) {
@@ -152,7 +155,7 @@ class SubmissionEditForm extends Component {
   renderTabbedQuestions() {
     const { intl, attempting, questionIds, questions, topics, step } = this.props;
 
-    let initialStep = step;
+    let initialStep = step || 0;
     initialStep = initialStep < 0 ? 0 : initialStep;
     initialStep = initialStep >= questionIds.length - 1 ? questionIds.length - 1 : initialStep;
 
@@ -462,7 +465,7 @@ SubmissionEditForm.propTypes = {
   newSubmission: PropTypes.bool.isRequired,
   passwordProtected: PropTypes.bool.isRequired,
   tabbedView: PropTypes.bool.isRequired,
-  step: PropTypes.number.isRequired,
+  step: PropTypes.number,
 
   attempting: PropTypes.bool.isRequired,
   submitted: PropTypes.bool.isRequired,
