@@ -37,6 +37,5 @@
     FormData: true,
     File: true,
     FileReader: true,
-    URLSearchParams: true,
   }
 }

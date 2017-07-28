@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import LoadingIndicator from 'lib/components/LoadingIndicator';
 import IntlNotificationBar, { notificationShape } from 'lib/components/IntlNotificationBar';
+import { getUrlParameter } from 'lib/helpers/url-helpers';
 import ProgressPanel from '../../components/ProgressPanel';
 import SubmissionEditForm from './SubmissionEditForm';
 import SubmissionEditStepForm from './SubmissionEditStepForm';
@@ -20,12 +21,10 @@ import { formNames, workflowStates } from '../../constants';
 class VisibleSubmissionEditIndex extends Component {
   constructor(props) {
     super(props);
-    const { location: { search } } = props;
-    const query = new URLSearchParams(search);
 
-    const newSubmission = !!query.get('new_submission') && query.get('new_submission') === 'true';
-    const stepString = query.get('step');
-    const step = isNaN(stepString) || stepString === null ? null : parseInt(stepString, 10) - 1;
+    const newSubmission = !!getUrlParameter('new_submission') && getUrlParameter('new_submission') === 'true';
+    const stepString = getUrlParameter('step');
+    const step = isNaN(stepString) || stepString === '' ? null : parseInt(stepString, 10) - 1;
 
     this.state = { newSubmission, step };
   }
@@ -214,9 +213,6 @@ class VisibleSubmissionEditIndex extends Component {
 
 VisibleSubmissionEditIndex.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  location: PropTypes.shape({
-    search: PropTypes.string,
-  }),
   match: PropTypes.shape({
     params: PropTypes.shape({
       courseId: PropTypes.string,
