@@ -19,21 +19,11 @@ module Course::Discussion::PostsConcern
   end
 
   def update
-    return unless @post.update_attributes(post_params)
-
-    respond_to do |format|
-      format.js
-      format.json { render partial: @post }
-    end
+    @post.update_attributes(post_params)
   end
 
   def destroy
-    return unless @post.destroy
-
-    respond_to do |format|
-      format.js
-      format.json { head :ok }
-    end
+    @post.destroy
   end
 
   # Render a new post in a separate page
