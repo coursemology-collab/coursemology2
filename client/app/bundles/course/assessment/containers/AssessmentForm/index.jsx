@@ -293,6 +293,7 @@ class AssessmentForm extends React.Component {
         <Field
           name="autograded"
           component={Toggle}
+          className="toggle-autograded"
           parse={Boolean}
           label={
             modeSwitching ? <FormattedMessage {...translations.autograded} /> :
