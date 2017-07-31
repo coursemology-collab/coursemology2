@@ -25,6 +25,8 @@ RSpec.feature 'Course: Assessments: Management' do
         fill_in 'title', with: assessment.title
         fill_in 'base_exp', with: assessment.base_exp
         first("input[name='start_at']").set(assessment.start_at.strftime('%d-%m-%Y'))
+        find('div.toggle-autograded').click
+
         find('button.btn-submit').click
 
         expect(page).not_to have_selector('h3', text: 'New Assessment')
@@ -33,7 +35,7 @@ RSpec.feature 'Course: Assessments: Management' do
         expect(assessment_created.title).to eq(assessment.title)
         expect(assessment_created.base_exp).to eq(assessment.base_exp)
         expect(page).to have_content_tag_for(assessment_created)
-        expect(assessment_created).not_to be_autograded
+        expect(assessment_created).to be_autograded
       end
 
       scenario 'I can delete an assessment' do
