@@ -16,6 +16,7 @@ RSpec.describe Course::Assessment::Submission::SubmissionsController do
       end
     end
     let(:submission) { create(:submission, assessment: assessment, creator: user) }
+    let(:json_response) { JSON.parse(response.body) }
 
     before { sign_in(user) }
 
@@ -29,6 +30,22 @@ RSpec.describe Course::Assessment::Submission::SubmissionsController do
         let(:user) { create(:course_student, course: course).user }
 
         it { expect { subject }.to raise_exception(CanCan::AccessDenied) }
+      end
+    end
+
+    describe '#edit' do
+      render_views
+
+      subject do
+        get :edit, format: :json, course_id: course.id, assessment_id: assessment, id: submission
+      end
+
+      before { subject }
+
+      it 'responds with the necessary fields' do
+        expect(json_response.keys).to contain_exactly(
+          'annotations', 'answers', 'assessment', 'posts', 'questions', 'submission', 'topics'
+        )
       end
     end
 
