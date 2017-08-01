@@ -203,6 +203,8 @@ class VisibleSubmissionEditIndex extends Component {
         newSubmission={newSubmission}
         passwordProtected={passwordProtected}
         published={workflowState === workflowStates.Published}
+        newSubmission={newSubmission}
+        passwordProtected={passwordProtected}
         posts={posts}
         questionIds={questionIds}
         questions={questions}
