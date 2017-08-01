@@ -81,6 +81,7 @@ class PopupDialog extends React.Component {
         primary
         onTouchTap={() => dispatch(submit(formNames.ASSESSMENT))}
         disabled={this.props.disabled}
+        ref={(button) => { this.submitButton = button; }}
       />,
     ];
 

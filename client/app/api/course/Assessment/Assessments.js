@@ -10,7 +10,7 @@ export default class AssessmentsAPI extends BaseCourseAPI {
   *     assessment: { :title, :description, etc }
   *   }
   * @return {Promise}
-  * success response: {}
+  * success response: { :id }
   * error response: { errors: [] } - An array of errors will be returned upon validation error.
   */
   create(params) {

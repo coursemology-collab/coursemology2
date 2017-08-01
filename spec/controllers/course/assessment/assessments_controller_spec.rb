@@ -9,8 +9,10 @@ RSpec.describe Course::Assessment::AssessmentsController do
     let!(:course) { create(:course, creator: user) }
     let(:category) { course.assessment_categories.first }
     let(:tab) { category.tabs.first }
+    let(:json_response) { JSON.parse(response.body) }
     let!(:immutable_assessment) do
       create(:assessment, course: course).tap do |stub|
+        allow(stub).to receive(:save).and_return(false)
         allow(stub).to receive(:destroy).and_return(false)
       end
     end
@@ -39,6 +41,31 @@ RSpec.describe Course::Assessment::AssessmentsController do
                tab: tab
         end
         it { expect(controller.instance_variable_get(:@tab)).to eq(tab) }
+      end
+    end
+
+    describe '#create' do
+      subject do
+        post :create, format: :json, course_id: course,
+                      assessment: attributes_for(:assessment, course: course, category: category),
+                      category: category, tab: tab
+      end
+
+      context 'when saving succeeds' do
+        before { subject }
+
+        it 'renders JSON' do
+          expect(json_response['id']).to be_present
+        end
+      end
+
+      context 'when saving fails' do
+        before do
+          controller.instance_variable_set(:@assessment, immutable_assessment)
+          subject
+        end
+
+        it { is_expected.to have_http_status(:bad_request) }
       end
     end
 
