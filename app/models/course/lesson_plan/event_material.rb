@@ -1,2 +1,2 @@
-class Course::LessonPlan::EventMaterial < ActiveRecord::Base
+class Course::LessonPlan::EventMaterial < ApplicationRecord
 end
