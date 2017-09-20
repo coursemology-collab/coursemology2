@@ -8,7 +8,7 @@ gem 'tzinfo-data', platforms: [:mswin, :mswin64]
 gem 'bundler', '>= 1.10.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 4.2.9'
+gem 'rails', '~> 5.0.0'
 
 # Use PostgreSQL for the backend
 gem 'pg', '>= 0.18.2'
@@ -37,7 +37,7 @@ gem 'calculated_attributes', '>= 0.1.3'
 gem 'baby_squeel'
 # For multiple table inheritance
 #   TODO: Figure out breaking changes in v2 as polymorphism is not working correctly.
-gem 'active_record-acts_as', github: 'Coursemology/active_record-acts_as'
+gem 'active_record-acts_as', github: 'jeremyyap/active_record-acts_as'
 # Organise ActiveRecord model into a tree structure
 gem 'edge'
 # Create pretty URLs and work with human-friendly strings
@@ -188,7 +188,7 @@ gem 'themes_on_rails', '>= 0.3.1', github: 'Coursemology/themes_on_rails',
 
 # Forms made easy for Rails
 gem 'simple_form'
-gem 'simple_form-bootstrap'
+gem 'simple_form-bootstrap', github: 'jeremyyap/simple_form-bootstrap'
 # Dynamic nested forms
 gem 'cocoon'
 gem 'momentjs-rails', '>= 2.8.1'
@@ -210,7 +210,7 @@ gem 'rubyzip', require: 'zip'
 gem 'nokogiri', '>= 1.8.1'
 
 # Polyglot support
-gem 'coursemology-polyglot', '>= 0.2.9'
+gem 'coursemology-polyglot', github: 'jeremyyap/polyglot'
 
 # To assist with bulk inserts into database
 gem 'activerecord-import', '>= 0.2.0'
