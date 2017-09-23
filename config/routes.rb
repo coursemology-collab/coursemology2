@@ -145,8 +145,8 @@ Rails.application.routes.draw do
         get 'leaderboard' => 'leaderboard_settings#edit'
         patch 'leaderboard' => 'leaderboard_settings#update'
 
-        get 'topics' => 'discussion/topic_settings#edit', path: 'comments'
-        patch 'topics' => 'discussion/topic_settings#update', path: 'comments'
+        get 'topics' => 'discussion/topic_settings#edit'
+        patch 'topics' => 'discussion/topic_settings#update'
 
         get'videos' => 'video_settings#edit'
         patch 'videos' => 'video_settings#update'
