@@ -311,6 +311,15 @@ class VisibleSubmissionEditIndex extends Component {
     );
   }
 
+  handleRequestClose(reason) {
+   if (reason === 'clickaway') {
+     console.log(this);
+      this.setState({
+        open: false,
+      });
+    }
+  }
+
   render() {
     const { isLoading, notification } = this.props;
 
@@ -322,7 +331,7 @@ class VisibleSubmissionEditIndex extends Component {
         {this.renderAssessment()}
         {this.renderProgress()}
         {this.renderContent()}
-        <NotificationBar notification={notification} />
+        <NotificationBar notification={notification} autoHideDuration={0} handleRequestClose={this.handleRequestClose}/>
       </div>
     );
   }

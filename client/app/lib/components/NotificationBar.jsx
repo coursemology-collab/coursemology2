@@ -26,12 +26,23 @@ export default class NotificationBar extends React.Component {
     // Other options are passed to the original implementation of the SnackBar.
   }
 
-  shouldComponentUpdate(nextProps) {
-    return nextProps.notification !== this.props.notification;
+  constructor(props) {
+    super(props);
+    this.state = { open: false };
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return (nextProps.notification !== this.props.notification) || (nextState.open !== this.state.open);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { notification, ...options } = nextProps;
+    const message = notification && notification.message;
+    this.setState({ open: !!message});
   }
 
   render() {
-    const { notification, ...options } = this.props;
+    const { notification, handleRequestClose, ...options } = this.props;
     const message = notification && notification.message;
     const errors = notification && notification.errors;
 
@@ -43,11 +54,13 @@ export default class NotificationBar extends React.Component {
     } else {
       notificationNode = '';
     }
+    console.log(this.state);
     return (
       <Snackbar
-        open={!!message}
+        open={this.state.open}
         message={notificationNode}
         autoHideDuration={2000}
+        onRequestClose={handleRequestClose.bind(this)}
         {...options}
       />
     );
