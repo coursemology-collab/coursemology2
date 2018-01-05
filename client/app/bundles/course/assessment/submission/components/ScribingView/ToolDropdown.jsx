@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import FontIcon from 'material-ui/FontIcon';
-import MaterialTooltip from 'material-ui/internal/Tooltip';
+import MaterialTooltip from 'material-ui/Tooltip';
 import blue from 'material-ui/colors/blue';
 
 const blue500 = blue['500'];

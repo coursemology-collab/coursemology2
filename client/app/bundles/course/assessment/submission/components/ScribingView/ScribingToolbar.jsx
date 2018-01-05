@@ -5,7 +5,7 @@ import { injectIntl, intlShape } from 'react-intl';
 
 import FontIcon from 'material-ui/FontIcon';
 import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
-import MaterialTooltip from 'material-ui/internal/Tooltip';
+import MaterialTooltip from 'material-ui/Tooltip';
 import blue from 'material-ui/colors/blue';
 
 import SavingIndicator from './SavingIndicator';
