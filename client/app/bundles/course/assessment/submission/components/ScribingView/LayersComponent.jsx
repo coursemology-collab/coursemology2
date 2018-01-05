@@ -5,7 +5,7 @@ import Popover from 'material-ui/Popover';
 import RaisedButton from 'material-ui/RaisedButton';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
-import Done from 'material-ui/svg-icons/action/done';
+import Done from 'material-ui-icons/Done';
 import { scribingTranslations as translations } from '../../translations';
 import { scribbleShape } from '../../propTypes';
 

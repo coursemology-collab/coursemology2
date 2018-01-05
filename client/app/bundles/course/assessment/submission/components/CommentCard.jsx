@@ -4,8 +4,8 @@ import Avatar from 'material-ui/Avatar';
 import TextField from 'material-ui/TextField';
 import { Card, CardHeader, CardText } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
-import EditIcon from 'material-ui/svg-icons/editor/mode-edit';
-import DeleteIcon from 'material-ui/svg-icons/action/delete';
+import EditIcon from 'material-ui-icons/ModeEdit';
+import DeleteIcon from 'material-ui-icons/Delete';
 import red from 'material-ui/colors/red';
 import grey from 'material-ui/colors/grey';
 /* eslint-disable import/extensions, import/no-extraneous-dependencies, import/no-unresolved */

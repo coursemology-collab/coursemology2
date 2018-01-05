@@ -5,7 +5,7 @@ import { List } from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
 import FlatButton from 'material-ui/FlatButton';
 import Divider from 'material-ui/Divider';
-import ContentAdd from 'material-ui/svg-icons/content/add';
+import ContentAdd from 'material-ui-icons/Add';
 import NotificationBar, { notificationShape } from 'lib/components/NotificationBar';
 import Material from './Material';
 

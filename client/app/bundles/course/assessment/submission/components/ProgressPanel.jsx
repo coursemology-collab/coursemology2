@@ -8,7 +8,7 @@ import yellow from 'material-ui/colors/yellow';
 import grey from 'material-ui/colors/grey';
 import green from 'material-ui/colors/green';
 import blue from 'material-ui/colors/blue';
-import WarningIcon from 'material-ui/svg-icons/alert/warning';
+import WarningIcon from 'material-ui-icons/Warning';
 
 import { formatDateTime } from '../utils';
 import { submissionShape } from '../propTypes';

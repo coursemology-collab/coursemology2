@@ -7,7 +7,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import Popover from 'material-ui/Popover';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
-import KeyboardArrowUp from 'material-ui/svg-icons/hardware/keyboard-arrow-up';
+import KeyboardArrowUp from 'material-ui-icons/KeyboardArrowUp';
 
 const translations = defineMessages({
   goto: {

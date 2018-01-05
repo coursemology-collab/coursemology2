@@ -4,7 +4,7 @@ import Dropzone from 'react-dropzone';
 import { Field } from 'redux-form';
 import Chip from 'material-ui/Chip';
 import { Card, CardText } from 'material-ui/Card';
-import FileUploadIcon from 'material-ui/svg-icons/file/file-upload';
+import FileUploadIcon from 'material-ui-icons/FileUpload';
 import { defineMessages, FormattedMessage } from 'react-intl';
 
 const translations = defineMessages({

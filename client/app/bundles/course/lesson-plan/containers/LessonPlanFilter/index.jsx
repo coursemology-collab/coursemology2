@@ -6,8 +6,8 @@ import RaisedButton from 'material-ui/RaisedButton';
 import Popover from 'material-ui/Popover';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
-import Done from 'material-ui/svg-icons/action/done';
-import KeyboardArrowUp from 'material-ui/svg-icons/hardware/keyboard-arrow-up';
+import Done from 'material-ui-icons/Done';
+import KeyboardArrowUp from 'material-ui-icons/KeyboardArrowUp';
 import { setItemTypeVisibility } from 'course/lesson-plan/actions';
 
 const translations = defineMessages({

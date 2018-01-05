@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Description from 'material-ui/svg-icons/action/description';
+import Description from 'material-ui-icons/Description';
 import grey from 'material-ui/colors/grey';
 
 const grey700 = grey['700'];

@@ -6,8 +6,8 @@ import IconButton from 'material-ui/IconButton';
 import { ListItem } from 'material-ui/List';
 import CircularProgress from 'material-ui/CircularProgress';
 import Avatar from 'material-ui/Avatar';
-import ActionAssignment from 'material-ui/svg-icons/action/assignment';
-import DeleteIcon from 'material-ui/svg-icons/action/delete';
+import ActionAssignment from 'material-ui-icons/Assignment';
+import DeleteIcon from 'material-ui-icons/Delete';
 
 const styles = {
   root: {

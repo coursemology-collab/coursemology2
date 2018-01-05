@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import IconButton from 'material-ui/IconButton';
-import ArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
+import ArrowBack from 'material-ui-icons/ArrowBack';
 import history from 'lib/history';
 import TitleBar from 'lib/components/TitleBar';
 import { surveyShape } from 'course/survey/propTypes';

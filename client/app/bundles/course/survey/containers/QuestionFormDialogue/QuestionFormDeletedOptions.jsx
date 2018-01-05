@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Checkbox from 'material-ui/Checkbox';
 import RadioButton from 'material-ui/RadioButton';
 import IconButton from 'material-ui/IconButton';
-import CloseIcon from 'material-ui/svg-icons/navigation/close';
+import CloseIcon from 'material-ui-icons/Close';
 import grey from 'material-ui/colors/grey';
 import Thumbnail from 'lib/components/Thumbnail';
 

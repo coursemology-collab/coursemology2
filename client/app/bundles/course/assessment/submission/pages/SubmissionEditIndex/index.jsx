@@ -6,7 +6,7 @@ import { FormattedMessage } from 'react-intl';
 import { Card, CardHeader, CardText, CardActions } from 'material-ui/Card';
 import Toggle from 'material-ui/Toggle';
 import { touch } from 'redux-form';
-import FileIcon from 'material-ui/svg-icons/editor/insert-drive-file';
+import FileIcon from 'material-ui-icons/InsertDriveFile';
 
 import LoadingIndicator from 'lib/components/LoadingIndicator';
 import NotificationBar, { notificationShape } from 'lib/components/NotificationBar';

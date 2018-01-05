@@ -5,8 +5,8 @@ import { defineMessages, FormattedMessage } from 'react-intl';
 
 import ReactTooltip from 'react-tooltip';
 import { Card, CardHeader, CardText } from 'material-ui/Card';
-import WrongIcon from 'material-ui/svg-icons/navigation/close';
-import CorrectIcon from 'material-ui/svg-icons/action/done';
+import WrongIcon from 'material-ui-icons/Close';
+import CorrectIcon from 'material-ui-icons/Done';
 import red from 'material-ui/colors/red';
 import yellow from 'material-ui/colors/yellow';
 import green from 'material-ui/colors/green';

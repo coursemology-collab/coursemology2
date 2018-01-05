@@ -6,7 +6,7 @@ import { injectIntl, defineMessages, intlShape } from 'react-intl';
 import IconButton from 'material-ui/IconButton';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
-import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import MoreVertIcon from 'material-ui-icons/MoreVert';
 import { getStyles } from 'material-ui/AppBar/AppBar';
 import * as surveyActions from 'course/survey/actions/surveys';
 import { showDeleteConfirmation } from 'course/survey/actions';

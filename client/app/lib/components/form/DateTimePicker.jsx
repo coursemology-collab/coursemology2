@@ -6,8 +6,8 @@ import TextField from 'material-ui/TextField';
 import DatePicker from 'material-ui/DatePicker';
 import TimePicker from 'material-ui/TimePicker';
 import IconButton from 'material-ui/IconButton';
-import DateRange from 'material-ui/svg-icons/action/date-range';
-import Schedule from 'material-ui/svg-icons/action/schedule';
+import DateRange from 'material-ui-icons/DateRange';
+import Schedule from 'material-ui-icons/Schedule';
 import formTranslations from 'lib/translations/form';
 
 const translations = defineMessages({

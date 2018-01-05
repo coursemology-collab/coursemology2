@@ -7,13 +7,13 @@ import moment from 'lib/moment';
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
-import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import MoreVertIcon from 'material-ui-icons/MoreVert';
 import red from 'material-ui/colors/red';
 import blue from 'material-ui/colors/blue';
 import IconButton from 'material-ui/IconButton';
 import CircularProgress from 'material-ui/CircularProgress';
-import DownloadIcon from 'material-ui/svg-icons/file/file-download';
-import HistoryIcon from 'material-ui/svg-icons/action/history';
+import DownloadIcon from 'material-ui-icons/FileDownload';
+import HistoryIcon from 'material-ui-icons/History';
 
 import { getCourseUserURL, getEditSubmissionURL, getSubmissionLogsURL } from 'lib/helpers/url-builders';
 import { assessmentShape } from '../../propTypes';

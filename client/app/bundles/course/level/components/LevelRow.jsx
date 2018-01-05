@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { defineMessages, FormattedMessage } from 'react-intl';
 import { TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
 import RaisedButton from 'material-ui/RaisedButton';
-import DeleteIcon from 'material-ui/svg-icons/action/delete';
+import DeleteIcon from 'material-ui-icons/Delete';
 import TextField from 'material-ui/TextField';
 import grey from 'material-ui/colors/grey';
 

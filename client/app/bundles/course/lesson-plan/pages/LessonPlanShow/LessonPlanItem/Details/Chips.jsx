@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { defineMessages, FormattedMessage } from 'react-intl';
 import Avatar from 'material-ui/Avatar';
 import Chip from 'material-ui/Chip';
-import Block from 'material-ui/svg-icons/content/block';
-import Room from 'material-ui/svg-icons/action/room';
-import DateRange from 'material-ui/svg-icons/action/date-range';
-import InfoOutline from 'material-ui/svg-icons/action/info-outline';
+import Block from 'material-ui-icons/Block';
+import Room from 'material-ui-icons/Room';
+import DateRange from 'material-ui-icons/DateRange';
+import InfoOutline from 'material-ui-icons/InfoOutline';
 import red from 'material-ui/colors/red';
 import moment, { shortDateTime, shortTime } from 'lib/moment';
 

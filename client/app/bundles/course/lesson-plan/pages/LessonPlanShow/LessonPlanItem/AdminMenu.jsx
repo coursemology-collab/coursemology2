@@ -5,7 +5,7 @@ import { injectIntl, defineMessages, intlShape } from 'react-intl';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
-import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import MoreVertIcon from 'material-ui-icons/MoreVert';
 import { showEventForm, updateEvent, deleteEvent, showDeleteConfirmation } from 'course/lesson-plan/actions';
 
 const translations = defineMessages({
