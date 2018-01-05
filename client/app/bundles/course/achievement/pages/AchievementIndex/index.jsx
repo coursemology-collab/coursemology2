@@ -4,8 +4,7 @@ import { connect } from 'react-redux';
 import { submit, isPristine } from 'redux-form';
 import { injectIntl, FormattedMessage, intlShape } from 'react-intl';
 import Dialog from 'material-ui/Dialog';
-import RaisedButton from 'material-ui/RaisedButton';
-import FlatButton from 'material-ui/FlatButton';
+import Button from 'material-ui/Button';
 import NotificationBar, { notificationShape } from 'lib/components/NotificationBar';
 import ConfirmationDialog from 'lib/components/ConfirmationDialog';
 import formTranslations from 'lib/translations/form';
@@ -67,16 +66,16 @@ class PopupDialog extends React.Component {
     const { intl, dispatch, badge } = this.props;
 
     const formActions = [
-      <FlatButton
+      <Button
         label={<FormattedMessage {...formTranslations.cancel} />}
-        primary
+        color="primary"
         disabled={this.props.disabled}
         onClick={this.handleClose}
       />,
-      <FlatButton
+      <Button
         label={<FormattedMessage {...formTranslations.submit} />}
         className="btn-submit"
-        primary
+        color="primary"
         onClick={() => dispatch(submit(formNames.ACHIEVEMENT))}
         disabled={this.props.disabled}
       />,
@@ -89,9 +88,10 @@ class PopupDialog extends React.Component {
 
     return (
       <div>
-        <RaisedButton
+        <Button
+          raised
           label={intl.formatMessage(translations.new)}
-          primary
+          color="primary"
           onClick={this.handleOpen}
           style={styles.newButton}
         />

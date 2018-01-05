@@ -3,7 +3,7 @@ import Immutable from 'immutable';
 import React, { PropTypes } from 'react';
 import { injectIntl, FormattedMessage, intlShape } from 'react-intl';
 import { Card, CardHeader, CardText } from 'material-ui/Card';
-import FlatButton from 'material-ui/FlatButton';
+import Button from 'material-ui/Button';
 import {
   Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow, TableRowColumn,
 } from 'material-ui/Table';
@@ -201,7 +201,7 @@ class OnlineEditorPythonView extends React.Component {
             <TableFooter adjustForCheckbox={false}>
               <TableRow>
                 <TableRowColumn colSpan="5" style={{ textAlign: 'center' }}>
-                  <FlatButton
+                  <Button
                     label={this.props.intl.formatMessage(translations.addNewTestButton)}
                     icon={<i className="fa fa-plus" />}
                     disabled={this.props.isLoading || numAllTestCases >= MAX_TEST_CASES}

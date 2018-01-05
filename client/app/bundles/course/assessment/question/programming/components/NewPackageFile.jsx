@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {
   TableHeaderColumn, TableRow, TableRowColumn,
 } from 'material-ui/Table';
-import RaisedButton from 'material-ui/RaisedButton';
+import Button from 'material-ui/Button';
 import { injectIntl } from 'react-intl';
 import grey from 'material-ui/colors/grey';
 
@@ -43,7 +43,8 @@ class NewPackageFile extends React.Component {
 
     if (showDeleteButton) {
       deleteButton = (
-        <RaisedButton
+        <Button
+          raised
           backgroundColor={grey300}
           icon={<i className="fa fa-trash" />}
           disabled={isLoading}
@@ -61,12 +62,13 @@ class NewPackageFile extends React.Component {
           { deleteButton }
         </TableHeaderColumn>
         <TableRowColumn>
-          <RaisedButton
+          <Button
+            raised
             className={styles.fileInputButton}
             label={this.props.buttonLabel}
             labelPosition="before"
             containerElement="label"
-            primary
+            color="primary"
             disabled={isLoading}
             style={addFileButtonStyle}
           >
@@ -77,7 +79,7 @@ class NewPackageFile extends React.Component {
               disabled={isLoading}
               onChange={this.newPackageFileChangeHandler(index)}
             />
-          </RaisedButton>
+          </Button>
           <div style={{ display: 'inline-block' }}>{filename}</div>
         </TableRowColumn>
       </TableRow>

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { defineMessages, FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 import TextField from 'material-ui/TextField';
-import RaisedButton from 'material-ui/RaisedButton';
+import Button from 'material-ui/Button';
 
 const translations = defineMessages({
   prompt: {
@@ -41,8 +41,9 @@ export default class CommentField extends Component {
           value={value}
           onChange={event => this.onChange(event)}
         />
-        <RaisedButton
-          primary
+        <Button
+          raised
+          color="primary"
           label={<FormattedMessage {...translations.comment} />}
           onClick={() => createComment(value)}
           disabled={value === ''}

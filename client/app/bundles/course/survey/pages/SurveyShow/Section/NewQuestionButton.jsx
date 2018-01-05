@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { injectIntl, defineMessages, intlShape, FormattedMessage } from 'react-intl';
-import FlatButton from 'material-ui/FlatButton';
+import Button from 'material-ui/Button';
 import { showQuestionForm, createSurveyQuestion } from 'course/survey/actions/questions';
 import { questionTypes } from 'course/survey/constants';
 import { formatQuestionFormData } from 'course/survey/utils';
@@ -70,8 +70,8 @@ class NewQuestionButton extends React.Component {
 
   render() {
     return (
-      <FlatButton
-        primary
+      <Button
+        color="primary"
         label={<FormattedMessage {...translations.addQuestion} />}
         onClick={this.showNewQuestionForm}
         disabled={this.props.disabled}

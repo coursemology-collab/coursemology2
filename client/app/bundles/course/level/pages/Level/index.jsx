@@ -9,8 +9,7 @@ import LoadingIndicator from 'lib/components/LoadingIndicator';
 import { fetchLevels, updateExpThreshold, sortLevels, addLevel, deleteLevel, saveLevels } from 'course/level/actions';
 import { defaultComponentTitles } from 'course/translations.intl';
 
-import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
+import Button from 'material-ui/Button';
 import {
   Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow, TableRowColumn,
 } from 'material-ui/Table';
@@ -173,7 +172,7 @@ class Level extends React.Component {
             <TableRow>
               <TableRowColumn />
               <TableRowColumn colSpan="1" style={styles.addNewLevel}>
-                <FlatButton
+                <Button
                   id="add-level"
                   icon={<i className="fa fa-plus" />}
                   label={<FormattedMessage {...translations.addNewLevel} />}
@@ -185,13 +184,14 @@ class Level extends React.Component {
             </TableRow>
             <TableRow>
               <TableRowColumn style={styles.saveLevels}>
-                <RaisedButton
+                <Button
+                  raised
                   id="save-levels"
                   style={styles.formButton}
                   type="submit"
                   label={<FormattedMessage {...translations.saveLevels} />}
                   disabled={this.props.isSaving}
-                  primary
+                  color="primary"
                   onClick={this.handleSaveLevels()}
                 />
               </TableRowColumn>

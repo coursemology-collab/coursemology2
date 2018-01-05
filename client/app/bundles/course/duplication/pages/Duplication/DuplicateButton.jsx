@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { defineMessages, FormattedMessage } from 'react-intl';
-import RaisedButton from 'material-ui/RaisedButton';
+import Button from 'material-ui/Button';
 import { showDuplicateItemsConfirmation } from 'course/duplication/actions';
 import DuplicateItemsConfirmation from './DuplicateItemsConfirmation';
 
@@ -49,8 +49,9 @@ class DuplicateButton extends React.Component {
 
     return (
       <div>
-        <RaisedButton
-          secondary
+        <Button
+          raised
+          color="accent"
           disabled={!isCourseSelected || !isItemSelected}
           label={<FormattedMessage {...translations[label]} />}
           onClick={() => dispatch(showDuplicateItemsConfirmation())}

@@ -6,7 +6,7 @@ import { formatLongDateTime } from 'lib/moment';
 import { Table, TableBody, TableRow, TableRowColumn } from 'material-ui/Table';
 import { Card, CardText } from 'material-ui/Card';
 import Switch from 'material-ui/Switch';
-import RaisedButton from 'material-ui/RaisedButton';
+import Button from 'material-ui/Button';
 import libTranslations from 'lib/translations';
 import history from 'lib/history';
 import surveyTranslations from 'course/survey/translations';
@@ -155,7 +155,8 @@ class SurveyDetails extends React.Component {
           { survey.canCreateSection ? <NewSectionButton {...{ disabled }} /> : null }
           {
             survey.canViewResults ?
-              <RaisedButton
+              <Button
+                raised
                 style={styles.button}
                 label={<FormattedMessage {...surveyTranslations.results} />}
                 onClick={() => history.push(
@@ -165,7 +166,8 @@ class SurveyDetails extends React.Component {
           }
           {
             survey.canViewResults ?
-              <RaisedButton
+              <Button
+                raised
                 style={styles.button}
                 label={<FormattedMessage {...surveyTranslations.responses} />}
                 onClick={() => history.push(

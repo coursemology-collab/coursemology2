@@ -4,7 +4,7 @@ import { defineMessages, FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import moment from 'lib/moment';
 import history from 'lib/history';
-import RaisedButton from 'material-ui/RaisedButton';
+import Button from 'material-ui/Button';
 import { createResponse } from 'course/survey/actions/responses';
 
 const translations = defineMessages({
@@ -70,7 +70,8 @@ const RespondButton = ({
   }
 
   return (
-    <RaisedButton
+    <Button
+      raised
       label={<FormattedMessage {...labelTranslation} />}
       {...{ onClick, disabled, primary }}
     />

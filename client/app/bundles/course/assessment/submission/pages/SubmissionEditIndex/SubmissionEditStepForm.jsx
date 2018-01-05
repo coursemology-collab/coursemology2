@@ -11,7 +11,7 @@ import lightBlue from 'material-ui/colors/lightBlue';
 import blue from 'material-ui/colors/blue';
 import { Stepper, Step, StepButton, StepLabel } from 'material-ui/Stepper';
 import CircularProgress from 'material-ui/CircularProgress';
-import RaisedButton from 'material-ui/RaisedButton';
+import Button from 'material-ui/Button';
 import SvgIcon from 'material-ui/SvgIcon';
 
 /* eslint-disable import/extensions, import/no-extraneous-dependencies, import/no-unresolved */
@@ -205,7 +205,8 @@ class SubmissionEditStepForm extends Component {
 
     if (question.type === questionTypes.Programming) {
       return (
-        <RaisedButton
+        <Button
+          raised
           style={styles.formButton}
           backgroundColor={white}
           label={intl.formatMessage(translations.reset)}
@@ -225,9 +226,10 @@ class SubmissionEditStepForm extends Component {
     const { answerId } = question;
     const { isAutograding, isResetting } = questionsFlags[id] || {};
     return (
-      <RaisedButton
+      <Button
+        raised
         style={styles.formButton}
-        secondary
+        color="accent"
         label={intl.formatMessage(translations.submit)}
         onClick={() => handleSubmitAnswer(answerId)}
         disabled={isAutograding || isResetting || isSaving}
@@ -239,7 +241,8 @@ class SubmissionEditStepForm extends Component {
     const { intl } = this.props;
     if (this.shouldRenderContinueButton()) {
       return (
-        <RaisedButton
+        <Button
+          raised
           style={styles.formButton}
           backgroundColor={green500}
           labelColor={white}
@@ -268,9 +271,10 @@ class SubmissionEditStepForm extends Component {
     const { intl, pristine, attempting, handleSaveDraft, isSaving } = this.props;
     if (attempting) {
       return (
-        <RaisedButton
+        <Button
+          raised
           style={styles.formButton}
-          primary
+          color="primary"
           label={intl.formatMessage(translations.saveDraft)}
           onClick={handleSaveDraft}
           disabled={pristine || isSaving}
@@ -284,9 +288,10 @@ class SubmissionEditStepForm extends Component {
     const { intl, graderView, attempting, handleSaveGrade } = this.props;
     if (graderView && !attempting) {
       return (
-        <RaisedButton
+        <Button
+          raised
           style={styles.formButton}
-          primary
+          color="primary"
           label={intl.formatMessage(translations.saveGrade)}
           onClick={handleSaveGrade}
         />
@@ -299,9 +304,10 @@ class SubmissionEditStepForm extends Component {
     const { intl, attempting, allCorrect, isSaving } = this.props;
     if (attempting && allCorrect) {
       return (
-        <RaisedButton
+        <Button
+          raised
           style={styles.formButton}
-          secondary
+          color="accent"
           label={intl.formatMessage(translations.finalise)}
           onClick={() => this.setState({ submitConfirmation: true })}
           disabled={isSaving}
@@ -315,10 +321,11 @@ class SubmissionEditStepForm extends Component {
     const { intl, graderView, attempting } = this.props;
     if (graderView && !attempting) {
       return (
-        <RaisedButton
+        <Button
+          raised
           style={styles.formButton}
           backgroundColor={red900}
-          secondary
+          color="accent"
           label={intl.formatMessage(translations.unsubmit)}
           onClick={() => this.setState({ unsubmitConfirmation: true })}
         />

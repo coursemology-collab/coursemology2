@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { reduxForm } from 'redux-form';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import { Card } from 'material-ui/Card';
-import RaisedButton from 'material-ui/RaisedButton';
+import Button from 'material-ui/Button';
 import red from 'material-ui/colors/red';
 import history from 'lib/history';
 
@@ -69,9 +69,10 @@ class SubmissionEmptyForm extends Component {
     const { intl, graderView, attempting, handleSaveGrade, isSaving } = this.props;
     if (graderView && !attempting) {
       return (
-        <RaisedButton
+        <Button
+          raised
           style={styles.formButton}
-          primary
+          color="primary"
           label={intl.formatMessage(translations.saveGrade)}
           onClick={handleSaveGrade}
           disabled={isSaving}
@@ -89,9 +90,10 @@ class SubmissionEmptyForm extends Component {
           <FormattedMessage
             {...translations.submitNoQuestionExplain}
           />
-          <RaisedButton
+          <Button
+            raised
             style={styles.formButton}
-            secondary
+            color="accent"
             label={intl.formatMessage(translations.ok)}
             onClick={this.submitAndRedirect}
             disabled={isSaving}
@@ -106,10 +108,11 @@ class SubmissionEmptyForm extends Component {
     const { intl, graderView, submitted, published, isSaving } = this.props;
     if (graderView && (submitted || published)) {
       return (
-        <RaisedButton
+        <Button
+          raised
           style={styles.formButton}
           backgroundColor={red900}
-          secondary
+          color="accent"
           label={intl.formatMessage(translations.unsubmit)}
           onClick={() => this.setState({ unsubmitConfirmation: true })}
           disabled={isSaving}

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { defineMessages, FormattedMessage } from 'react-intl';
-import FlatButton from 'material-ui/FlatButton';
+import Button from 'material-ui/Button';
 import { changeSectionOrder } from 'course/survey/actions/sections';
 
 const translations = defineMessages({
@@ -41,7 +41,7 @@ class MoveDownButton extends React.Component {
 
   render() {
     return (
-      <FlatButton
+      <Button
         label={<FormattedMessage {...translations.moveSectionDown} />}
         onClick={this.moveSectionDown}
         disabled={this.props.disabled}

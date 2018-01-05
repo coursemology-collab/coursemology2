@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
 import Switch from 'material-ui/Switch';
-import RaisedButton from 'material-ui/RaisedButton';
+import Button from 'material-ui/Button';
 import history from 'lib/history';
 import { formatShortDateTime } from 'lib/moment';
 import translations from 'course/survey/translations';
@@ -132,7 +132,8 @@ class SurveysTable extends React.Component {
                   <div style={styles.buttonsColumn}>
                     {
                       survey.canViewResults ?
-                        <RaisedButton
+                        <Button
+                          raised
                           style={styles.button}
                           label={<FormattedMessage {...translations.results} />}
                           onClick={() => history.push(
@@ -143,7 +144,8 @@ class SurveysTable extends React.Component {
                     }
                     {
                       survey.canViewResults ?
-                        <RaisedButton
+                        <Button
+                          raised
                           style={styles.button}
                           label={<FormattedMessage {...translations.responses} />}
                           onClick={() => history.push(

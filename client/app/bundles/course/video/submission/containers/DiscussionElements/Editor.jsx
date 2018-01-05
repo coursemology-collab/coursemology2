@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { defineMessages, FormattedMessage } from 'react-intl';
 import ReactSummernote from 'react-summernote';
-import RaisedButton from 'material-ui/RaisedButton';
+import Button from 'material-ui/Button';
 
 import style from '../Discussion.scss';
 
@@ -65,15 +65,17 @@ function Editor(props) {
       </div>
       <div className={style.editorButtons}>
         {props.showCancel && (
-          <RaisedButton
+          <Button
+            raised
             label={props.cancelButtonText}
             onClick={props.onCancel}
             disabled={props.disabled}
           />
         )}
-        <RaisedButton
+        <Button
+          raised
           label={props.submitButtonText}
-          primary
+          color="primary"
           onClick={props.onSubmit}
           disabled={props.disabled}
         />

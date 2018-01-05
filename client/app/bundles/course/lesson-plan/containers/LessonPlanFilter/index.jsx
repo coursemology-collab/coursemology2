@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { defineMessages, FormattedMessage } from 'react-intl';
-import RaisedButton from 'material-ui/RaisedButton';
+import Button from 'material-ui/Button';
 import Popover from 'material-ui/Popover';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
@@ -53,7 +53,8 @@ class LessonPlanFilter extends React.Component {
 
     return (
       <div>
-        <RaisedButton
+        <Button
+          raised
           onClick={this.handleClick}
           label={<FormattedMessage {...translations.filter} />}
           labelPosition="before"

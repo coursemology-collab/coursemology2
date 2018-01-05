@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { injectIntl, defineMessages, intlShape, FormattedMessage } from 'react-intl';
-import RaisedButton from 'material-ui/RaisedButton';
+import Button from 'material-ui/Button';
 import { showMilestoneForm, createMilestone } from 'course/lesson-plan/actions';
 
 const translations = defineMessages({
@@ -54,8 +54,9 @@ class NewMilestoneButton extends React.Component {
     if (!this.props.canManageLessonPlan) { return <div />; }
 
     return (
-      <RaisedButton
-        primary
+      <Button
+        raised
+        color="primary"
         label={<FormattedMessage {...translations.newMilestone} />}
         onClick={this.showForm}
         style={styles.button}

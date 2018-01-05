@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl, intlShape } from 'react-intl';
 import { TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
-import RaisedButton from 'material-ui/RaisedButton';
+import Button from 'material-ui/Button';
 import TextField from 'material-ui/TextField';
 import grey from 'material-ui/colors/grey';
 
@@ -74,23 +74,25 @@ class TestCase extends React.Component {
       <TableRowColumn style={{ paddingLeft: 10, paddingRight: 10 }}>
         {
           showCodeEditor ?
-            <RaisedButton
+            <Button
+              raised
               className={styles.codeEditorButtonCell}
               label={this.props.intl.formatMessage(translations.hideTestCaseCodeEditorButton)}
               labelPosition="before"
               containerElement="label"
-              primary
+              color="primary"
               disabled={this.props.isLoading}
               onClick={this.inlineCodeEditorHandler(type, index, !showCodeEditor)}
               style={{ marginRight: 0, width: 30 }}
             />
             :
-            <RaisedButton
+            <Button
+              raised
               className={styles.codeEditorButtonCell}
               label={this.props.intl.formatMessage(translations.showTestCaseCodeEditorButton)}
               labelPosition="before"
               containerElement="label"
-              primary
+              color="primary"
               disabled={this.props.isLoading}
               onClick={this.inlineCodeEditorHandler(type, index, !showCodeEditor)}
               style={{ marginRight: 0, width: 30 }}
@@ -107,7 +109,8 @@ class TestCase extends React.Component {
     return (
       <TableRow>
         <TableHeaderColumn className={styles.deleteButtonCell}>
-          <RaisedButton
+          <Button
+            raised
             name={TestCase.getTestInputName(type, 'inlineCode')}
             backgroundColor={grey300}
             icon={<i className="fa fa-trash" />}

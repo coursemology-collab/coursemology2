@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import FloatingActionButton from 'material-ui/FloatingActionButton';
+import Button from 'material-ui/Button';
 import ContentAdd from 'material-ui-icons/Add';
 
 const styles = {
@@ -16,9 +16,9 @@ const propTypes = {
 };
 
 const AddButton = ({ onClick }) => (
-  <FloatingActionButton style={styles.floatingButton} {...{ onClick }}>
+  <Button fab style={styles.floatingButton} {...{ onClick }}>
     <ContentAdd />
-  </FloatingActionButton>
+  </Button>
 );
 
 AddButton.propTypes = propTypes;

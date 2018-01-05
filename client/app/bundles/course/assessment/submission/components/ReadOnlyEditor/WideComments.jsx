@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Paper from 'material-ui/Paper';
-import RaisedButton from 'material-ui/RaisedButton';
+import Button from 'material-ui/Button';
 
 import Annotations from '../../containers/Annotations';
 import PostPreview from '../../containers/PostPreview';
@@ -45,12 +45,13 @@ export default class WideComments extends Component {
           }}
           onClick={() => onClick(lineNumber)}
         >
-          <RaisedButton
+          <Button
+            raised
             style={styles.minimiseButton}
             onClick={() => collapseLine(lineNumber)}
           >
             <span className="fa fa-chevron-down" />
-          </RaisedButton>
+          </Button>
           <Annotations answerId={answerId} fileId={fileId} lineNumber={lineNumber} annotation={annotation} />
         </div>
       );

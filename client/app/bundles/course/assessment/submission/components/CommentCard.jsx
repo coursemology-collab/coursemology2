@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Avatar from 'material-ui/Avatar';
 import TextField from 'material-ui/TextField';
 import { Card, CardHeader, CardText } from 'material-ui/Card';
-import FlatButton from 'material-ui/FlatButton';
+import Button from 'material-ui/Button';
 import EditIcon from 'material-ui-icons/ModeEdit';
 import DeleteIcon from 'material-ui-icons/Delete';
 import red from 'material-ui/colors/red';
@@ -116,17 +116,17 @@ export default class CommentCard extends Component {
             onChange={event => this.onChange(event)}
           />
           <div style={styles.buttonContainer}>
-            <FlatButton
+            <Button
               style={styles.editButton}
               labelStyle={styles.editButton}
               label="Cancel"
               onClick={() => this.setState({ editMode: false })}
             />
-            <FlatButton
+            <Button
               style={styles.deleteButton}
               labelStyle={styles.deleteButton}
               label="Save"
-              primary
+              color="primary"
               onClick={() => this.onSave()}
             />
           </div>
@@ -151,14 +151,14 @@ export default class CommentCard extends Component {
             avatar={<Avatar src={avatar} size={25} />}
           />
           <div style={styles.buttonContainer}>
-            { canUpdate ? <FlatButton
+            { canUpdate ? <Button
               className="edit-comment"
               style={styles.headerButton}
               labelStyle={styles.headerButton}
               icon={<EditIcon />}
               onClick={() => this.toggleEditMode()}
             /> : null }
-            { canDestroy ? <FlatButton
+            { canDestroy ? <Button
               className="delete-comment"
               style={styles.headerButton}
               labelStyle={styles.headerButton}

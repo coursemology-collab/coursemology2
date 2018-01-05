@@ -4,7 +4,7 @@ import { injectIntl } from 'react-intl';
 import {
   TableHeaderColumn, TableRow, TableRowColumn,
 } from 'material-ui/Table';
-import RaisedButton from 'material-ui/RaisedButton';
+import Button from 'material-ui/Button';
 import grey from 'material-ui/colors/grey';
 import { white } from 'material-ui/colors/common';
 
@@ -27,7 +27,8 @@ function ExistingPackageFile(props) {
   return (
     <TableRow style={rowStyle}>
       <TableHeaderColumn className={styles.deleteButtonCell}>
-        <RaisedButton
+        <Button
+          raised
           backgroundColor={buttonColor}
           icon={<i className={buttonClass} />}
           disabled={isLoading}

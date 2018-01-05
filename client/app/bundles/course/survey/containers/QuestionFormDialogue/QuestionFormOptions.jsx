@@ -2,7 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defineMessages, injectIntl, intlShape } from 'react-intl';
-import FlatButton from 'material-ui/FlatButton';
+import Button from 'material-ui/Button';
 import QuestionFormOption from './QuestionFormOption';
 
 const styles = {
@@ -65,14 +65,14 @@ class QuestionFormOptions extends React.Component {
           />
         ))}
         <div style={styles.buttons}>
-          <FlatButton
-            primary
+          <Button
+            color="primary"
             label={intl.formatMessage(optionsTranslations.addOption)}
             onClick={() => fields.push({})}
             {...{ disabled }}
           />
-          <FlatButton
-            primary
+          <Button
+            color="primary"
             containerElement="label"
             label={intl.formatMessage(optionsTranslations.bulkUploadImages)}
             {...{ disabled }}
@@ -84,7 +84,7 @@ class QuestionFormOptions extends React.Component {
               multiple
               {...{ disabled }}
             />
-          </FlatButton>
+          </Button>
         </div>
       </div>
     );

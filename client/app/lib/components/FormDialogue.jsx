@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl, intlShape } from 'react-intl';
 import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
+import Button from 'material-ui/Button';
 import formTranslations from 'lib/translations/form';
 import ConfirmationDialog from 'lib/components/ConfirmationDialog';
 import modalFormStyles from '../styles/ModalForm.scss';
@@ -52,16 +52,16 @@ class FormDialogue extends React.Component {
   render() {
     const { intl, title, disabled, open, submitForm, children } = this.props;
     const formActions = [
-      <FlatButton
+      <Button
         label={intl.formatMessage(formTranslations.cancel)}
-        primary
+        color="primary"
         onClick={this.handleFormClose}
         {...{ disabled }}
       />,
-      <FlatButton
+      <Button
         ref={(button) => { this.submitButton = button; }}
         label={intl.formatMessage(formTranslations.submit)}
-        primary
+        color="primary"
         keyboardFocused
         onClick={submitForm}
         {...{ disabled }}

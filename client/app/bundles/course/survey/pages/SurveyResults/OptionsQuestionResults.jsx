@@ -5,7 +5,7 @@ import { defineMessages, FormattedMessage } from 'react-intl';
 import { CardText } from 'material-ui/Card';
 import Chip from 'material-ui/Chip';
 import Switch from 'material-ui/Switch';
-import RaisedButton from 'material-ui/RaisedButton';
+import Button from 'material-ui/Button';
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
 import cyan from 'material-ui/colors/cyan';
 import grey from 'material-ui/colors/grey';
@@ -259,7 +259,8 @@ class OptionsQuestionResults extends React.Component {
 
     return (
       <CardText style={styles.expandToggleStyle}>
-        <RaisedButton
+        <Button
+          raised
           label={<FormattedMessage {...translations[labelTranslation]} values={{ quantity }} />}
           onClick={() => this.setState({ expanded: !this.state.expanded })}
         />

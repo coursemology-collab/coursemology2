@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { defineMessages, FormattedMessage } from 'react-intl';
 import { TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
-import RaisedButton from 'material-ui/RaisedButton';
+import Button from 'material-ui/Button';
 import DeleteIcon from 'material-ui-icons/Delete';
 import TextField from 'material-ui/TextField';
 import grey from 'material-ui/colors/grey';
@@ -63,7 +63,8 @@ class LevelRow extends React.Component {
         <TableRowColumn style={styles.levelNumber}>{ levelNumber }</TableRowColumn>
         <TableRowColumn>{ this.renderInput(levelNumber, experiencePointsThreshold) }</TableRowColumn>
         <TableHeaderColumn style={styles.deleteButtonCell}>
-          <RaisedButton
+          <Button
+            raised
             id={`delete_${levelNumber}`}
             name={`delete_${levelNumber}`}
             backgroundColor={grey300}

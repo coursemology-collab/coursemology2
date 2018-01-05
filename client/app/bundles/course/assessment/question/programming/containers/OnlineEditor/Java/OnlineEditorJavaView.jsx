@@ -4,7 +4,7 @@ import React, { PropTypes } from 'react';
 import AceEditor from 'react-ace';
 import { injectIntl, FormattedMessage, intlShape } from 'react-intl';
 import { Card, CardHeader, CardText } from 'material-ui/Card';
-import FlatButton from 'material-ui/FlatButton';
+import Button from 'material-ui/Button';
 import Switch from 'material-ui/Switch';
 import {
   Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow, TableRowColumn,
@@ -251,7 +251,7 @@ class OnlineEditorJavaView extends React.Component {
             <TableFooter adjustForCheckbox={false}>
               <TableRow>
                 <TableRowColumn colSpan="6" style={{ textAlign: 'center' }}>
-                  <FlatButton
+                  <Button
                     label={this.props.intl.formatMessage(translations.addNewTestButton)}
                     icon={<i className="fa fa-plus" />}
                     disabled={this.props.isLoading || numAllTestCases >= MAX_TEST_CASES}

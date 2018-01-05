@@ -6,7 +6,8 @@ import { Element, scroller } from 'react-scroll';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import { Card, CardHeader, CardText } from 'material-ui/Card';
 import CircularProgress from 'material-ui/CircularProgress';
-import RaisedButton from 'material-ui/RaisedButton';
+import Button from 'material-ui/Button';
+import Dialog from 'material-ui/Dialog';
 import Paper from 'material-ui/Paper';
 import red from 'material-ui/colors/red';
 import yellow from 'material-ui/colors/yellow';
@@ -14,9 +15,6 @@ import grey from 'material-ui/colors/grey';
 import blue from 'material-ui/colors/blue';
 import common from 'material-ui/colors/common';
 
-/* eslint-disable import/extensions, import/no-extraneous-dependencies, import/no-unresolved */
-import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
 import ConfirmationDialog from 'lib/components/ConfirmationDialog';
 import { explanationShape, questionShape, questionFlagsShape,
   questionGradeShape, topicShape } from '../../propTypes';
@@ -109,17 +107,19 @@ class SubmissionEditForm extends Component {
               {intl.formatMessage(translations.autogradeFailure)}
             </Paper>
           : null}
-          <RaisedButton
+          <Button
+            raised
             style={styles.formButton}
             backgroundColor={white}
             label={intl.formatMessage(translations.reset)}
             onClick={() => this.setState({ resetConfirmation: true, resetAnswerId: answerId })}
             disabled={isAutograding || isResetting || isSaving}
           />
-          {autogradable ? <RaisedButton
+          {autogradable ? <Button
+            raised
             style={styles.formButton}
             backgroundColor={red900}
-            secondary
+            color="accent"
             label={runCodeLabel}
             onClick={() => handleSubmitAnswer(answerId)}
             disabled={isAutograding || isResetting || isSaving || (!graderView && attemptsLeft === 0)}
@@ -236,9 +236,10 @@ class SubmissionEditForm extends Component {
     const { intl, pristine, attempting, handleSaveDraft, isSaving } = this.props;
     if (attempting) {
       return (
-        <RaisedButton
+        <Button
+          raised
           style={styles.formButton}
-          primary
+          color="primary"
           label={intl.formatMessage(translations.saveDraft)}
           onClick={handleSaveDraft}
           disabled={pristine || isSaving}
@@ -252,9 +253,10 @@ class SubmissionEditForm extends Component {
     const { intl, graderView, attempting, handleSaveGrade, isSaving } = this.props;
     if (graderView && !attempting) {
       return (
-        <RaisedButton
+        <Button
+          raised
           style={styles.formButton}
-          primary
+          color="primary"
           label={intl.formatMessage(translations.saveGrade)}
           onClick={handleSaveGrade}
           disabled={isSaving}
@@ -271,9 +273,10 @@ class SubmissionEditForm extends Component {
       const progressIcon = <CircularProgress size={24} />;
 
       return (
-        <RaisedButton
+        <Button
+          raised
           style={styles.formButton}
-          primary
+          color="primary"
           label={intl.formatMessage(translations.autograde)}
           icon={isAutograding ? progressIcon : null}
           onClick={handleAutogradeSubmission}
@@ -288,9 +291,10 @@ class SubmissionEditForm extends Component {
     const { intl, canUpdate, attempting, isSaving } = this.props;
     if (attempting && canUpdate) {
       return (
-        <RaisedButton
+        <Button
+          raised
           style={styles.formButton}
-          secondary
+          color="accent"
           label={intl.formatMessage(translations.finalise)}
           onClick={() => this.setState({ submitConfirmation: true })}
           disabled={isSaving}
@@ -304,10 +308,11 @@ class SubmissionEditForm extends Component {
     const { intl, graderView, submitted, published, isSaving } = this.props;
     if (graderView && (submitted || published)) {
       return (
-        <RaisedButton
+        <Button
+          raised
           style={styles.formButton}
           backgroundColor={red900}
-          secondary
+          color="accent"
           label={intl.formatMessage(translations.unsubmit)}
           onClick={() => this.setState({ unsubmitConfirmation: true })}
           disabled={isSaving}
@@ -325,7 +330,8 @@ class SubmissionEditForm extends Component {
         q => q.grade === undefined || q.grade === null
       );
       return (
-        <RaisedButton
+        <Button
+          raised
           style={styles.formButton}
           backgroundColor={yellow900}
           labelColor={white}
@@ -342,7 +348,8 @@ class SubmissionEditForm extends Component {
     const { intl, graderView, graded, handleUnmark, isSaving } = this.props;
     if (graderView && graded) {
       return (
-        <RaisedButton
+        <Button
+          raised
           style={styles.formButton}
           backgroundColor={yellow900}
           labelColor={white}
@@ -364,10 +371,11 @@ class SubmissionEditForm extends Component {
       );
 
       return (
-        <RaisedButton
+        <Button
+          raised
           style={styles.formButton}
           backgroundColor={red900}
-          secondary
+          color="accent"
           label={intl.formatMessage(translations.publish)}
           onClick={handlePublish}
           disabled={isSaving || anyUngraded}
@@ -432,8 +440,8 @@ class SubmissionEditForm extends Component {
       <Dialog
         title={intl.formatMessage(translations.examDialogTitle)}
         actions={
-          <FlatButton
-            primary
+          <Button
+            color="primary"
             label="OK"
             onClick={() => this.setState({ examNotice: false })}
           />

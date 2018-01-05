@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { defineMessages, FormattedMessage } from 'react-intl';
 import { CardText } from 'material-ui/Card';
-import RaisedButton from 'material-ui/RaisedButton';
+import Button from 'material-ui/Button';
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
 
 const styles = {
@@ -130,7 +130,8 @@ class TextResponseResults extends React.Component {
     const labelTranslation = this.state.expanded ? 'hideResponses' : 'showResponses';
     return (
       <CardText style={styles.expandToggleStyle}>
-        <RaisedButton
+        <Button
+          raised
           label={<FormattedMessage {...translations[labelTranslation]} values={values} />}
           onClick={() => this.setState({ expanded: !this.state.expanded })}
         />

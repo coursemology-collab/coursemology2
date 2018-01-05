@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import ReactTooltip from 'react-tooltip';
 import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
 import Switch from 'material-ui/Switch';
-import FlatButton from 'material-ui/FlatButton';
+import Button from 'material-ui/Button';
 import CircularProgress from 'material-ui/CircularProgress';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import GroupIcon from 'material-ui-icons/Group';
@@ -123,9 +123,9 @@ class VisibleSubmissionsIndex extends React.Component {
             checked={includePhantoms}
             onChange={() => this.setState({ includePhantoms: !includePhantoms })}
           />
-          <FlatButton
+          <Button
             disabled={isPublishing || !this.canPublish()}
-            secondary
+            color="accent"
             label={<FormattedMessage {...submissionsTranslations.publishGrades} />}
             labelPosition="before"
             icon={isPublishing ? <CircularProgress size={24} /> : null}

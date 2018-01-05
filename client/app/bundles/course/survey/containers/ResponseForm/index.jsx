@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { defineMessages, FormattedMessage } from 'react-intl';
 import { reduxForm, FieldArray, Form, getFormValues } from 'redux-form';
-import RaisedButton from 'material-ui/RaisedButton';
+import Button from 'material-ui/Button';
 import formTranslations from 'lib/translations/form';
 import { formNames } from 'course/survey/constants';
 import { responseShape } from 'course/survey/propTypes';
@@ -105,10 +105,11 @@ class ResponseForm extends React.Component {
     if (!canModify) { return null; }
 
     return (
-      <RaisedButton
+      <Button
+        raised
         style={styles.formButton}
         type="submit"
-        primary
+        color="primary"
         label={<FormattedMessage {...formTranslations.save} />}
         onClick={() => onSubmit({ ...formValues, submit: false })}
         disabled={isSubmitting || pristine}
@@ -128,10 +129,11 @@ class ResponseForm extends React.Component {
       response.submitted_at ? responseFormTranslations.submitted : formTranslations.submit;
 
     return (
-      <RaisedButton
+      <Button
+        raised
         style={styles.formButton}
         type="submit"
-        primary
+        color="primary"
         label={<FormattedMessage {...submitButtonTranslation} />}
         onClick={handleSubmit(data => onSubmit({ ...data, submit: true }))}
         disabled={isSubmitting || !!response.submitted_at}

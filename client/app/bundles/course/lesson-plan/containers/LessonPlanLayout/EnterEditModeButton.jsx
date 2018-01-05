@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defineMessages, FormattedMessage } from 'react-intl';
-import RaisedButton from 'material-ui/RaisedButton';
+import Button from 'material-ui/Button';
 import history from 'lib/history';
 
 const translations = defineMessages({
@@ -18,7 +18,8 @@ const styles = {
 };
 
 const EnterEditModeButton = ({ match: { params: { courseId } } }) => (
-  <RaisedButton
+  <Button
+    raised
     label={<FormattedMessage {...translations.enterEditMode} />}
     onClick={() => history.push(`/courses/${courseId}/lesson_plan/edit/`)}
     style={styles.button}

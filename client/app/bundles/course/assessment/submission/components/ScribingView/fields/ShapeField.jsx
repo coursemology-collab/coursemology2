@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl, intlShape } from 'react-intl';
 import FontIcon from 'material-ui/FontIcon';
-import FlatButton from 'material-ui/FlatButton';
+import Button from 'material-ui/Button';
 import blue from 'material-ui/colors/blue';
 
 import { scribingTranslations as translations } from '../../../translations';
@@ -21,7 +21,7 @@ const ShapeField = (props) => {
 
   return (
     <div>
-      <FlatButton
+      <Button
         label={intl.formatMessage(translations.rectangle)}
         primary={currentShape === scribingShapes.RECT}
         onClick={() => (setSelectedShape(scribingShapes.RECT))}
@@ -31,7 +31,7 @@ const ShapeField = (props) => {
           className="fa fa-square-o"
         />}
       />
-      <FlatButton
+      <Button
         label={intl.formatMessage(translations.ellipse)}
         primary={currentShape === scribingShapes.ELLIPSE}
         onClick={() => (setSelectedShape(scribingShapes.ELLIPSE))}

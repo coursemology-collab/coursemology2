@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import RaisedButton from 'material-ui/RaisedButton';
+import Button from 'material-ui/Button';
 import red from 'material-ui/colors/red';
 
 import createComponent from 'lib/components/redux-form/createComponent';
@@ -73,12 +73,13 @@ class FileUploadComponent extends Component {
 
     return (
       <div>
-        <RaisedButton
+        <Button
+          raised
           className={styles.fileInputButton}
           label={label}
           labelPosition="before"
           containerElement="label"
-          primary
+          color="primary"
           disabled={isLoading}
         >
           <input
@@ -89,7 +90,7 @@ class FileUploadComponent extends Component {
             disabled={isLoading}
             onChange={onChange}
           />
-        </RaisedButton>
+        </Button>
         { this.renderFileNameLabel() }
       </div>
     );

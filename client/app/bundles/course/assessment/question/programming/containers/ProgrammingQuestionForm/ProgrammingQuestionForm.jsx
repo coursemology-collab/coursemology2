@@ -8,7 +8,7 @@ import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import TextField from 'material-ui/TextField';
 import Switch from 'material-ui/Switch';
-import RaisedButton from 'material-ui/RaisedButton';
+import Button from 'material-ui/Button';
 import Snackbar from 'material-ui/Snackbar';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import red from 'material-ui/colors/red';
@@ -396,12 +396,13 @@ class ProgrammingQuestionForm extends React.Component {
       <div>
         <h3>{label}</h3>
         { downloadNode }
-        <RaisedButton
+        <Button
+          raised
           className={styles.fileInputButton}
           label={newPackageButton}
           labelPosition="before"
           containerElement="label"
-          primary
+          color="primary"
           disabled={this.props.data.get('is_loading')}
         >
           <input
@@ -412,7 +413,7 @@ class ProgrammingQuestionForm extends React.Component {
             disabled={this.props.data.get('is_loading')}
             onChange={this.onPackageUploadFileChange}
           />
-        </RaisedButton>
+        </Button>
         <div style={{ display: 'inline-block' }}>{newFilename || noFileMessage}</div>
         <div style={{ color: red500, whiteSpace: 'pre-wrap' }}>{packageError}</div>
       </div>
@@ -632,11 +633,12 @@ class ProgrammingQuestionForm extends React.Component {
             autoHideDuration={2000}
             onRequestClose={() => { this.props.actions.clearSubmissionMessage(); }}
           />
-          <RaisedButton
+          <Button
+            raised
             className={styles.submitButton}
             label={this.submitButtonText()}
             labelPosition="before"
-            primary
+            color="primary"
             id="programmming-question-form-submit"
             type="submit"
             disabled={this.props.data.get('is_loading')}

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
 import red from 'material-ui/colors/red';
 import { injectIntl, intlShape, defineMessages, FormattedMessage } from 'react-intl';
-import FlatButton from 'material-ui/FlatButton';
+import Button from 'material-ui/Button';
 import MicIcon from 'material-ui-icons/Mic';
 import StopIcon from 'material-ui-icons/Stop';
 import SingleFileInput from 'lib/components/redux-form/SingleFileInput';
@@ -157,16 +157,15 @@ class VoiceResponseAnswer extends Component {
           </SingleFileInput>
         </div>
         <div>
-          <FlatButton
-            primary
+          <Button
+            color="primary"
             disabled={recording}
             icon={<MicIcon />}
             label={intl.formatMessage(translations.startRecording)}
             onClick={this.onStartRecord}
           />
-          <FlatButton
-            primary
-            secondary
+          <Button
+            color="accent"
             icon={<StopIcon />}
             label={intl.formatMessage(translations.stopRecording)}
             disabled={!recording || recordingComponentId !== this.currentRecordingComponentId()}

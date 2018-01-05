@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { List } from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
-import FlatButton from 'material-ui/FlatButton';
+import Button from 'material-ui/Button';
 import Divider from 'material-ui/Divider';
 import ContentAdd from 'material-ui-icons/Add';
 import NotificationBar, { notificationShape } from 'lib/components/NotificationBar';
@@ -79,7 +79,7 @@ const MaterialList = (props) => {
   ));
 
   const newFileButton = (
-    <FlatButton
+    <Button
       fullWidth
       label="Add Files"
       icon={<ContentAdd />}
@@ -87,7 +87,7 @@ const MaterialList = (props) => {
       style={styles.newFileButton}
     >
       <input type="file" multiple style={styles.uploadInput} onChange={onFileInputChange} />
-    </FlatButton>
+    </Button>
   );
 
   return (

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl, intlShape } from 'react-intl';
 import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
+import Button from 'material-ui/Button';
 import formTranslations from 'lib/translations/form';
 
 const buttonStyle = {
@@ -61,8 +61,8 @@ class ConfirmationDialog extends React.Component {
     }
 
     const actions = [
-      <FlatButton
-        primary
+      <Button
+        color="primary"
         keyboardFocused
         className="cancel-btn"
         disabled={disableCancelButton}
@@ -71,8 +71,8 @@ class ConfirmationDialog extends React.Component {
         label={cancelButtonText || intl.formatMessage(formTranslations.cancel)}
         ref={(button) => { this.cancelButton = button; }}
       />,
-      <FlatButton
-        primary
+      <Button
+        color="primary"
         className="confirm-btn"
         disabled={disableConfirmButton}
         onClick={onConfirm}

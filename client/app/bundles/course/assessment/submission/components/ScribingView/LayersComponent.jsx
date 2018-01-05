@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl, intlShape } from 'react-intl';
 import Popover from 'material-ui/Popover';
-import RaisedButton from 'material-ui/RaisedButton';
+import Button from 'material-ui/Button';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 import Done from 'material-ui-icons/Done';
@@ -75,7 +75,8 @@ class LayersComponent extends Component {
     return !disabled ? (
       <div>
         <label style={popoverStyles.layersLabel}>{intl.formatMessage(translations.layersLabelText)}</label>
-        <RaisedButton
+        <Button
+          raised
           onClick={onClick}
           label={layers && (`${layers[0].creator_name.substring(0, 6)}...`)}
           disabled={disabled}
