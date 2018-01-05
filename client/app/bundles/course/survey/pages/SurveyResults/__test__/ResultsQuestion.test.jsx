@@ -89,7 +89,7 @@ describe('<ResultsQuestion />', () => {
     const lastOptionCountBeforeSort = lastOptionCountCell().text();
     expect(lastOptionCountBeforeSort).toBe('1');
     const sortToggle = resultsQuestion.find('Toggle').first();
-    sortToggle.props().onToggle(null, true);
+    sortToggle.props().onChange(null, true);
     const lastOptionCountAfterSort = lastOptionCountCell().text();
     expect(lastOptionCountAfterSort).toBe('0');
   });

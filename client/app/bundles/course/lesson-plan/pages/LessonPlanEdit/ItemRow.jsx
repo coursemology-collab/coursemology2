@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { defineMessages, FormattedMessage } from 'react-intl';
-import Toggle from 'material-ui/Toggle';
+import Switch from 'material-ui/Switch';
 import moment from 'lib/moment';
 import DateTimePicker from 'lib/components/form/DateTimePicker';
 import { updateItem } from 'course/lesson-plan/actions';
@@ -110,9 +110,9 @@ class ItemRow extends React.Component {
           />
         </td>
         <td>
-          <Toggle
-            toggled={published}
-            onToggle={(_, isToggled) => this.updateItem({ published: isToggled })}
+          <Switch
+            checked={published}
+            onChange={(_, isToggled) => this.updateItem({ published: isToggled })}
           />
         </td>
       </tr>

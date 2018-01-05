@@ -1,14 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<Toggle /> renders a toggle with an error 1`] = `
+exports[`<Switch /> renders a toggle with an error 1`] = `
 <div>
-  <Toggle
+  <Switch
     defaultToggled={false}
     disabled={false}
     labelPosition="left"
     name="Not very awesome toggle"
-    onToggle={[Function]}
-    toggled={false}
+    onChange={[Function]}
+    checked={false}
   />
   <div
     style={
@@ -22,15 +22,15 @@ exports[`<Toggle /> renders a toggle with an error 1`] = `
 </div>
 `;
 
-exports[`<Toggle /> renders a toggled toggle 1`] = `
+exports[`<Switch /> renders a checked toggle 1`] = `
 <div>
-  <Toggle
+  <Switch
     defaultToggled={false}
     disabled={false}
     labelPosition="left"
     name="Awesome toggle"
-    onToggle={[Function]}
-    toggled={true}
+    onChange={[Function]}
+    checked={true}
   />
 </div>
 `;

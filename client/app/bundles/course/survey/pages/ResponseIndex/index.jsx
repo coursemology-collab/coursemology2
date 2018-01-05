@@ -6,7 +6,7 @@ import { defineMessages, FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 import mirrorCreator from 'mirror-creator';
 import { Card, CardText } from 'material-ui/Card';
-import Toggle from 'material-ui/Toggle';
+import Switch from 'material-ui/Switch';
 import red from 'material-ui/colors/red';
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
 import BarChart from 'lib/components/BarChart';
@@ -269,11 +269,11 @@ class ResponseIndex extends React.Component {
         <CardText>
           <h3 style={styles.statsHeader}><FormattedMessage {...translations.stats} /></h3>
           <BarChart data={chartData} />
-          <Toggle
+          <Switch
             style={styles.toggle}
             labelPosition="right"
             label={<FormattedMessage {...translations.includePhantoms} />}
-            onToggle={(_, value) => this.setState({ includePhantomsInStats: value })}
+            onChange={(_, value) => this.setState({ includePhantomsInStats: value })}
           />
         </CardText>
       </Card>

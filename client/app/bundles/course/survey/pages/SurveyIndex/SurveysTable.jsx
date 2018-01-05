@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
-import Toggle from 'material-ui/Toggle';
+import Switch from 'material-ui/Switch';
 import RaisedButton from 'material-ui/RaisedButton';
 import history from 'lib/history';
 import { formatShortDateTime } from 'lib/moment';
@@ -48,10 +48,10 @@ class SurveysTable extends React.Component {
     }
 
     return (
-      <Toggle
+      <Switch
         labelPosition="right"
-        toggled={survey.published}
-        onToggle={(event, value) =>
+        checked={survey.published}
+        onChange={(event, value) =>
           dispatch(updateSurvey(
             survey.id,
             { survey: { published: value } },

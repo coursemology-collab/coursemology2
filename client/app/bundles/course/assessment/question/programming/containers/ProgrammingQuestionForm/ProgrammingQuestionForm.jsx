@@ -7,7 +7,7 @@ import { injectIntl, intlShape } from 'react-intl';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import TextField from 'material-ui/TextField';
-import Toggle from 'material-ui/Toggle';
+import Switch from 'material-ui/Switch';
 import RaisedButton from 'material-ui/RaisedButton';
 import Snackbar from 'material-ui/Snackbar';
 import { Tabs, Tab } from 'material-ui/Tabs';
@@ -554,11 +554,11 @@ class ProgrammingQuestionForm extends React.Component {
             <div className={styles.autogradeToggle}>
               {
                 this.props.data.getIn(['question', 'display_autograded_toggle']) ?
-                  <Toggle
+                  <Switch
                     label={autogradedLabel}
                     labelPosition="right"
-                    toggled={autograded}
-                    onToggle={(e) => {
+                    checked={autograded}
+                    onChange={(e) => {
                       if (hasAutoGradings) return;
                       this.handleChange('autograded', e.target.checked);
                     }}

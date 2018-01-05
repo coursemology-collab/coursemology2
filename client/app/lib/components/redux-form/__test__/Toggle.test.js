@@ -2,10 +2,10 @@ import React from 'react';
 import shallowUntil from 'utils/shallowUntil';
 import Toggle from '../Toggle';
 
-describe('<Toggle />', () => {
-  it('renders a toggled toggle', () => {
+describe('<Switch />', () => {
+  it('renders a checked toggle', () => {
     const ToggleInput = shallowUntil(
-      <Toggle
+      <Switch
         input={{
           name: 'Awesome toggle',
           value: true,
@@ -24,7 +24,7 @@ describe('<Toggle />', () => {
 
   it('renders a toggle with an error', () => {
     const ToggleInput = shallowUntil(
-      <Toggle
+      <Switch
         input={{
           name: 'Not very awesome toggle',
           value: false,

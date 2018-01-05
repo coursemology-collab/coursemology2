@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 
 import { Card, CardHeader, CardText, CardActions } from 'material-ui/Card';
-import Toggle from 'material-ui/Toggle';
+import Switch from 'material-ui/Switch';
 import { touch } from 'redux-form';
 import FileIcon from 'material-ui-icons/InsertDriveFile';
 
@@ -162,10 +162,10 @@ class VisibleSubmissionEditIndex extends Component {
 
   renderStudentViewToggle() {
     return (
-      <Toggle
+      <Switch
         label={<FormattedMessage {...translations.studentView} />}
         labelPosition="right"
-        onToggle={(_, enabled) => {
+        onChange={(_, enabled) => {
           if (enabled) {
             this.props.dispatch(enterStudentView());
           } else {

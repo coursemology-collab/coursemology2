@@ -5,7 +5,7 @@ import AceEditor from 'react-ace';
 import { injectIntl, FormattedMessage, intlShape } from 'react-intl';
 import { Card, CardHeader, CardText } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
-import Toggle from 'material-ui/Toggle';
+import Switch from 'material-ui/Switch';
 import {
   Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow, TableRowColumn,
 } from 'material-ui/Table';
@@ -439,11 +439,11 @@ class OnlineEditorJavaView extends React.Component {
         {
           autograded &&
           <div className={styles.submitAsFileToggle}>
-            <Toggle
+            <Switch
               label={toggleLabel}
               labelPosition="right"
-              toggled={submitAsFile}
-              onToggle={(e) => {
+              checked={submitAsFile}
+              onChange={(e) => {
                 if (hasSubmissions) return;
                 this.props.actions.toggleSubmitAsFile(e.target.checked);
               }}

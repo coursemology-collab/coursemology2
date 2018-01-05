@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import MaterialToggle from 'material-ui/Toggle';
+import MaterialSwitch from 'material-ui/Switch';
 import red from 'material-ui/colors/red';
 import createComponent from './createComponent';
 import mapError from './mapError';
@@ -14,7 +14,7 @@ const errorStyle = {
 // Toggle implementation with an error displayed at the bottom.
 const Toggle = ({ errorText, ...props }) => (
   <div>
-    <MaterialToggle {...props} />
+    <MaterialSwitch {...props} />
     {
         errorText &&
         <div style={errorStyle}>{errorText}</div>
@@ -38,7 +38,7 @@ export default createComponent(
   }) => ({
     // Take out the required fields and send the rest of the props to mapError().
     ...mapError({ ...props, input: inputProps }),
-    toggled: !!value,
-    onToggle: onChange,
+    checked: !!value,
+    onChange,
   })
 );

@@ -28,7 +28,7 @@ describe('<NotificationSettings />', () => {
     expect(toggles.length).toBe(1);
 
     const toggle = toggles.first();
-    toggle.props().onToggle(null, true);
+    toggle.props().onChange(null, true);
     const expectedPayload = {
       notification_settings: {
         component: 'sample_component',

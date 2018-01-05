@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import ReactTooltip from 'react-tooltip';
 import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
-import Toggle from 'material-ui/Toggle';
+import Switch from 'material-ui/Switch';
 import FlatButton from 'material-ui/FlatButton';
 import CircularProgress from 'material-ui/CircularProgress';
 import { Tabs, Tab } from 'material-ui/Tabs';
@@ -117,11 +117,11 @@ class VisibleSubmissionsIndex extends React.Component {
         <CardHeader title={<h3>{title}</h3>} subtitle="Submissions" />
         <CardText>{this.renderHistogram()}</CardText>
         <CardActions>
-          <Toggle
+          <Switch
             label={<FormattedMessage {...submissionsTranslations.includePhantoms} />}
             labelPosition="right"
-            toggled={includePhantoms}
-            onToggle={() => this.setState({ includePhantoms: !includePhantoms })}
+            checked={includePhantoms}
+            onChange={() => this.setState({ includePhantoms: !includePhantoms })}
           />
           <FlatButton
             disabled={isPublishing || !this.canPublish()}

@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import { formatLongDateTime } from 'lib/moment';
 import { Table, TableBody, TableRow, TableRowColumn } from 'material-ui/Table';
 import { Card, CardText } from 'material-ui/Card';
-import Toggle from 'material-ui/Toggle';
+import Switch from 'material-ui/Switch';
 import RaisedButton from 'material-ui/RaisedButton';
 import libTranslations from 'lib/translations';
 import history from 'lib/history';
@@ -68,11 +68,11 @@ class SurveyDetails extends React.Component {
 
     return (
       <CardText>
-        <Toggle
+        <Switch
           label={<FormattedMessage {...surveyTranslations.published} />}
           labelPosition="right"
-          toggled={survey.published}
-          onToggle={this.handlePublishToggle}
+          checked={survey.published}
+          onChange={this.handlePublishToggle}
         />
       </CardText>
     );

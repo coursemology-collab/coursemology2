@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { defineMessages, FormattedMessage } from 'react-intl';
 import { CardText } from 'material-ui/Card';
 import Chip from 'material-ui/Chip';
-import Toggle from 'material-ui/Toggle';
+import Switch from 'material-ui/Switch';
 import RaisedButton from 'material-ui/RaisedButton';
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
 import cyan from 'material-ui/colors/cyan';
@@ -298,7 +298,7 @@ class OptionsQuestionResults extends React.Component {
                 <FormattedMessage {...translations[anonymous ? 'percentage' : 'respondents']} />
                 <div style={styles.sortByPercentage}>
                   <FormattedMessage {...translations[anonymous ? 'sortByPercentage' : 'sortByCount']} />
-                  <Toggle onToggle={(_, value) => this.setState({ sortByPercentage: value })} />
+                  <Switch onChange={(_, value) => this.setState({ sortByPercentage: value })} />
                 </div>
               </div>
             </TableHeaderColumn>

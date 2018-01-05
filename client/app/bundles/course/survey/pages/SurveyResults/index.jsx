@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { defineMessages, FormattedMessage } from 'react-intl';
 import Subheader from 'material-ui/Subheader';
-import Toggle from 'material-ui/Toggle';
+import Switch from 'material-ui/Switch';
 import { Card, CardText } from 'material-ui/Card';
 import surveyTranslations from 'course/survey/translations';
 import { fetchResults } from 'course/survey/actions/surveys';
@@ -88,11 +88,11 @@ class SurveyResults extends React.Component {
             {
               totalStudents === realStudents ?
                 <p><FormattedMessage {...translations.noPhantoms} /></p> :
-                <Toggle
+                <Switch
                   label={<FormattedMessage {...translations.includePhantoms} />}
                   labelPosition="right"
-                  toggled={this.state.includePhantoms}
-                  onToggle={(_, value) => this.setState({ includePhantoms: value })}
+                  checked={this.state.includePhantoms}
+                  onChange={(_, value) => this.setState({ includePhantoms: value })}
                 />
             }
           </CardText>
