@@ -5,7 +5,7 @@ import { defineMessages, FormattedMessage } from 'react-intl';
 import { scroller, Helpers } from 'react-scroll';
 import Button from 'material-ui/Button';
 import Popover from 'material-ui/Popover';
-import Menu from 'material-ui/Menu';
+import Menu from 'material-ui-legacy/Menu';
 import { MenuItem } from 'material-ui/Menu';
 import KeyboardArrowUp from 'material-ui-icons/KeyboardArrowUp';
 

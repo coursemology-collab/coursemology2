@@ -4,7 +4,7 @@ import { defineMessages, injectIntl, intlShape } from 'react-intl';
 import { Field } from 'redux-form';
 import IconButton from 'material-ui/IconButton';
 import Checkbox from 'material-ui/Checkbox';
-import RadioButton from 'material-ui/RadioButton';
+import RadioButton from 'material-ui-legacy/RadioButton';
 import CloseIcon from 'material-ui-icons/Close';
 import PhotoIcon from 'material-ui-icons/Photo';
 import grey from 'material-ui/colors/grey';

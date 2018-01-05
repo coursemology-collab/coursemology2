@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { injectIntl, intlShape } from 'react-intl';
 import Popover from 'material-ui/Popover';
 import Button from 'material-ui/Button';
-import Menu from 'material-ui/Menu';
+import Menu from 'material-ui-legacy/Menu';
 import { MenuItem } from 'material-ui/Menu';
 import Done from 'material-ui-icons/Done';
 import { scribingTranslations as translations } from '../../translations';

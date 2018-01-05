@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl, intlShape } from 'react-intl';
 import Popover, { PopoverAnimationVertical } from 'material-ui/Popover';
-import Menu from 'material-ui/Menu';
+import Menu from 'material-ui-legacy/Menu';
 
 import LineThicknessField from '../fields/LineThicknessField';
 import ColorPickerField from '../fields/ColorPickerField';

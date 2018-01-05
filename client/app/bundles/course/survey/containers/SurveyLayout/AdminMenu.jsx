@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { injectIntl, defineMessages, intlShape } from 'react-intl';
 import IconButton from 'material-ui/IconButton';
-import IconMenu from 'material-ui/IconMenu';
+import IconMenu from 'material-ui-legacy/IconMenu';
 import { MenuItem } from 'material-ui/Menu';
 import MoreVertIcon from 'material-ui-icons/MoreVert';
 import { getStyles } from 'material-ui/AppBar/AppBar';

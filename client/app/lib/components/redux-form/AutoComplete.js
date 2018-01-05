@@ -1,4 +1,4 @@
-import AutoComplete from 'material-ui/AutoComplete';
+import AutoComplete from 'material-ui-legacy/AutoComplete';
 import createComponent from './createComponent';
 import mapError from './mapError';
 

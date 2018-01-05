@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl, intlShape } from 'react-intl';
-import Slider from 'material-ui/Slider';
+import Slider from 'material-ui-legacy/Slider';
 import { scribingTranslations as translations } from '../../../translations';
 
 const propTypes = {

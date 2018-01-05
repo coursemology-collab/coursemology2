@@ -4,7 +4,7 @@ import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
 import Subheader from 'material-ui/List/ListSubheader';
 import IconButton from 'material-ui/IconButton';
-import IconMenu from 'material-ui/IconMenu';
+import IconMenu from 'material-ui-legacy/IconMenu';
 import { MenuItem } from 'material-ui/Menu';
 import NewIcon from 'material-ui-icons/Add';
 import EditIcon from 'material-ui-icons/ModeEdit';

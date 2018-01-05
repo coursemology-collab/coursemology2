@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { defineMessages, FormattedMessage } from 'react-intl';
 import Button from 'material-ui/Button';
 import Popover from 'material-ui/Popover';
-import Menu from 'material-ui/Menu';
+import Menu from 'material-ui-legacy/Menu';
 import { MenuItem } from 'material-ui/Menu';
 import Done from 'material-ui-icons/Done';
 import KeyboardArrowUp from 'material-ui-icons/KeyboardArrowUp';

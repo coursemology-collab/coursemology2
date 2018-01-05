@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
 import { defineMessages, injectIntl, intlShape } from 'react-intl';
-import { RadioButton } from 'material-ui/RadioButton';
+import { RadioButton } from 'material-ui-legacy/RadioButton';
 import Checkbox from 'material-ui/Checkbox';
 import red from 'material-ui/colors/red';
 import formTranslations from 'lib/translations/form';

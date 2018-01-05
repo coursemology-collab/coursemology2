@@ -4,7 +4,7 @@ import 'brace/theme/github';
 import React, { Component } from 'react';
 import { Field, FieldArray } from 'redux-form';
 import { defineMessages, FormattedMessage } from 'react-intl';
-import { RadioButton } from 'material-ui/RadioButton';
+import { RadioButton } from 'material-ui-legacy/RadioButton';
 import { Table, TableBody, TableHeader, TableHeaderColumn,
   TableRow, TableRowColumn } from 'material-ui/Table';
 import green from 'material-ui/colors/green';

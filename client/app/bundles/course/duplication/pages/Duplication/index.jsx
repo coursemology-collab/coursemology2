@@ -5,7 +5,7 @@ import { defineMessages, FormattedMessage, injectIntl, intlShape } from 'react-i
 
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
-import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
+import { RadioButton, RadioButtonGroup } from 'material-ui-legacy/RadioButton';
 
 import TitleBar from 'lib/components/TitleBar';
 import LoadingIndicator from 'lib/components/LoadingIndicator';

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { defineMessages, FormattedMessage, injectIntl, intlShape } from 'react-intl';
-import DropDownMenu from 'material-ui/DropDownMenu';
+import DropDownMenu from 'material-ui-legacy/DropDownMenu';
 import { MenuItem } from 'material-ui/Menu';
 import moment, { shortDateTime } from 'lib/moment';
 import { setTargetCourseId, duplicateCourse } from 'course/duplication/actions';

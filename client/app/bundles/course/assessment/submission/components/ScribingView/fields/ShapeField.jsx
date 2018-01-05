@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl, intlShape } from 'react-intl';
-import FontIcon from 'material-ui/FontIcon';
+import FontIcon from 'material-ui-legacy/FontIcon';
 import Button from 'material-ui/Button';
 import blue from 'material-ui/colors/blue';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactSummernote from 'react-summernote';
-import TextFieldLabel from 'material-ui/TextField/TextFieldLabel';
+import TextFieldLabel from 'material-ui-legacy/TextField/TextFieldLabel';
 
 import '../styles/MaterialSummernote.scss';
 

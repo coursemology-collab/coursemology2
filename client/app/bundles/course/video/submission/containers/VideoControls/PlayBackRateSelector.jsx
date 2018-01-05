@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import DropDownMenu from 'material-ui/DropDownMenu';
+import DropDownMenu from 'material-ui-legacy/DropDownMenu';
 import { MenuItem } from 'material-ui/Menu';
 import { videoDefaults } from 'lib/constants/videoConstants';
 

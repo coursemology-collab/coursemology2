@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import ReactTooltip from 'react-tooltip';
 import moment from 'lib/moment';
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
-import IconMenu from 'material-ui/IconMenu';
+import IconMenu from 'material-ui-legacy/IconMenu';
 import { MenuItem } from 'material-ui/Menu';
 import MoreVertIcon from 'material-ui-icons/MoreVert';
 import red from 'material-ui/colors/red';

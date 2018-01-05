@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import FontIcon from 'material-ui/FontIcon';
+import FontIcon from 'material-ui-legacy/FontIcon';
 import MaterialTooltip from 'material-ui/Tooltip';
 import blue from 'material-ui/colors/blue';
 
