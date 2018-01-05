@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Checkbox from 'material-ui/Checkbox';
-import { green50 } from 'material-ui/styles/colors';
+import green from 'material-ui/colors/green';
+
+const green50 = green['50'];
 
 export default class CheckboxFormGroup extends Component {
   render() {

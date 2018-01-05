@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { grey200, grey400 } from 'material-ui/styles/colors';
+import grey from 'material-ui/colors/grey';
 
 import WideComments from './WideComments';
 import AddCommentIcon from './AddCommentIcon';
 import { annotationShape } from '../../propTypes';
+
+const grey200 = grey['200'];
+const grey400 = grey['400'];
 
 const styles = {
   layout: {

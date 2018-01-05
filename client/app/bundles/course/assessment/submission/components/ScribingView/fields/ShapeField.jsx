@@ -3,10 +3,12 @@ import PropTypes from 'prop-types';
 import { injectIntl, intlShape } from 'react-intl';
 import FontIcon from 'material-ui/FontIcon';
 import FlatButton from 'material-ui/FlatButton';
-import { blue500 } from 'material-ui/styles/colors';
+import blue from 'material-ui/colors/blue';
 
 import { scribingTranslations as translations } from '../../../translations';
 import { scribingShapes } from '../../../constants';
+
+const blue500 = blue['500'];
 
 const propTypes = {
   intl: intlShape.isRequired,

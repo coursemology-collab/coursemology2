@@ -11,7 +11,7 @@ import Toggle from 'material-ui/Toggle';
 import RaisedButton from 'material-ui/RaisedButton';
 import Snackbar from 'material-ui/Snackbar';
 import { Tabs, Tab } from 'material-ui/Tabs';
-import { red500 } from 'material-ui/styles/colors';
+import red from 'material-ui/colors/red';
 import MaterialSummernote from 'lib/components/MaterialSummernote';
 import ChipInput from 'lib/components/ChipInput';
 
@@ -20,6 +20,8 @@ import OnlineEditor, { validation as editorValidation } from './../OnlineEditor/
 import UploadedPackageView from './../../components/UploadedPackageView';
 import styles from './ProgrammingQuestionForm.scss';
 import translations from './ProgrammingQuestionForm.intl';
+
+const red500 = red['500'];
 
 const propTypes = {
   data: PropTypes.instanceOf(Immutable.Map).isRequired,

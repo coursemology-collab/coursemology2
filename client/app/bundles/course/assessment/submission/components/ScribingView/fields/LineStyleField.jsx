@@ -2,8 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl, intlShape } from 'react-intl';
 import Chip from 'material-ui/Chip';
-import { cyan500, grey50 } from 'material-ui/styles/colors';
+import cyan from 'material-ui/colors/cyan';
+import grey from 'material-ui/colors/grey';
 import { scribingTranslations as translations } from '../../../translations';
+
+const cyan500 = cyan['500'];
+const grey50 = grey['50'];
 
 const propTypes = {
   intl: intlShape.isRequired,

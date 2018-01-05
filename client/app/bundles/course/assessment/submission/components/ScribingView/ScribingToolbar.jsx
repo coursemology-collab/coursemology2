@@ -6,7 +6,7 @@ import { injectIntl, intlShape } from 'react-intl';
 import FontIcon from 'material-ui/FontIcon';
 import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 import MaterialTooltip from 'material-ui/internal/Tooltip';
-import { blue500 } from 'material-ui/styles/colors';
+import blue from 'material-ui/colors/blue';
 
 import SavingIndicator from './SavingIndicator';
 import ToolDropdown from './ToolDropdown';
@@ -20,6 +20,8 @@ import { scribingShape } from '../../propTypes';
 import { scribingTranslations as translations } from '../../translations';
 import { scribingTools, scribingShapes, scribingToolColor, scribingToolThickness,
   scribingToolLineStyle, scribingPopoverTypes } from '../../constants';
+
+const blue500 = blue['500'];
 
 const propTypes = {
   intl: intlShape.isRequired,

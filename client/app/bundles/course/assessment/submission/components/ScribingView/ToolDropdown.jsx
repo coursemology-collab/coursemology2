@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import FontIcon from 'material-ui/FontIcon';
 import MaterialTooltip from 'material-ui/internal/Tooltip';
-import { blue500 } from 'material-ui/styles/colors';
+import blue from 'material-ui/colors/blue';
+
+const blue500 = blue['500'];
 
 const propTypes = {
   activeObject: PropTypes.object,

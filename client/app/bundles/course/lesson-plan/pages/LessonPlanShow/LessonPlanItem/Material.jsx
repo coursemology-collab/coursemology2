@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Description from 'material-ui/svg-icons/action/description';
-import { grey700 } from 'material-ui/styles/colors';
+import grey from 'material-ui/colors/grey';
+
+const grey700 = grey['700'];
 
 const styles = {
   material: {

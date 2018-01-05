@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import mirrorCreator from 'mirror-creator';
 import { Card, CardText } from 'material-ui/Card';
 import Toggle from 'material-ui/Toggle';
-import { red500 } from 'material-ui/styles/colors';
+import red from 'material-ui/colors/red';
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
 import BarChart from 'lib/components/BarChart';
 import { fetchResponses } from 'course/survey/actions/responses';
@@ -16,6 +16,8 @@ import LoadingIndicator from 'lib/components/LoadingIndicator';
 import UnsubmitButton from 'course/survey/containers/UnsubmitButton';
 import { surveyShape, responseShape } from 'course/survey/propTypes';
 import RemindButton from './RemindButton';
+
+const red500 = red['500'];
 
 const styles = {
   red: {

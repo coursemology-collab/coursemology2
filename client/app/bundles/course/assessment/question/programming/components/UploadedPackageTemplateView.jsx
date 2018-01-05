@@ -4,7 +4,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Card } from 'material-ui/Card';
 import { Tabs, Tab } from 'material-ui/Tabs';
-import { cyan500, grey300 } from 'material-ui/styles/colors';
+import cyan from 'material-ui/colors/cyan';
+import grey from 'material-ui/colors/grey';
+
+const cyan500 = cyan['500'];
+const grey300 = grey['300'];
 
 const propTypes = {
   templates: PropTypes.instanceOf(Immutable.List).isRequired,

@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import { findDOMNode } from 'react-dom';
 import PropTypes from 'prop-types';
 import { Overlay } from 'react-overlays';
-import { grey200, grey400 } from 'material-ui/styles/colors';
-
+import grey from 'material-ui/colors/grey';
 import AddCommentIcon from './AddCommentIcon';
 import OverlayTooltip from './OverlayTooltip';
 import Annotations from '../../containers/Annotations';
 import { annotationShape } from '../../propTypes';
+
+const grey200 = grey['200'];
+const grey400 = grey['400'];
 
 const styles = {
   editor: {

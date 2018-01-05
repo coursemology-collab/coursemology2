@@ -4,8 +4,10 @@ import Checkbox from 'material-ui/Checkbox';
 import RadioButton from 'material-ui/RadioButton';
 import IconButton from 'material-ui/IconButton';
 import CloseIcon from 'material-ui/svg-icons/navigation/close';
-import { grey600 } from 'material-ui/styles/colors';
+import grey from 'material-ui/colors/grey';
 import Thumbnail from 'lib/components/Thumbnail';
+
+const grey600 = grey['600'];
 
 const styles = {
   option: {

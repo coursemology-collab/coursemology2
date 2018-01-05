@@ -4,9 +4,13 @@ import { connect } from 'react-redux';
 import IconButton from 'material-ui/IconButton';
 import OnDemandVideo from 'material-ui/svg-icons/notification/ondemand-video';
 import Refresh from 'material-ui/svg-icons/navigation/refresh';
-import { cyan500 as activeColor, grey700 as inactiveColor } from 'material-ui/styles/colors';
+import cyan from 'material-ui/colors/cyan';
+import grey from 'material-ui/colors/grey';
 
 import { changeAutoScroll, refreshDiscussion } from '../../actions/discussion';
+
+const activeColor = cyan['500'];
+const inactiveColor = grey['700'];
 
 const propTypes = {
   autoScroll: PropTypes.bool,

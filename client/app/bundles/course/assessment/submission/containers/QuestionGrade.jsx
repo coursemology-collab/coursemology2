@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Paper from 'material-ui/Paper';
-import { grey100 } from 'material-ui/styles/colors';
+import grey from 'material-ui/colors/grey';
 
 import { questionGradeShape, questionShape } from '../propTypes';
 import actionTypes from '../constants';
+
+const grey100 = grey['100'];
 
 const styles = {
   container: {

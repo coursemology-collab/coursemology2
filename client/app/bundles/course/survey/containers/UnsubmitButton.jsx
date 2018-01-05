@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { red500 } from 'material-ui/styles/colors';
+import red from 'material-ui/colors/red';
 import { defineMessages, FormattedMessage } from 'react-intl';
 import RaisedButton from 'material-ui/RaisedButton';
 import ConfirmationDialog from 'lib/components/ConfirmationDialog';
 import { unsubmitResponse } from 'course/survey/actions/responses';
+
+const red500 = red['500'];
 
 const styles = {
   formButton: {

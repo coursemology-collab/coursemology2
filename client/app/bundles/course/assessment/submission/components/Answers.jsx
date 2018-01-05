@@ -7,7 +7,7 @@ import { defineMessages, FormattedMessage } from 'react-intl';
 import { RadioButton } from 'material-ui/RadioButton';
 import { Table, TableBody, TableHeader, TableHeaderColumn,
   TableRow, TableRowColumn } from 'material-ui/Table';
-import { green50 } from 'material-ui/styles/colors';
+import green from 'material-ui/colors/green';
 
 // eslint-disable-next-line import/extensions, import/no-extraneous-dependencies, import/no-unresolved
 import RichTextField from 'lib/components/redux-form/RichTextField';
@@ -21,6 +21,8 @@ import UploadedFileView from '../containers/UploadedFileView';
 import ScribingView from '../containers/ScribingView';
 import { parseLanguages } from '../utils';
 import VoiceResponseAnswer from '../containers/VoiceResponseAnswer';
+
+const green50 = green['50'];
 
 const translations = defineMessages({
   solutions: {

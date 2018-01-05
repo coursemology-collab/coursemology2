@@ -6,7 +6,9 @@ import TextFieldLabel from 'material-ui/TextField/TextFieldLabel';
 import AutoComplete from 'material-ui/AutoComplete/AutoComplete';
 import transitions from 'material-ui/styles/transitions';
 import Chip from 'material-ui/Chip';
-import { blue300 } from 'material-ui/styles/colors';
+import blue from 'material-ui/colors/blue';
+
+const blue300 = blue['300'];
 
 // This component is derived from https://github.com/TeamWertarbyte/material-ui-chip-input
 

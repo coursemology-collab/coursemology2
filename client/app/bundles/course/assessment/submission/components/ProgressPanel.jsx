@@ -3,13 +3,23 @@ import { injectIntl, intlShape } from 'react-intl';
 import { Card, CardHeader, CardText } from 'material-ui/Card';
 import Paper from 'material-ui/Paper';
 import { Table, TableBody, TableRow, TableRowColumn } from 'material-ui/Table';
-import { red100, yellow100, grey100, green100, blue100 } from 'material-ui/styles/colors';
+import red from 'material-ui/colors/red';
+import yellow from 'material-ui/colors/yellow';
+import grey from 'material-ui/colors/grey';
+import green from 'material-ui/colors/green';
+import blue from 'material-ui/colors/blue';
 import WarningIcon from 'material-ui/svg-icons/alert/warning';
 
 import { formatDateTime } from '../utils';
 import { submissionShape } from '../propTypes';
 import translations from '../translations';
 import { workflowStates } from '../constants';
+
+const red100 = red['100'];
+const yellow100 = yellow['100'];
+const grey100 = grey['100'];
+const green100 = green['100'];
+const blue100 = blue['100'];
 
 const styles = {
   header: {

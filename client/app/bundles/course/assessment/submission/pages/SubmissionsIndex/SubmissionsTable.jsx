@@ -8,7 +8,8 @@ import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowCol
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
-import { red600, blue600 } from 'material-ui/styles/colors';
+import red from 'material-ui/colors/red';
+import blue from 'material-ui/colors/blue';
 import IconButton from 'material-ui/IconButton';
 import CircularProgress from 'material-ui/CircularProgress';
 import DownloadIcon from 'material-ui/svg-icons/file/file-download';
@@ -19,6 +20,9 @@ import { assessmentShape } from '../../propTypes';
 import { workflowStates } from '../../constants';
 import translations from '../../translations';
 import submissionsTranslations from './translations';
+
+const red600 = red['600'];
+const blue600 = blue['600'];
 
 const styles = {
   unstartedText: {

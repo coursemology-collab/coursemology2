@@ -8,7 +8,11 @@ import { Card, CardHeader, CardText } from 'material-ui/Card';
 import CircularProgress from 'material-ui/CircularProgress';
 import RaisedButton from 'material-ui/RaisedButton';
 import Paper from 'material-ui/Paper';
-import { red100, red200, red900, yellow900, grey100, blue500, white } from 'material-ui/styles/colors';
+import red from 'material-ui/colors/red';
+import yellow from 'material-ui/colors/yellow';
+import grey from 'material-ui/colors/grey';
+import blue from 'material-ui/colors/blue';
+import common from 'material-ui/colors/common';
 
 /* eslint-disable import/extensions, import/no-extraneous-dependencies, import/no-unresolved */
 import Dialog from 'material-ui/Dialog';
@@ -23,6 +27,14 @@ import Comments from '../../containers/Comments';
 import { formNames, questionTypes } from '../../constants';
 import translations from '../../translations';
 import submissionFormValidate from './submissionFormValidate';
+
+const red100 = red['100'];
+const red200 = red['200'];
+const red900 = red['900'];
+const yellow900 = yellow['900'];
+const grey100 = grey['100'];
+const blue500 = blue['500'];
+const white = common.white;
 
 const styles = {
   questionCardContainer: {

@@ -7,8 +7,10 @@ import Block from 'material-ui/svg-icons/content/block';
 import Room from 'material-ui/svg-icons/action/room';
 import DateRange from 'material-ui/svg-icons/action/date-range';
 import InfoOutline from 'material-ui/svg-icons/action/info-outline';
-import { red700 } from 'material-ui/styles/colors';
+import red from 'material-ui/colors/red';
 import moment, { shortDateTime, shortTime } from 'lib/moment';
+
+const red700 = red['700'];
 
 const translations = defineMessages({
   notPublished: {

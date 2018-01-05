@@ -4,12 +4,14 @@ import { Field } from 'redux-form';
 import { defineMessages, injectIntl, intlShape } from 'react-intl';
 import { RadioButton } from 'material-ui/RadioButton';
 import Checkbox from 'material-ui/Checkbox';
-import { red500 } from 'material-ui/styles/colors';
+import red from 'material-ui/colors/red';
 import formTranslations from 'lib/translations/form';
 import TextField from 'lib/components/redux-form/TextField';
 import { questionTypes } from 'course/survey/constants';
 import { questionShape } from 'course/survey/propTypes';
 import OptionsListItem from 'course/survey/components/OptionsListItem';
+
+const red500 = red['500'];
 
 const styles = {
   errorText: {

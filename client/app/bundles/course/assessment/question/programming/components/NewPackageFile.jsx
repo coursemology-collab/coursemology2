@@ -5,8 +5,11 @@ import {
 } from 'material-ui/Table';
 import RaisedButton from 'material-ui/RaisedButton';
 import { injectIntl } from 'react-intl';
-import { grey300 } from 'material-ui/styles/colors';
+import grey from 'material-ui/colors/grey';
+
 import styles from './../containers/OnlineEditor/OnlineEditorView.scss';
+
+const grey300 = grey['300'];
 
 class NewPackageFile extends React.Component {
   static propTypes = {

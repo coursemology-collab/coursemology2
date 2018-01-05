@@ -5,7 +5,9 @@ import { TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
 import RaisedButton from 'material-ui/RaisedButton';
 import DeleteIcon from 'material-ui/svg-icons/action/delete';
 import TextField from 'material-ui/TextField';
-import { grey300 } from 'material-ui/styles/colors';
+import grey from 'material-ui/colors/grey';
+
+const grey300 = grey['300'];
 
 const translations = defineMessages({
   zeroThresholdError: {

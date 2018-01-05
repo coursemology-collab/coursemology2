@@ -7,11 +7,16 @@ import Chip from 'material-ui/Chip';
 import Toggle from 'material-ui/Toggle';
 import RaisedButton from 'material-ui/RaisedButton';
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
-import { cyan500, grey50, grey300 } from 'material-ui/styles/colors';
+import cyan from 'material-ui/colors/cyan';
+import grey from 'material-ui/colors/grey';
 import Thumbnail from 'lib/components/Thumbnail';
 import { sorts } from 'course/survey/utils';
 import { questionTypes } from 'course/survey/constants';
 import { optionShape } from 'course/survey/propTypes';
+
+const cyan500 = cyan['500'];
+const grey50 = grey['50'];
+const grey300 = grey['300'];
 
 const styles = {
   percentageBarThreshold: 10,

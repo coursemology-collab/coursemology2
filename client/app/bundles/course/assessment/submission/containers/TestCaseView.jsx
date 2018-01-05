@@ -7,13 +7,19 @@ import ReactTooltip from 'react-tooltip';
 import { Card, CardHeader, CardText } from 'material-ui/Card';
 import WrongIcon from 'material-ui/svg-icons/navigation/close';
 import CorrectIcon from 'material-ui/svg-icons/action/done';
-import { red50, yellow100, green50 } from 'material-ui/styles/colors';
+import red from 'material-ui/colors/red';
+import yellow from 'material-ui/colors/yellow';
+import green from 'material-ui/colors/green';
 import { Table, TableHeader, TableHeaderColumn, TableBody, TableRow, TableRowColumn } from 'material-ui/Table';
 import Paper from 'material-ui/Paper';
 
 import ExpandableText from 'lib/components/ExpandableText';
 import { testCaseShape } from '../propTypes';
 import { workflowStates } from '../constants';
+
+const red50 = red['50'];
+const yellow100 = yellow['100'];
+const green50 = green['50'];
 
 const styles = {
   testCaseRow: {

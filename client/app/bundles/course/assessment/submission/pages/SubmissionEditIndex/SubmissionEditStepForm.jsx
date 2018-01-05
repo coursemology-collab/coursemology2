@@ -4,8 +4,11 @@ import { reduxForm } from 'redux-form';
 import { injectIntl, intlShape } from 'react-intl';
 import { Card, CardHeader, CardText } from 'material-ui/Card';
 import Paper from 'material-ui/Paper';
-import { white, red100, red200, red900, green200, green500, green900,
-  lightBlue400, blue800 } from 'material-ui/styles/colors';
+import common from 'material-ui/colors/common';
+import red from 'material-ui/colors/red';
+import green from 'material-ui/colors/green';
+import lightBlue from 'material-ui/colors/lightBlue';
+import blue from 'material-ui/colors/blue';
 import { Stepper, Step, StepButton, StepLabel } from 'material-ui/Stepper';
 import CircularProgress from 'material-ui/CircularProgress';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -21,6 +24,16 @@ import Comments from '../../containers/Comments';
 import { formNames, questionTypes } from '../../constants';
 import translations from '../../translations';
 import submissionFormValidate from './submissionFormValidate';
+
+const white = common.white;
+const red100 = red['100'];
+const red200 = red['200'];
+const red900 = red['900'];
+const green200 = green['200'];
+const green500 = green['500'];
+const green900 = green['900'];
+const lightBlue400 = lightBlue['400'];
+const blue800 = blue['800'];
 
 const styles = {
   questionContainer: {

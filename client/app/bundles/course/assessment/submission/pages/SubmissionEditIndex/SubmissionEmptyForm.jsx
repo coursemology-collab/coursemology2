@@ -4,7 +4,7 @@ import { reduxForm } from 'redux-form';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import { Card } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
-import { red900 } from 'material-ui/styles/colors';
+import red from 'material-ui/colors/red';
 import history from 'lib/history';
 
 /* eslint-disable import/extensions, import/no-extraneous-dependencies, import/no-unresolved */
@@ -12,6 +12,8 @@ import ConfirmationDialog from 'lib/components/ConfirmationDialog';
 import GradingPanel from '../../containers/GradingPanel';
 import { formNames } from '../../constants';
 import translations from '../../translations';
+
+const red900 = red['900'];
 
 const styles = {
   questionCardContainer: {

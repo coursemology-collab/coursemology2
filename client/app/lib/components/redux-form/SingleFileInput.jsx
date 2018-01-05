@@ -7,9 +7,12 @@ import Badge from 'material-ui/Badge';
 import IconButton from 'material-ui/IconButton';
 import CloseIcon from 'material-ui/svg-icons/navigation/close';
 import InsertDriveFileIcon from 'material-ui/svg-icons/editor/insert-drive-file';
-import { grey300, grey400 } from 'material-ui/styles/colors';
+import grey from 'material-ui/colors/grey';
 import createComponent from './createComponent';
 import mapError from './mapError';
+
+const grey300 = grey['300'];
+const grey400 = grey['400'];
 
 const styles = {
   avatar: {

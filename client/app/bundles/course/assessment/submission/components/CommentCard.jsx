@@ -6,13 +6,17 @@ import { Card, CardHeader, CardText } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import EditIcon from 'material-ui/svg-icons/editor/mode-edit';
 import DeleteIcon from 'material-ui/svg-icons/action/delete';
-import { red500, grey100 } from 'material-ui/styles/colors';
+import red from 'material-ui/colors/red';
+import grey from 'material-ui/colors/grey';
 /* eslint-disable import/extensions, import/no-extraneous-dependencies, import/no-unresolved */
 import ConfirmationDialog from 'lib/components/ConfirmationDialog';
 import moment from 'lib/moment';
 /* eslint-enable import/extensions, import/no-extraneous-dependencies, import/no-unresolved */
 
 import { postShape } from '../propTypes';
+
+const red500 = red['500'];
+const grey100 = grey['100'];
 
 const styles = {
   card: {

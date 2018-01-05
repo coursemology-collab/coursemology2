@@ -11,7 +11,11 @@ import { Tabs, Tab } from 'material-ui/Tabs';
 import GroupIcon from 'material-ui/svg-icons/social/group';
 import PersonIcon from 'material-ui/svg-icons/social/person';
 import PersonOutlineIcon from 'material-ui/svg-icons/social/person-outline';
-import { red100, yellow100, grey100, green100, blue100, blue500 } from 'material-ui/styles/colors';
+import red from 'material-ui/colors/red';
+import yellow from 'material-ui/colors/yellow';
+import grey from 'material-ui/colors/grey';
+import green from 'material-ui/colors/green';
+import blue from 'material-ui/colors/blue';
 
 import ConfirmationDialog from 'lib/components/ConfirmationDialog';
 import LoadingIndicator from 'lib/components/LoadingIndicator';
@@ -23,6 +27,13 @@ import { assessmentShape } from '../../propTypes';
 import { workflowStates } from '../../constants';
 import translations from '../../translations';
 import submissionsTranslations from './translations';
+
+const red100 = red['100'];
+const yellow100 = yellow['100'];
+const grey100 = grey['100'];
+const green100 = green['100'];
+const blue100 = blue['100'];
+const blue500 = blue['500'];
 
 const styles = {
   histogram: {

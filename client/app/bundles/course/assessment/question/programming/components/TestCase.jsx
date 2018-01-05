@@ -5,9 +5,12 @@ import { injectIntl, intlShape } from 'react-intl';
 import { TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
-import { grey300 } from 'material-ui/styles/colors';
+import grey from 'material-ui/colors/grey';
+
 import styles from './../containers/OnlineEditor/OnlineEditorView.scss';
 import translations from './../containers/OnlineEditor/OnlineEditorView.intl';
+
+const grey300 = grey['300'];
 
 class TestCase extends React.Component {
   static propTypes = {

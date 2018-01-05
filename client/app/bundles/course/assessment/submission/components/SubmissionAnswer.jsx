@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl, intlShape, defineMessages } from 'react-intl';
 import { Card, CardText } from 'material-ui/Card';
-import { yellow100 } from 'material-ui/styles/colors';
+import yellow from 'material-ui/colors/yellow';
 import { questionShape } from '../propTypes';
 import { questionTypes } from '../constants';
 import Answers from './Answers';
+
+const yellow100 = yellow['100'];
 
 const translations = defineMessages({
   missingAnswer: {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import RaisedButton from 'material-ui/RaisedButton';
-import { red500 } from 'material-ui/styles/colors';
+import red from 'material-ui/colors/red';
 
 import createComponent from 'lib/components/redux-form/createComponent';
 import mapError from 'lib/components/redux-form/mapError';
@@ -9,6 +9,7 @@ import mapError from 'lib/components/redux-form/mapError';
 import styles from '../containers/ScribingQuestionForm/ScribingQuestionForm.scss';
 import { questionIdPrefix } from '../constants';
 
+const red500 = red['500'];
 
 const mapProps =
   ({

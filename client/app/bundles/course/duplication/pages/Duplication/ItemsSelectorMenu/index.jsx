@@ -4,11 +4,14 @@ import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import Avatar from 'material-ui/Avatar';
 import { List, ListItem } from 'material-ui/List';
-import { cyan500 } from 'material-ui/styles/colors';
+import cyan from 'material-ui/colors/cyan';
+
 import { duplicableItemTypes, itemSelectorPanels } from 'course/duplication/constants';
 import { setItemSelectorPanel } from 'course/duplication/actions';
 import { defaultComponentTitles } from 'course/translations.intl';
 import DuplicateButton from '../DuplicateButton';
+
+const cyan500 = cyan['500'];
 
 const { TAB, ASSESSMENT, CATEGORY, SURVEY, ACHIEVEMENT, FOLDER, MATERIAL, VIDEO } = duplicableItemTypes;
 

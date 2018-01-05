@@ -5,9 +5,14 @@ import {
   TableHeaderColumn, TableRow, TableRowColumn,
 } from 'material-ui/Table';
 import RaisedButton from 'material-ui/RaisedButton';
-import { grey100, grey300, white } from 'material-ui/styles/colors';
+import grey from 'material-ui/colors/grey';
+import { white } from 'material-ui/colors/common';
+
 import styles from './../containers/OnlineEditor/OnlineEditorView.scss';
 import { formatBytes } from './../reducers/utils';
+
+const grey100 = grey['100'];
+const grey300 = grey['300'];
 
 function ExistingPackageFile(props) {
   const { filename, fileType, filesize, toDelete, deleteExistingPackageFile, isLoading, isLast } = props;

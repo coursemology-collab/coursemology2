@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
-import { red500 } from 'material-ui/styles/colors';
+import red from 'material-ui/colors/red';
 import { injectIntl, intlShape, defineMessages, FormattedMessage } from 'react-intl';
 import FlatButton from 'material-ui/FlatButton';
 import MicIcon from 'material-ui/svg-icons/av/mic';
@@ -16,6 +16,8 @@ import {
   recorderComponentMount,
   recorderComponentUnmount,
 } from '../actions/index';
+
+const red500 = red['500'];
 
 const translations = defineMessages({
   startRecording: {
