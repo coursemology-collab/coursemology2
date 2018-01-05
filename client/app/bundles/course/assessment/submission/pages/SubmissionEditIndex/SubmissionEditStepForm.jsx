@@ -10,7 +10,7 @@ import green from 'material-ui/colors/green';
 import lightBlue from 'material-ui/colors/lightBlue';
 import blue from 'material-ui/colors/blue';
 import { Stepper, Step, StepButton, StepLabel } from 'material-ui/Stepper';
-import CircularProgress from 'material-ui/CircularProgress';
+import { CircularProgress } from 'material-ui/Progress';
 import Button from 'material-ui/Button';
 import SvgIcon from 'material-ui/SvgIcon';
 

@@ -5,7 +5,7 @@ import { injectIntl, intlShape } from 'react-intl';
 import { Element, scroller } from 'react-scroll';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import { Card, CardHeader, CardText } from 'material-ui/Card';
-import CircularProgress from 'material-ui/CircularProgress';
+import { CircularProgress } from 'material-ui/Progress';
 import Button from 'material-ui/Button';
 import Dialog from 'material-ui/Dialog';
 import Paper from 'material-ui/Paper';

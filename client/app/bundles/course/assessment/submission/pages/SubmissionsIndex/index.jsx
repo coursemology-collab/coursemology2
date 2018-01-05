@@ -6,7 +6,7 @@ import ReactTooltip from 'react-tooltip';
 import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
 import Switch from 'material-ui/Switch';
 import Button from 'material-ui/Button';
-import CircularProgress from 'material-ui/CircularProgress';
+import { CircularProgress } from 'material-ui/Progress';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import GroupIcon from 'material-ui-icons/Group';
 import PersonIcon from 'material-ui-icons/Person';

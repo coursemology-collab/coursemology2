@@ -11,7 +11,7 @@ import MoreVertIcon from 'material-ui-icons/MoreVert';
 import red from 'material-ui/colors/red';
 import blue from 'material-ui/colors/blue';
 import IconButton from 'material-ui/IconButton';
-import CircularProgress from 'material-ui/CircularProgress';
+import { CircularProgress } from 'material-ui/Progress';
 import DownloadIcon from 'material-ui-icons/FileDownload';
 import HistoryIcon from 'material-ui-icons/History';
 

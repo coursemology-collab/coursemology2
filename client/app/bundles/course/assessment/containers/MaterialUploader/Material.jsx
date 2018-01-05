@@ -4,7 +4,7 @@ import { FormattedMessage, defineMessages } from 'react-intl';
 import { formatLongDateTime } from 'lib/moment';
 import IconButton from 'material-ui/IconButton';
 import { ListItem } from 'material-ui/List';
-import CircularProgress from 'material-ui/CircularProgress';
+import { CircularProgress } from 'material-ui/Progress';
 import Avatar from 'material-ui/Avatar';
 import ActionAssignment from 'material-ui-icons/Assignment';
 import DeleteIcon from 'material-ui-icons/Delete';
