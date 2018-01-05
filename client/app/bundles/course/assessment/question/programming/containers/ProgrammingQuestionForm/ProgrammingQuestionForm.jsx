@@ -4,8 +4,8 @@ import Immutable from 'immutable';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl, intlShape } from 'react-intl';
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
+import Select from 'material-ui/Select';
+import { MenuItem } from 'material-ui/Menu';
 import TextField from 'material-ui/TextField';
 import Switch from 'material-ui/Switch';
 import Button from 'material-ui/Button';
@@ -295,12 +295,12 @@ class ProgrammingQuestionForm extends React.Component {
       opt => <option value={opt.id || ''} key={opt.id}>{opt.name}</option>
     );
     const selectFieldOptions = options.map(
-      opt => <MenuItem value={opt.id} key={opt.id} primaryText={opt.name} />
+      opt => <MenuItem value={opt.id} key={opt.id}>{opt.name}</MenuItem>
     );
 
     return (
       <div key={field}>
-        <SelectField
+        <Select
           floatingLabelText={(required ? '* ' : '') + label}
           floatingLabelFixed
           value={value}
@@ -310,7 +310,7 @@ class ProgrammingQuestionForm extends React.Component {
           fullWidth
         >
           {selectFieldOptions}
-        </SelectField>
+        </Select>
         <select
           name={ProgrammingQuestionForm.getInputName(field)}
           value={value || ''}

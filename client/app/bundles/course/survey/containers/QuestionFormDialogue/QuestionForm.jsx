@@ -4,10 +4,10 @@ import { defineMessages, injectIntl, intlShape } from 'react-intl';
 import { reduxForm, Field, FieldArray, Form } from 'redux-form';
 import TextField from 'lib/components/redux-form/TextField';
 import SelectField from 'lib/components/redux-form/SelectField';
-import MenuItem from 'material-ui/MenuItem';
+import { MenuItem } from 'material-ui/Menu';
 import Toggle from 'lib/components/redux-form/Toggle';
 import DisplayTextField from 'material-ui/TextField';
-import Subheader from 'material-ui/Subheader';
+import Subheader from 'material-ui/List/ListSubheader';
 import formTranslations from 'lib/translations/form';
 import translations from 'course/survey/translations';
 import { questionTypes, formNames } from 'course/survey/constants';
@@ -274,18 +274,15 @@ class QuestionForm extends React.Component {
           style={styles.questionType}
           {...{ disabled }}
         >
-          <MenuItem
-            value={TEXT}
-            primaryText={intl.formatMessage(translations.textResponse)}
-          />
-          <MenuItem
-            value={MULTIPLE_CHOICE}
-            primaryText={intl.formatMessage(translations.multipleChoice)}
-          />
-          <MenuItem
-            value={MULTIPLE_RESPONSE}
-            primaryText={intl.formatMessage(translations.multipleResponse)}
-          />
+          <MenuItem value={TEXT}>
+            {intl.formatMessage(translations.textResponse)}
+          </MenuItem>
+          <MenuItem value={MULTIPLE_CHOICE}>
+            {intl.formatMessage(translations.multipleChoice)}
+          </MenuItem>
+          <MenuItem value={MULTIPLE_RESPONSE}>
+            {intl.formatMessage(translations.multipleResponse)}
+          </MenuItem>
         </Field>
         <Field
           fullWidth

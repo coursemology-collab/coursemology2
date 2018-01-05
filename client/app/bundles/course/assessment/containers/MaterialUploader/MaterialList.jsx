@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { List } from 'material-ui/List';
-import Subheader from 'material-ui/Subheader';
+import Subheader from 'material-ui/List/ListSubheader';
 import Button from 'material-ui/Button';
 import Divider from 'material-ui/Divider';
 import ContentAdd from 'material-ui-icons/Add';

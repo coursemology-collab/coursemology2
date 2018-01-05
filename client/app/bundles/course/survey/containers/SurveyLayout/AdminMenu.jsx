@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { injectIntl, defineMessages, intlShape } from 'react-intl';
 import IconButton from 'material-ui/IconButton';
 import IconMenu from 'material-ui/IconMenu';
-import MenuItem from 'material-ui/MenuItem';
+import { MenuItem } from 'material-ui/Menu';
 import MoreVertIcon from 'material-ui-icons/MoreVert';
 import { getStyles } from 'material-ui/AppBar/AppBar';
 import * as surveyActions from 'course/survey/actions/surveys';
@@ -117,17 +117,15 @@ class AdminMenu extends React.Component {
       >
         {
           survey.canUpdate ?
-            <MenuItem
-              primaryText={intl.formatMessage(translations.editSurvey)}
-              onClick={this.showEditSurveyForm}
-            /> : null
+            <MenuItem onClick={this.showEditSurveyForm}>
+              {intl.formatMessage(translations.editSurvey)}
+            </MenuItem> : null
         }
         {
           survey.canDelete ?
-            <MenuItem
-              primaryText={intl.formatMessage(translations.deleteSurvey)}
-              onClick={this.deleteSurveyHandler}
-            /> : null
+            <MenuItem onClick={this.deleteSurveyHandler}>
+              {intl.formatMessage(translations.deleteSurvey)}
+            </MenuItem> : null
         }
       </IconMenu>
     );

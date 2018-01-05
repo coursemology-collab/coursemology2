@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { defineMessages, FormattedMessage } from 'react-intl';
 import { formatLongDateTime } from 'lib/moment';
 import { Card, CardText } from 'material-ui/Card';
-import Subheader from 'material-ui/Subheader';
+import Subheader from 'material-ui/List/ListSubheader';
 import { Table, TableBody, TableRow, TableHeaderColumn, TableRowColumn } from 'material-ui/Table';
 import surveyTranslations from 'course/survey/translations';
 import { surveyShape, responseShape } from 'course/survey/propTypes';

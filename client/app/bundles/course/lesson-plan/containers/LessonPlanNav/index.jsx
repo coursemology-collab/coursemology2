@@ -6,7 +6,7 @@ import { scroller, Helpers } from 'react-scroll';
 import Button from 'material-ui/Button';
 import Popover from 'material-ui/Popover';
 import Menu from 'material-ui/Menu';
-import MenuItem from 'material-ui/MenuItem';
+import { MenuItem } from 'material-ui/Menu';
 import KeyboardArrowUp from 'material-ui-icons/KeyboardArrowUp';
 
 const translations = defineMessages({
@@ -118,12 +118,13 @@ class LessonPlanNav extends React.Component {
                 return (
                   <MenuItem
                     key={group.id}
-                    primaryText={group.milestone.title}
                     onClick={() => {
                       scroller.scrollTo(group.id, { offset: -50 });
                       this.setState({ open: false });
                     }}
-                  />
+                  >
+                    {group.milestone.title}
+                  </MenuItem>
                 );
               })
             }

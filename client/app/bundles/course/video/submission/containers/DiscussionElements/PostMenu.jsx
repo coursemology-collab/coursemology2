@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import IconMenu from 'material-ui/IconMenu';
-import MenuItem from 'material-ui/MenuItem';
+import { MenuItem } from 'material-ui/Menu';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui-icons/MoreVert';
 
@@ -34,8 +34,8 @@ function PostMenu(props) {
         anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
         targetOrigin={{ horizontal: 'right', vertical: 'top' }}
       >
-        {props.canUpdate && <MenuItem primaryText="Edit" onClick={props.onEdit} />}
-        {props.canDelete && <MenuItem primaryText="Delete" onClick={props.onDelete} />}
+        {props.canUpdate && <MenuItem onClick={props.onEdit}>Edit</MenuItem>}
+        {props.canDelete && <MenuItem onClick={props.onDelete}>Delete</MenuItem>}
       </IconMenu>
     </div>
   );

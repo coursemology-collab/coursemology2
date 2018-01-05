@@ -5,7 +5,7 @@ import { defineMessages, FormattedMessage } from 'react-intl';
 import Button from 'material-ui/Button';
 import Popover from 'material-ui/Popover';
 import Menu from 'material-ui/Menu';
-import MenuItem from 'material-ui/MenuItem';
+import { MenuItem } from 'material-ui/Menu';
 import Done from 'material-ui-icons/Done';
 import KeyboardArrowUp from 'material-ui-icons/KeyboardArrowUp';
 import { setItemTypeVisibility } from 'course/lesson-plan/actions';
@@ -74,10 +74,11 @@ class LessonPlanFilter extends React.Component {
                 return (
                   <MenuItem
                     key={itemType}
-                    primaryText={itemType}
                     rightIcon={isVisible ? <Done /> : <span />}
                     onClick={() => dispatch(setItemTypeVisibility(itemType, !isVisible))}
-                  />
+                  >
+                    {itemType}
+                  </MenuItem>
                 );
               })
             }

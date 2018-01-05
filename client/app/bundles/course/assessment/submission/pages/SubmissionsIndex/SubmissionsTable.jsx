@@ -6,7 +6,7 @@ import ReactTooltip from 'react-tooltip';
 import moment from 'lib/moment';
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
 import IconMenu from 'material-ui/IconMenu';
-import MenuItem from 'material-ui/MenuItem';
+import { MenuItem } from 'material-ui/Menu';
 import MoreVertIcon from 'material-ui-icons/MoreVert';
 import red from 'material-ui/colors/red';
 import blue from 'material-ui/colors/blue';
@@ -174,18 +174,20 @@ export default class SubmissionsTable extends React.Component {
         <IconMenu iconButtonElement={<IconButton id="download-dropdown-icon"><MoreVertIcon /></IconButton>}>
           <MenuItem
             className={downloadAnswerDisabled ? 'download-submissions-disabled' : 'download-submissions-enabled'}
-            primaryText={<FormattedMessage {...submissionsTranslations.downloadAnswers} />}
             disabled={downloadAnswerDisabled}
             leftIcon={isDownloading ? <CircularProgress size={30} /> : <DownloadIcon />}
             onClick={downloadAnswerDisabled ? null : handleDownload}
-          />
+          >
+            <FormattedMessage {...submissionsTranslations.downloadAnswers} />
+          </MenuItem>
           <MenuItem
             className={downloadStatisticsDisabled ? 'download-statistics-disabled' : 'download-statistics-enabled'}
-            primaryText={<FormattedMessage {...submissionsTranslations.downloadStatistics} />}
             disabled={downloadStatisticsDisabled}
             leftIcon={isStatisticsDownloading ? <CircularProgress size={30} /> : <DownloadIcon />}
             onClick={downloadStatisticsDisabled ? null : handleDownloadStatistics}
-          />
+          >
+            <FormattedMessage {...submissionsTranslations.downloadStatistics} />
+          </MenuItem>
         </IconMenu>
       </div>
     );

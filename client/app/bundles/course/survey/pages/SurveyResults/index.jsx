@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { defineMessages, FormattedMessage } from 'react-intl';
-import Subheader from 'material-ui/Subheader';
+import Subheader from 'material-ui/List/ListSubheader';
 import Switch from 'material-ui/Switch';
 import { Card, CardText } from 'material-ui/Card';
 import surveyTranslations from 'course/survey/translations';

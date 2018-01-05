@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { injectIntl, defineMessages, intlShape } from 'react-intl';
 import IconMenu from 'material-ui/IconMenu';
-import MenuItem from 'material-ui/MenuItem';
+import { MenuItem } from 'material-ui/Menu';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui-icons/MoreVert';
 import { showEventForm, updateEvent, deleteEvent, showDeleteConfirmation } from 'course/lesson-plan/actions';
@@ -113,14 +113,12 @@ class AdminMenu extends React.PureComponent {
         targetOrigin={{ horizontal: 'right', vertical: 'top' }}
         style={styles.adminMenu}
       >
-        <MenuItem
-          primaryText={intl.formatMessage(translations.editEvent)}
-          onClick={this.showEditEventDialog}
-        />
-        <MenuItem
-          primaryText={intl.formatMessage(translations.deleteEvent)}
-          onClick={this.deleteEventHandler}
-        />
+        <MenuItem onClick={this.showEditEventDialog}>
+          {intl.formatMessage(translations.editEvent)}
+        </MenuItem>
+        <MenuItem onClick={this.deleteEventHandler}>
+          {intl.formatMessage(translations.deleteEvent)}
+        </MenuItem>
       </IconMenu>
     );
   }

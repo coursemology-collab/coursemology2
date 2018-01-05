@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { reduxForm, Field, Form, formValueSelector, change } from 'redux-form';
 import { connect } from 'react-redux';
-import MenuItem from 'material-ui/MenuItem';
+import { MenuItem } from 'material-ui/Menu';
 import ConditionList from 'lib/components/course/ConditionList';
 import TextField from 'lib/components/redux-form/TextField';
 import RichTextField from 'lib/components/redux-form/RichTextField';
@@ -152,11 +152,7 @@ class AssessmentForm extends React.Component {
         disabled={editing && submitting}
       >
         {tabs && tabs.map(tab => (
-          <MenuItem
-            key={tab.tab_id}
-            value={tab.tab_id}
-            primaryText={tab.title}
-          />
+          <MenuItem key={tab.tab_id} value={tab.tab_id}>{tab.title}</MenuItem>
         ))}
       </Field>
     );
@@ -191,14 +187,14 @@ class AssessmentForm extends React.Component {
           type="boolean"
           disabled={submitting}
         >
-          <MenuItem
-            value={false}
-            primaryText={<FormattedMessage {...translations.singlePage} />}
-          />
-          <MenuItem
-            value={true} // eslint-disable-line
-            primaryText={<FormattedMessage {...translations.tabbedView} />}
-          />
+          <MenuItem value={false}>
+            <FormattedMessage {...translations.singlePage} />
+          </MenuItem>
+          {/* eslint-disable react/jsx-boolean-value */}
+          <MenuItem value={true}>
+            <FormattedMessage {...translations.tabbedView} />
+          </MenuItem>
+          {/* eslint-enable react/jsx-boolean-value */}
         </Field>
         <Field
           name="delayed_grade_publication"

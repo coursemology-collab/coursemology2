@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { defineMessages, FormattedMessage } from 'react-intl';
 import ReactTooltip from 'react-tooltip';
-import Subheader from 'material-ui/Subheader';
+import Subheader from 'material-ui/List/ListSubheader';
 import { Card, CardText } from 'material-ui/Card';
 import ConfirmationDialog from 'lib/components/ConfirmationDialog';
 import { hideDuplicateItemsConfirmation, duplicateItems } from 'course/duplication/actions';

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { injectIntl, defineMessages, intlShape } from 'react-intl';
 import IconMenu from 'material-ui/IconMenu';
-import MenuItem from 'material-ui/MenuItem';
+import { MenuItem } from 'material-ui/Menu';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui-icons/MoreVert';
 import moment, { longDate } from 'lib/moment';
@@ -106,14 +106,12 @@ class LessonPlanMilestone extends React.PureComponent {
         anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
         targetOrigin={{ horizontal: 'right', vertical: 'top' }}
       >
-        <MenuItem
-          primaryText={intl.formatMessage(translations.editMilestone)}
-          onClick={this.showEditMilestoneDialog}
-        />
-        <MenuItem
-          primaryText={intl.formatMessage(translations.deleteMilestone)}
-          onClick={this.deleteMilestoneHandler}
-        />
+        <MenuItem onClick={this.showEditMilestoneDialog}>
+          {intl.formatMessage(translations.editMilestone)}
+        </MenuItem>
+        <MenuItem onClick={this.deleteMilestoneHandler}>
+          {intl.formatMessage(translations.deleteMilestone)}
+        </MenuItem>
       </IconMenu>
     );
   }

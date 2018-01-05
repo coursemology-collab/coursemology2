@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl, intlShape } from 'react-intl';
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
+import Select from 'material-ui/Select';
+import { MenuItem } from 'material-ui/Menu';
 import { scribingTranslations as translations } from '../../../translations';
 
 const propTypes = {
@@ -60,12 +60,12 @@ const FontFamilyField = (props) => {
   const menuItems = [];
 
   fontFamilies.forEach((font) => {
-    menuItems.push(<MenuItem key={font.key} value={font.value} primaryText={font.key} />);
+    menuItems.push(<MenuItem key={font.key} value={font.value}>{font.key}</MenuItem>);
   });
 
   return (
     <div>
-      <SelectField
+      <Select
         floatingLabelText={intl.formatMessage(translations.fontFamily)}
         value={fontFamilyValue}
         onChange={onChangeFontFamily}
@@ -73,7 +73,7 @@ const FontFamilyField = (props) => {
         style={styles.select}
       >
         {menuItems}
-      </SelectField>
+      </Select>
     </div>
   );
 };

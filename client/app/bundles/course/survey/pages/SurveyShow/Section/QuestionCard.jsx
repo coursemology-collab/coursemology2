@@ -7,7 +7,7 @@ import Checkbox from 'material-ui/Checkbox';
 import RadioButton from 'material-ui/RadioButton';
 import IconButton from 'material-ui/IconButton';
 import IconMenu from 'material-ui/IconMenu';
-import MenuItem from 'material-ui/MenuItem';
+import { MenuItem } from 'material-ui/Menu';
 import MoreVertIcon from 'material-ui-icons/MoreVert';
 import formTranslations from 'lib/translations/form';
 import { questionTypes } from 'course/survey/constants';
@@ -139,7 +139,7 @@ class QuestionCard extends React.Component {
         style={styles.adminMenu}
       >
         {adminFunctions.map(({ label, handler }) => (
-          <MenuItem key={label} primaryText={label} onClick={handler} />
+          <MenuItem key={label} onClick={handler}>{label}</MenuItem>
         ))}
       </IconMenu>
     );

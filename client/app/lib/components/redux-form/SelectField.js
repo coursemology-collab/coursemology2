@@ -1,9 +1,9 @@
-import SelectField from 'material-ui/SelectField';
+import Select from 'material-ui/Select';
 import createComponent from './createComponent';
 import mapError from './mapError';
 
 export default createComponent(
-  SelectField,
+  Select,
   ({ input: { onChange, ...inputProps }, onChange: onChangeFromField, ...props }) => ({
     floatingLabelFixed: true,
     ...mapError(props),

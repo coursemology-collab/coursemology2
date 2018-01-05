@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { defineMessages, FormattedMessage, injectIntl, intlShape } from 'react-intl';
 import DropDownMenu from 'material-ui/DropDownMenu';
-import MenuItem from 'material-ui/MenuItem';
+import { MenuItem } from 'material-ui/Menu';
 import moment, { shortDateTime } from 'lib/moment';
 import { setTargetCourseId, duplicateCourse } from 'course/duplication/actions';
 import { duplicationModes } from 'course/duplication/constants';
@@ -57,7 +57,7 @@ class DestinationCourseSelector extends React.Component {
       </span>
     );
 
-    return <MenuItem key={course.id} value={course.id} primaryText={title} />;
+    return <MenuItem key={course.id} value={course.id}>{title}</MenuItem>;
   }
 
   renderExistingCourseForm = () => {

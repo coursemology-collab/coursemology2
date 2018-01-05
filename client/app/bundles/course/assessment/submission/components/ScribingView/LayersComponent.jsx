@@ -4,7 +4,7 @@ import { injectIntl, intlShape } from 'react-intl';
 import Popover from 'material-ui/Popover';
 import Button from 'material-ui/Button';
 import Menu from 'material-ui/Menu';
-import MenuItem from 'material-ui/MenuItem';
+import { MenuItem } from 'material-ui/Menu';
 import Done from 'material-ui-icons/Done';
 import { scribingTranslations as translations } from '../../translations';
 import { scribbleShape } from '../../propTypes';
@@ -59,10 +59,11 @@ class LayersComponent extends Component {
           { layers.map(layer => (
             <MenuItem
               key={layer.creator_id}
-              primaryText={layer.creator_name}
               onClick={() => (onClickLayer(layer))}
               rightIcon={layer.isDisplayed ? <Done /> : null}
-            />))
+            >
+              {layer.creator_name}
+            </MenuItem>))
           }
         </Menu>
       </Popover>

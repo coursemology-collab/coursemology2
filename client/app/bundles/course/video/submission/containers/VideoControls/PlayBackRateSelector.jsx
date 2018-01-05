@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import DropDownMenu from 'material-ui/DropDownMenu';
-import MenuItem from 'material-ui/MenuItem';
+import { MenuItem } from 'material-ui/Menu';
 import { videoDefaults } from 'lib/constants/videoConstants';
 
 import styles from '../VideoPlayer.scss';
@@ -20,7 +20,7 @@ const defaultProps = {
 
 function PlayBackRateSelector(props) {
   const rateElements = props.availableRates.map(rate => (
-    <MenuItem key={rate} value={rate} primaryText={`${rate}X`} />
+    <MenuItem key={rate} value={rate}>{`${rate}X`}</MenuItem>
   ));
 
   return (
