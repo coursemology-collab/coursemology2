@@ -5,7 +5,7 @@ import { TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
 import RaisedButton from 'material-ui/RaisedButton';
 import DeleteIcon from 'material-ui/svg-icons/action/delete';
 import TextField from 'material-ui/TextField';
-import { grey300 } from 'material-ui/styles/colors';
+import { grey300, grey700 } from 'material-ui/styles/colors';
 
 const translations = defineMessages({
   zeroThresholdError: {
@@ -65,7 +65,7 @@ class LevelRow extends React.Component {
             id={`delete_${levelNumber}`}
             name={`delete_${levelNumber}`}
             backgroundColor={grey300}
-            icon={<DeleteIcon />}
+            icon={<DeleteIcon color={grey700} />}
             onClick={this.props.deleteLevel(levelNumber)}
             disabled={this.props.disabled}
             style={{ minWidth: '40px', width: '40px' }}
