@@ -7,6 +7,7 @@ class User::Email < ApplicationRecord
   validates :primary, inclusion: [true, false]
 
   belongs_to :user, inverse_of: :emails
+  has_many :pending_emails, inverse_of: :user_email
 
   scope :confirmed, -> { where.not(confirmed_at: nil) }
 
