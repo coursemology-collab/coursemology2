@@ -3,7 +3,7 @@
 #
 # @api notifications
 class Course::Notification < ApplicationRecord
-  enum notification_type: { feed: 0, email: 1 }
+  enum notification_type: { feed: 0, email: 1, consolidated_email: 2 }
 
   belongs_to :activity, inverse_of: :course_notifications
   belongs_to :course, inverse_of: :notifications

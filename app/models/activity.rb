@@ -9,8 +9,8 @@ class Activity < ApplicationRecord
   has_many :course_notifications, class_name: Course::Notification.name, dependent: :destroy
   has_many :user_notifications, dependent: :destroy
 
-  USER_NOTIFICATION_TYPES = [:email, :popup].freeze
-  COURSE_NOTIFICATION_TYPES = [:email, :feed].freeze
+  USER_NOTIFICATION_TYPES = [:consolidated_email, :email, :popup].freeze
+  COURSE_NOTIFICATION_TYPES = [:consolidated_email, :email, :feed].freeze
 
   # Send notifications according to input type and recipient
   #

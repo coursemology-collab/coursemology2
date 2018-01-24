@@ -26,7 +26,7 @@ class Course::AssessmentNotifier < Notifier::Base
     return unless email_enabled?(assessment, :assessment_opening)
 
     create_activity(actor: user, object: assessment, event: :opening).
-      notify(assessment.course, :email).
+      notify(assessment.course, :consolidated_email).
       save!
   end
 

@@ -34,11 +34,19 @@ class Notifier::Base
 
   private
 
+  def enqueue_emails(notification)
+    notification.course.users.each do |user|
+      PendingEmail.create(user_email: user.emails.first, trigger: notification.activity.object,
+                               event: notification.activity.event)
+    end
+  end
+
   # Generate emails according to input recipient and notification
   #
   # @param [Object] recipient The recipient of the notification
   # @param [Course::Notification] notification The target notification
   def notify(recipient, notification)
+    enqueue_emails(notification) if notification.consolidated_email?
     return unless notification.email?
     case recipient
     when Course
