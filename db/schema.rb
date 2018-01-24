@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180119064953) do
+ActiveRecord::Schema.define(version: 20180123091344) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -253,6 +253,15 @@ ActiveRecord::Schema.define(version: 20180119064953) do
   create_table "course_assessment_answer_programming_file_annotations", force: :cascade do |t|
     t.integer "file_id", :null=>false, :index=>{:name=>"fk__course_assessment_answe_09c4b638af92d0f8252d7cdef59bd6f3"}, :foreign_key=>{:references=>"course_assessment_answer_programming_files", :name=>"fk_course_assessment_answer_ed21459e7a2a5034dcf43a14812cb17d", :on_update=>:no_action, :on_delete=>:no_action}
     t.integer "line",    :null=>false
+  end
+
+	create_table "pending_emails", force: :cascade do |t|
+    t.bigint   "user_email_id", :null=>false, :index=>{:name=>"index_pending_emails_on_user_email_id", :order=>{:user_email_id=>:asc}}
+    t.string   "trigger_type",  :index=>{:name=>"index_pending_emails_on_trigger_type_and_trigger_id", :with=>["trigger_id"], :order=>{:trigger_type=>:asc, :trigger_id=>:asc}}
+    t.bigint   "trigger_id"
+    t.string   "event"
+    t.datetime "created_at",    :null=>false
+    t.datetime "updated_at",    :null=>false
   end
 
   create_table "polyglot_languages", force: :cascade do |t|
