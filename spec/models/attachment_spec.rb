@@ -114,4 +114,36 @@ RSpec.describe Attachment do
         to start_with(File.join(Rails.public_path, '/uploads/attachments/ab/cd/ef'))
     end
   end
+
+  describe '.without_references' do
+    let(:instance) { Instance.default }
+    with_tenant(:instance) do
+      let!(:attachment_with_reference) { create(:material).attachment_reference.attachment }
+      let!(:attachment_without_reference) { create(:attachment) }
+
+      subject { Attachment.without_references }
+
+      it { is_expected.to include(attachment_without_reference) }
+      it { is_expected.not_to include(attachment_with_reference) }
+    end
+  end
+
+  describe '.older_than' do
+    let(:updated_date) { 2.days.ago }
+    let!(:attachment) { create(:attachment, created_at: updated_date, updated_at: updated_date) }
+
+    subject { Attachment.older_than(query_date) }
+
+    context 'when provided date is greater than updated date' do
+      let(:query_date) { updated_date + 1.day }
+
+      it { is_expected.to include(attachment) }
+    end
+
+    context 'when provided date is before updated date' do
+      let(:query_date) { updated_date - 1.day }
+
+      it { is_expected.not_to include(attachment) }
+    end
+  end
 end

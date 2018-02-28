@@ -6,6 +6,9 @@ class Attachment < ApplicationRecord
 
   has_many :attachment_references, inverse_of: :attachment, dependent: :destroy
 
+  scope :without_references, -> { where.not(id: AttachmentReference.select(:attachment_id)) }
+  scope :older_than, ->(date) { where('updated_at < ?', date) }
+
   # @!attribute [r] url
   #   The URL to the attachment contents.
   #
