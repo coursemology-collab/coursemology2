@@ -231,7 +231,7 @@ class Course::Assessment::Answer::TextResponseComprehensionAutoGradingService < 
         next if status[index].nil?
 
         word_explanation = answer_text_array[index]
-        word_explanation += " (#{status[index].explanation})" unless status[index].explanation.nil?
+        word_explanation += " (#{status[index].explanation.strip})" unless status[index].explanation.nil?
         explanations.push(word_explanation)
       end
       ['Keywords correctly expressed:', explanations.join(', ')]
