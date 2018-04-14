@@ -142,7 +142,12 @@ class Course::Assessment < ApplicationRecord
     published?
   end
 
-  # The password to preventing attempting submission from multiple sessions.
+  # The password to prevent attempting submission from viewing the assessment.
+  def password_protected?
+    view_password.present?
+  end
+
+  # The password to prevent attempting submission from multiple sessions.
   def session_password_protected?
     session_password.present?
   end
