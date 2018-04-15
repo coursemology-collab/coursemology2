@@ -57,14 +57,20 @@ module Course::Assessment::AssessmentAbility
     can :read_material, Course::Assessment::Category, course_all_course_users_hash
     can :read_material, Course::Assessment::Tab, category: course_all_course_users_hash
     can :read, Course::Assessment, assessment_published_all_course_users_hash
+    can :authenticate, Course::Assessment, assessment_published_all_course_users_hash
   end
 
   def allow_students_attempt_assessment
     can [:attempt, :read_material], Course::Assessment do |assessment|
-      assessment.published? && assessment.self_directed_started? &&
-        assessment.conditions_satisfied_by?(
-          user.course_users.find_by(course: assessment.course)
-        )
+      default_access = assessment.published? &&
+                       assessment.self_directed_started? &&
+                       assessment.conditions_satisfied_by?(user.course_users.find_by(course: assessment.course))
+
+      if assessment.password_protected?
+        default_access && Course::Assessment::AuthenticationService.new(assessment, session).can_access?(user)
+      else
+        default_access
+      end
     end
   end
 

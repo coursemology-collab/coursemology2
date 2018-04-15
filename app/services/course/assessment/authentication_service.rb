@@ -35,7 +35,14 @@ class Course::Assessment::AuthenticationService
   #
   # @return [Boolean]
   def authenticated?
+    return true unless @session
+
     @session[session_key] == password_token
+  end
+
+  def can_access?(user)
+    # Allow access if password matches or if the student has at least one submission to the assessment.
+    authenticated? || @assessment.submissions.by_user(user).count > 0
   end
 
   private
