@@ -3,6 +3,8 @@
   - if assessment.session_password_protected?
     = link_to t('.attempt'), new_course_assessment_session_path(current_course, assessment),
               class: ['btn', 'btn-info']
+  - elsif assessment.password_protected? && !Course::Assessment::AuthenticationService.new(assessment, session).can_access?(current_course_user) && cannot?(:manage, assessment)
+    = link_to t('.enter_password'), course_assessment_path(current_course, assessment), class: ['btn', 'btn-info']
   - else
     = link_to t('.attempt'), course_assessment_submissions_path(current_course, assessment),
               class: ['btn','btn-info'], method: :post
