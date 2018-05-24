@@ -1,7 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
 const ManifestPlugin = require('webpack-manifest-plugin');
-const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 
 const env = process.env.NODE_ENV || 'development';
 const production = env === 'production';
@@ -80,7 +79,6 @@ const config = {
     // Do not require all locles in moment
     new webpack.ContextReplacementPlugin(/moment\/locale$/, /^\.\/(en-.*|zh-.*)$/),
     new ManifestPlugin({ fileName: 'manifest.json', publicPath: '/webpack/', writeToFileEmit: true }),
-    new HardSourceWebpackPlugin({ cacheDirectory: path.join(__dirname, 'hard-source-cache/[confighash]') }),
   ],
 
   module: {
