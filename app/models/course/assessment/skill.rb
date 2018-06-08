@@ -18,6 +18,13 @@ class Course::Assessment::Skill < ApplicationRecord
                  map { |question| duplicator.duplicate(question).acting_as }
   end
 
+  # Total grades from the questions tagged with this skill
+  #
+  # @return [Float]
+  def total_grade
+    questions.sum(&:maximum_grade)
+  end
+
   private
 
   def validate_consistent_course
