@@ -25,6 +25,10 @@ class Course::Assessment::Skill < ApplicationRecord
     questions.sum(&:maximum_grade)
   end
 
+  def total_exp
+    questions.sum { |qn| qn.exp_for_all_assessments(course) }.round
+  end
+
   private
 
   def validate_consistent_course

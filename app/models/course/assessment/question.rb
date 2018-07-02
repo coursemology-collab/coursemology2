@@ -14,6 +14,12 @@ class Course::Assessment::Question < ApplicationRecord
   delegate :to_partial_path, to: :actable
   delegate :question_type, to: :actable
 
+  def exp_for_all_assessments(course)
+    question_assessments.map(&:assessment).select { |a| a.course == course }.reduce(0) do |exp, assessment| 
+      exp + maximum_grade / assessment.maximum_grade * assessment.base_exp
+    end
+  end
+
   # Checks if the given question is auto gradable. This defaults to false if the specific
   # question does not implement auto grading. If this returns true, +auto_grader+ is guaranteed
   # to return a valid grader service.

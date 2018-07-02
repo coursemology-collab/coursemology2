@@ -19,7 +19,7 @@ div.row
         p = link_to t('.experience_points_earned_html', points: @course_user.experience_points),
                     course_user_experience_points_records_path(current_course, @course_user)
 
-- unless current_component_host[:course_achievements_component].nil?
+/- unless current_component_host[:course_achievements_component].nil?
   - if @course_user.student? && @course_user.achievements.present?
     h2 = t('.achievements_header')
     div.row.automatically-clear
@@ -27,20 +27,48 @@ div.row
 
 div.row
   h2 = t('.topic_mastery')
-  table.table.skills-list
-    tbody
-      - @skills_mastery_preload_service.skill_branches.each do |skill_branch|
-        = content_tag_for(:tr, skill_branch) do
-          th = skill_branch.title
-          td
-          td
-          - @skills_mastery_preload_service.skills_in_branch(skill_branch).each do |skill|
-            - unless skill.total_grade == 0
-              = content_tag_for(:tr, skill) do
-                - percentage = @skills_mastery_preload_service.percentage_mastery(skill)
-                - progress_bar_options = { class: ['progress-bar-info', 'skill-experience-points'],
-                                           tooltip_text: t('common.percentage', percentage: percentage),
-                                           tooltip_placement: 'right' }
-                td.skill-title.col-xs-3 = skill.title
-                td.col-xs-6 = display_progress_bar(percentage, progress_bar_options)
-                td.col-xs-3 = t('.grade_for_skill', grade: @skills_mastery_preload_service.grade(skill), total_grade: skill.total_grade)
+  ul.nav.nav-tabs.tab-header role="tab-list"
+    li.nav-item.active role="presentation"
+      a.nav-link href="#grade-mastery" aria-controls="grade-mastery" role="tab" data-toggle="tab"
+        = t('.grade_mastery_tab')
+    li.nav-item role="presentation"
+      a.nav-link href="#exp-mastery" aria-controls="exp-mastery" role="tab" data-toggle="tab"
+        = t('.exp_mastery_tab')
+
+  div.tab-content
+    div.tab-pane.fade.active.in role="tabpanel" id="grade-mastery"
+      table.table.skills-list
+        tbody
+          - @skills_mastery_preload_service.skill_branches.each do |skill_branch|
+            = content_tag_for(:tr, skill_branch) do
+              th = skill_branch.title
+              td
+              td
+              - @skills_mastery_preload_service.skills_in_branch(skill_branch).each do |skill|
+                - unless skill.total_grade == 0
+                  = content_tag_for(:tr, skill) do
+                    - percentage = @skills_mastery_preload_service.percentage_mastery(skill)
+                    - progress_bar_options = { class: ['progress-bar-info', 'skill-experience-points'],
+                                               tooltip_text: t('common.percentage', percentage: percentage),
+                                               tooltip_placement: 'right' }
+                    td.skill-title.col-xs-3 = skill.title
+                    td.col-xs-6 = display_progress_bar(percentage, progress_bar_options)
+                    td.col-xs-3 = t('.grade_for_skill', grade: @skills_mastery_preload_service.grade(skill), total_grade: skill.total_grade)
+    div.tab-pane.fade role="tabpanel" id="exp-mastery"
+      table.table.skills-list
+        tbody
+          - @skills_mastery_preload_service.skill_branches.each do |skill_branch|
+            = content_tag_for(:tr, skill_branch) do
+              th = skill_branch.title
+              td
+              td
+              - @skills_mastery_preload_service.skills_in_branch(skill_branch).each do |skill|
+                - unless skill.total_grade == 0
+                  = content_tag_for(:tr, skill) do
+                    - percentage = @skills_mastery_preload_service.percentage_mastery(skill)
+                    - progress_bar_options = { class: ['progress-bar-info', 'skill-experience-points'],
+                                               tooltip_text: t('common.percentage', percentage: percentage),
+                                               tooltip_placement: 'right' }
+                    td.skill-title.col-xs-3 = skill.title
+                    td.col-xs-6 = display_progress_bar(percentage, progress_bar_options)
+                    td.col-xs-3 = t('.exp_for_skill', exp: @skills_mastery_preload_service.grade(skill), total_exp: skill.total_grade)

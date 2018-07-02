@@ -41,6 +41,9 @@ en:
           one: 'One achievement'
           other: '%{count} achievements'
         topic_mastery: 'Topic Mastery'
+        grade_mastery_tab: 'By grade'
+        exp_mastery_tab: 'By EXP'
         grade_for_skill: '%{grade}/%{total_grade} points'
+        exp_for_skill: '%{exp}/%{total_exp} EXP'
       index:
         header: 'Students'

@@ -11,6 +11,9 @@ class Course::SkillsMasteryPreloadService
     calculate_skill_mastery(course, course_user)
   end
 
+  def calculate_skill_mastery_exp(course, course_user)
+  end
+
   # @return [Array<Course::Assessment::SkillBranch>] Array of skill branches sorted by title.
   def skill_branches
     @skill_branches ||= @skills_by_branch.keys.sort_by(&:title)
