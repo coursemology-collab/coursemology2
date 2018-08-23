@@ -133,6 +133,10 @@ const translations = defineMessages({
     id: 'course.assessment.submission.comments',
     defaultMessage: 'Comments',
   },
+  dirtyAnswer: {
+    id: 'course.assessment.submission.dirtyAnswer',
+    defaultMessage: 'Answer has been modified. Please resubmit.',
+  },
   correct: {
     id: 'course.assessment.submission.correct',
     defaultMessage: 'Correct!',

@@ -4,7 +4,7 @@ import { reduxForm } from 'redux-form';
 import { injectIntl, intlShape } from 'react-intl';
 import { Card, CardHeader, CardText } from 'material-ui/Card';
 import Paper from 'material-ui/Paper';
-import { white, red100, red200, red900, green200, green500, green900,
+import { white, red100, red200, red900, green200, green500, green900, yellow200,
   lightBlue400, blue800 } from 'material-ui/styles/colors';
 import { Stepper, Step, StepButton, StepLabel } from 'material-ui/Stepper';
 import CircularProgress from 'material-ui/CircularProgress';
@@ -130,7 +130,9 @@ class SubmissionEditStepForm extends Component {
       }
 
       let title = '';
-      if (explanation.correct) {
+      if (explanation.dirtyAnswer) {
+        title = intl.formatMessage(translations.dirtyAnswer);
+      } else if (explanation.correct) {
         if (question.autogradable) {
           title = intl.formatMessage(translations.correct);
         } else {
@@ -150,7 +152,7 @@ class SubmissionEditStepForm extends Component {
           <CardHeader
             style={{
               ...styles.explanationHeader,
-              backgroundColor: explanation.correct ? green200 : red200,
+              backgroundColor: explanation.dirtyAnswer ? yellow200 : (explanation.correct ? green200 : red200),
             }}
             title={title}
             titleColor={explanation.correct ? green900 : red900}
@@ -283,8 +285,8 @@ class SubmissionEditStepForm extends Component {
   }
 
   renderFinaliseButton() {
-    const { intl, attempting, allCorrect, isSaving } = this.props;
-    if (attempting && allCorrect) {
+    const { intl, pristine, attempting, allCorrect, isSaving } = this.props;
+    if (attempting && allCorrect && pristine) {
       return (
         <RaisedButton
           style={styles.formButton}

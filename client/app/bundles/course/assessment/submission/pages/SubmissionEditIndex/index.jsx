@@ -51,10 +51,14 @@ class VisibleSubmissionEditIndex extends Component {
       return false;
     }
 
+    const numDirty = Object.keys(explanations).filter(
+      qid => explanations[qid] && explanations[qid].dirtyAnswer === true
+    ).length;
+
     const numIncorrect = Object.keys(explanations).filter(
       qid => !explanations[qid] || !explanations[qid].correct
     ).length;
-    return numIncorrect === 0;
+    return numIncorrect === 0 && numDirty === 0;
   }
 
   handleAutogradeSubmission() {
