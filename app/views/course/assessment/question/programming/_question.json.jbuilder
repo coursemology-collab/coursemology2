@@ -12,16 +12,20 @@ json.formValues do
   json.skill_ids @question_assessment.skills.order('LOWER(title) ASC').pluck(:id)
   json.autograded @programming_question.persisted? ?
     @programming_question.attachment.present? : @assessment.autograded?
+  json.merge! @meta[:data] if @meta
 end
 
 has_submissions = @programming_question.answers.without_attempting_state.count > 0
-json.hasAutoGradings @programming_question.auto_gradable? && has_submissions
-json.hasSubmissions has_submissions
-json.displayAutogradedToggle display_autograded_toggle?
-json.autogradedAssessment @assessment.autograded?
-json.publishedAssessment @assessment.published?
-json.canSwitchPackageType can_switch_package_type?
-json.canEditOnline can_edit_online?
+
+json.flags do
+  json.hasAutoGradings @programming_question.auto_gradable? && has_submissions
+  json.hasSubmissions has_submissions
+  json.displayAutogradedToggle display_autograded_toggle?
+  json.autogradedAssessment @assessment.autograded?
+  json.publishedAssessment @assessment.published?
+  json.canSwitchPackageType can_switch_package_type?
+  json.canEditOnline can_edit_online?
+end
 
 if @programming_question.attachment.present? && @programming_question.attachment.persisted?
   json.packageFile do

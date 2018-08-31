@@ -6,58 +6,49 @@ import { formValueSelector } from 'redux-form';
 import { optionShape } from 'lib/components/redux-form/MultiSelect';
 
 import ProgrammingQuestionForm from './containers/ProgrammingQuestionForm/ProgrammingQuestionReduxForm';
-import * as onlineEditorActionCreators from './actions/onlineEditorActionCreators';
-import * as programmingQuestionActionCreators from './actions/programmingQuestionActionCreators';
+import * as programmingQuestionActionCreators from './actions';
 import { formNames } from './constants';
+
+class ProgrammingQuestion extends React.Component {
+  componentDidMount() {
+    const { dispatch } = this.props;
+    dispatch(programmingQuestionActionCreators.fetchQuestion());
+  }
+
+  render() {
+    console.log(this.props);
+    const { dispatch, ...otherProps } = this.props;
+    const actions = bindActionCreators(programmingQuestionActionCreators, dispatch);
+
+    if (this.props.isLoading) {
+      return null;
+    }
+
+    return (
+      <ProgrammingQuestionForm
+        {...{
+          actions,
+          ...otherProps,
+        }}
+      />
+    );
+  }
+}
 
 const selector = formValueSelector(formNames.PROGRAMMING_QUESTION);
 
 function mapStateToProps(state) {
-  const autograded = selector(state, 'question_programming[autograded]');
-  const languageId = selector(state, 'question_programming[language_id]');
-
-  return { autograded, languageId };
+  console.log(state);
+  return {
+    autograded: selector(state, 'question_programming[autograded]'),
+    languageId: selector(state, 'question_programming[language_id]'),
+    languages: state.languages,
+    skills: state.skills,
+    ...state.flags,
+  };
 }
 
-const ProgrammingQuestion = (props) => {
-  const { dispatch, formValues, test_ui, ...otherProps } = props;
-  const actions = bindActionCreators(programmingQuestionActionCreators, dispatch);
-  const onlineEditorActions = bindActionCreators(onlineEditorActionCreators, dispatch);
-
-  const initialValues = {
-    question_programming: {
-      submission: '',
-      solution: '',
-      submit_as_file: false,
-      submission_files: [],
-      solution_files: [],
-      prepend: '',
-      append: '',
-      data_files: [],
-      test_cases: {
-        public: [],
-        private: [],
-        evaluation: [],
-      },
-      ...formValues,
-      ...test_ui,
-    },
-  };
-
-  return (
-    <ProgrammingQuestionForm
-      initialValues={initialValues}
-      {...{
-        actions,
-        onlineEditorActions,
-        ...otherProps,
-      }}
-    />
-  );
-};
-
 ProgrammingQuestion.propTypes = {
-  formValues: PropTypes.any,
   languages: PropTypes.arrayOf(PropTypes.any),
   skills: PropTypes.arrayOf(optionShape),
 
@@ -70,11 +61,8 @@ ProgrammingQuestion.propTypes = {
   displayAutogradedToggle: PropTypes.bool.isRequired,
   hasAutoGradings: PropTypes.bool.isRequired,
   hasSubmissions: PropTypes.bool.isRequired,
-
-  packageFile: PropTypes.any,
-  programmingPackage: PropTypes.any,
-  test_ui: PropTypes.any,
-  import_result: PropTypes.any,
+  isLoading: PropTypes.bool.isRequired,
+  isSubmitting: PropTypes.bool.isRequired,
 
   dispatch: PropTypes.func.isRequired,
 };
