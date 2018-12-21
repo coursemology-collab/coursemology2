@@ -12,4 +12,8 @@ class Course::PersonalTime < ApplicationRecord
   def validate_start_at_cannot_be_after_end_at
     errors.add(:start_at, :cannot_be_after_end_at) if end_at && start_at && start_at > end_at
   end
+
+  def submitted_at
+    lesson_plan_item.actable.submissions.find_by(creator_id: course_user.user)&.submitted_at
+  end
 end

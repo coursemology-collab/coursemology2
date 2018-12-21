@@ -20,6 +20,9 @@
     p = t('.algorithm', algorithm: @course_user.timeline_algorithm.capitalize)
     p = f.button :submit, t('.recompute')
 
+div = "Learning rate: #{@learning_rate}" if @learning_rate.present?
+div = "Learning rate effective limits: #{@learning_rate_limits}" if @learning_rate_limits.present?
+
 - if @items.present?
   div.table-fluid
     table.table.table-striped.table-hover
@@ -32,6 +35,7 @@
           th = t('.start_at')
           th = t('.bonus_end_at')
           th = t('.end_at')
+          th = 'Submitted At'
           th
             span title=t('.fixed_desc')
               = fa_icon 'lock'
@@ -56,6 +60,11 @@
                      format_datetime(item.reference_time_for(@course_user).bonus_end_at, :short)
               td = item.reference_time_for(@course_user).end_at.nil? ? nil : \
                      format_datetime(item.reference_time_for(@course_user).end_at, :short)
+              td
+                - if item.actable_type == Course::Assessment.name
+                  = f.input :submitted_at, label: false, as: :bootstrap_date_time, input_html: { format: '%d %b %y %H:%M' }
+                - if item.actable_type == Course::Video.name
+                  = item.actable.submissions.where(creator_id: @course_user.user_id).exists? ? 'Attempted' : ''
               - if personal_time.new_record?
                 td colspan='5' class="toggle-personal-time-#{personal_time.lesson_plan_item_id}"
                   div.btn.btn-default.btn-block.toggle-personal-time-btn data-id=personal_time.lesson_plan_item_id

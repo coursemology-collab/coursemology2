@@ -13,6 +13,16 @@ class Course::PersonalTimesController < Course::ComponentController
                ordered_by_date_and_title.
                with_reference_times_for(@course_user).
                with_personal_times_for(@course_user)
+
+      @learning_rate = compute_learning_rate_ema(@course_user, @items, lesson_plan_items_submission_time_hash(@course_user))
+
+      submissions = lesson_plan_items_submission_time_hash(@course_user)
+      items = @course_user.course.lesson_plan_items.published.
+          with_reference_times_for(@course_user).
+          with_personal_times_for(@course_user).
+          to_a
+      items = items.sort_by { |x| x.time_for(@course_user).start_at }
+      @learning_rate_limits = compute_learning_rate_effective_limits(@course_user, items, submissions, 0.5, 2) if items
     end
 
     render 'index'
@@ -22,7 +32,16 @@ class Course::PersonalTimesController < Course::ComponentController
     @course_user = CourseUser.find_by(course: @course, id: params[:user_id])
     @item = @course.lesson_plan_items.find(params[:personal_time][:lesson_plan_item_id])
     @personal_time = @item.find_or_create_personal_time_for(@course_user)
+
+    if @item.actable_type == Course::Assessment.name
+      submission = @item.actable.submissions.find_by(creator_id: @course_user.user.id)
+      submission ||= @item.actable.submissions.create(course_user: @course_user)
+      submission.submitted_at = params[:personal_time][:submitted_at]
+      submission.save!
+    end
+
     if @personal_time.update(personal_time_params)
+      update_personalized_timeline_for(@course_user)
       redirect_to course_user_personal_times_path, success: t('.success')
     else
       redirect_to course_user_personal_times_path, danger: @personal_time.errors.full_messages.to_sentence
