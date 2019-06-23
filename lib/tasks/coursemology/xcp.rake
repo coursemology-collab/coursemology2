@@ -37,27 +37,23 @@ namespace :coursemology do
   def export_users_to_csv(course_users)
 
     # Please create "nsf.csv" and "xcp.csv" from CV1010X master google sheet first
-    nsf = CSV.parse(File.read(HOME_DIR + "/nsf.csv"), :headers=>true).by_col[1]
-    xcp = CSV.parse(File.read(HOME_DIR + "/xcp.csv"), :headers=>true).by_col[1]
-    nsf_names, xcp_names, cm_names = [], [], []
-    nsf.each do |nsf_name|
-      nsf_names << (nsf_name.strip! || nsf_name).downcase.split(/[\s|,]/)
-    end
-    xcp.each do |xcp_name|
-      xcp_names << (xcp_name.strip! || xcp_name).downcase.split(/[\s|,]/)
-    end
+    nsf = CSV.parse(File.read(HOME_DIR + "/nsf_score.csv"), :headers=>true)
+    xcp = CSV.parse(File.read(HOME_DIR + "/xcp_score.csv"), :headers=>true)
 
     # Get all course users on coursemology for this course and match them with
     # CV1010X master google sheet
     CSV.open(HOME_DIR + "/course_users.csv", "wb") do |csv|
       csv << ["id", "user_id", "role", "phantom", "name", "type"]
-      course_users.each do |user|
+      # Exclude course_user Jason Leong
+      course_users.reject { |course_user| course_user.id == 29168 }.each do |user|
         cm_user_name = (user.name.strip! || user.name).downcase.split(/[\s|,]/)
         matched_users = []
-        nsf_names.each do |nsf_name|
+        nsf.each do |nsf_student|
+          nsf_name = (nsf_student["name"].strip! || nsf_student["name"]).downcase.split(/[\s|,]/)
           matched_users << "NSF" if ((cm_user_name - nsf_name).empty? || (nsf_name - cm_user_name).empty?)
         end
-        xcp_names.each do |xcp_name|
+        xcp.each do |xcp_student|
+          xcp_name = (xcp_student["name"].strip! || xcp_student["name"]).downcase.split(/[\s|,]/)
           matched_users << "XCP" if ((cm_user_name - xcp_name).empty? || (xcp_name - cm_user_name).empty?)
         end
         csv << [user.id, user.user_id, user.role, user.phantom,
@@ -65,32 +61,37 @@ namespace :coursemology do
       end
     end
 
-    cm = CSV.parse(File.read(HOME_DIR + "/course_users.csv"), :headers=>true).by_col[4]
-    cm.each do |cm_name|
-      cm_names << (cm_name.strip! || cm_name).downcase.split(/[\s|,]/)
-    end
+    cm = CSV.parse(File.read(HOME_DIR + "/course_users.csv"), :headers=>true)
 
     # See which NSF users are already matched with coursemology user
     CSV.open(HOME_DIR + "/nsf_users.csv", "wb") do |csv|
-      csv << ["name", "matched"]
-      nsf_names.each do |nsf_name|
-        matched_users = []
-        cm_names.each do |cm_name|
-          matched_users << "NSF" if (cm_name - nsf_name).empty?
+      csv << ["matric", "name", "matched_uid", "midterm", "remidterm", "pe", "repe", "exam"]
+      nsf.each do |nsf_student|
+        matched_user_id = []
+        nsf_name = (nsf_student["name"].strip! || nsf_student["name"]).downcase.split(/[\s|,]/)
+        cm.each do |cm_student|
+          cm_name = (cm_student["name"].strip! || cm_student["name"]).downcase.split(/[\s|,]/)
+          matched_user_id << cm_student["user_id"] if (cm_name - nsf_name).empty?
         end
-        csv << [nsf_name.join(" "), matched_users.join(",")]
+        csv << [nsf_student["matric"], nsf_name.join(" "), matched_user_id.join(","),
+          nsf_student["midterm"], nsf_student["remidterm"], nsf_student["pe"],
+          nsf_student["repe"], nsf_student["exam"]]
       end
     end
 
     # See which XCP users are already matched with coursemology user
     CSV.open(HOME_DIR + "/xcp_users.csv", "wb") do |csv|
-      csv << ["name", "matched"]
-      xcp_names.each do |xcp_name|
-        matched_users = []
-        cm_names.each do |cm_name|
-          matched_users << "XCP" if (cm_name - xcp_name).empty?
+      csv << ["matric", "name", "matched_uid", "midterm", "remidterm", "pe", "repe", "exam"]
+      xcp.each do |xcp_student|
+        matched_user_id = []
+        xcp_name = (xcp_student["name"].strip! || xcp_student["name"]).downcase.split(/[\s|,]/)
+        cm.each do |cm_student|
+          cm_name = (cm_student["name"].strip! || cm_student["name"]).downcase.split(/[\s|,]/)
+          matched_user_id << cm_student["user_id"] if (cm_name - xcp_name).empty?
         end
-        csv << [xcp_name.join(" "), matched_users.join(",")]
+        csv << [xcp_student["matric"], xcp_name.join(" "), matched_user_id.join(","),
+          xcp_student["midterm"], xcp_student["remidterm"], xcp_student["pe"],
+          xcp_student["repe"], xcp_student["exam"]]
       end
     end
   end
