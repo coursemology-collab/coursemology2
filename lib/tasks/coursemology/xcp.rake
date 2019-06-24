@@ -97,20 +97,34 @@ namespace :coursemology do
   end
 
   def export_submissions_to_csv(mission, index)
-    CSV.open(HOME_DIR + "/#{index}_#{mission.title.gsub("/", "-")}.csv", "wb") do |csv|
-      csv << ["id", "user_id", "course_user_id", "course_role", "phantom",
+    # Get array of uid that belongs to nsf and xcp students
+    nsf = CSV.parse(File.read(HOME_DIR + "/nsf_users.csv"), :headers=>true).by_col[2].each.map(&:to_i)
+    xcp = CSV.parse(File.read(HOME_DIR + "/xcp_users.csv"), :headers=>true).by_col[2].each.map(&:to_i)
+
+    CSV.open(HOME_DIR + "/#{index}_#{mission.title.gsub(/[\/\.]/, "-").gsub(" ", "_").gsub(":", "")}.csv", "wb") do |csv|
+      csv << ["title", "index", "id", "user_id", "course_user_id",
+              "course_role", "phantom",
               "created_at", "submitted_at", "normalized_submission_time",
-              "graded_at", "grade", "exp"]
+              "graded_at", "grade", "normalized_grade", "exp", "creator_type"]
       mission.submissions.order("course_assessment_submissions.creator_id").
         each do |submission|
         norm_submission_time = submission.submitted_at ?
           (submission.submitted_at - mission.start_at) / (mission.end_at - mission.start_at) :
           nil
-        csv << [submission.id, submission.creator_id, submission.course_user.id,
+        creator_type =
+          if nsf.include? (submission.creator_id)
+            "NSF"
+          elsif xcp.include? (submission.creator_id)
+            "XCP"
+          else
+            nil
+          end
+        csv << [mission.title, index, submission.id, submission.creator_id, submission.course_user.id,
                 submission.course_user.role, submission.course_user.phantom,
                 submission.created_at, submission.submitted_at,
                 norm_submission_time, submission.graded_at, submission.grade,
-                submission.points_awarded]
+                (submission.grade / mission.maximum_grade),
+                submission.points_awarded, creator_type]
       end
     end
   end
