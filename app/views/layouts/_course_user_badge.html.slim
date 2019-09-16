@@ -28,7 +28,7 @@
     - course_user.achievements.recently_obtained(3).each do |achievement|
       = content_tag_for(:span, achievement) do
         = link_to course_achievement_path(current_course, achievement) do
-          = display_achievement_badge(achievement)
+          / = display_achievement_badge(achievement)
     - if course_user.achievement_count > 3
       - difference = course_user.achievement_count - 3
       = link_to t('.achievements', difference: difference),
