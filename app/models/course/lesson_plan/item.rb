@@ -77,6 +77,28 @@ class Course::LessonPlan::Item < ApplicationRecord
     end
   end)
 
+  scope :with_all_times_for, (lambda do |course_user, course = nil|
+    personal_times =
+      if course_user.nil?
+        []
+      else
+        Course::PersonalTime.where(course_user_id: course_user.id, lesson_plan_item_id: all).to_a
+      end
+
+    reference_timeline_id = course_user&.reference_timeline_id ||
+                            course_user&.course&.default_reference_timeline&.id ||
+                            course.default_reference_timeline.id
+
+    reference_times =
+      Course::ReferenceTime.where(reference_timeline: reference_timeline_id, lesson_plan_item_id: all).to_a
+
+    all.to_a.tap do |result|
+      preloader = ActiveRecord::Associations::Preloader::ManualPreloader.new
+      preloader.preload(result, :personal_times, personal_times)
+      preloader.preload(result, :reference_times, reference_times)
+    end
+  end)
+
   # Loads the reference times for `course_user`. If `course_user` is nil, then we load the default reference time for
   # `course`.
   scope :with_reference_times_for, (lambda do |course_user, course = nil|

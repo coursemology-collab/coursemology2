@@ -3,7 +3,8 @@ class Course::Assessment::AssessmentsController < Course::Assessment::Controller
   before_action :load_question_duplication_data, only: [:show, :reorder]
 
   def index
-    @assessments = @assessments.ordered_by_date_and_title.with_submissions_by(current_user)
+    @assessments = @assessments.includes(:lesson_plan_item).ordered_by_date_and_title.with_submissions_by(current_user)
+    @items_with_all_times = Course::LessonPlan::Item.where(actable_type: 'Course::Assessment').where(actable_id: @assessments.map(&:id)).with_all_times_for(current_course_user)
     @conditional_service = Course::Assessment::AchievementPreloadService.new(@assessments)
   end
 

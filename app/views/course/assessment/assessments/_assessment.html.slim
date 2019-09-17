@@ -1,3 +1,4 @@
+- item = items.find { |i| i.actable_id == assessment.id }
 = content_tag_for(:tr, assessment, class: time_period_class(assessment) + draft_class(assessment))
   th colspan=2
     - if assessment.view_password
@@ -28,22 +29,34 @@
   td.table-start-at
     - if condition_not_satisfied(assessment)
       div.condition-not-satisfied data-toggle='tooltip' title="#{t('.condition_not_satisfied')}"
-        = render partial: 'course/lesson_plan/items/personal_or_ref_time',
-                 locals: { item: assessment, course_user: current_course_user, attribute: :start_at, datetime_format: :short }
+        = render partial: 'course/lesson_plan/items/item_times',
+                 locals: { item: item, course_user: current_course_user,
+                           personal_time: item.personal_times.first,
+                           reference_time: item.reference_times.first,
+                           attribute: :start_at, datetime_format: :short }
     - else
-      = render partial: 'course/lesson_plan/items/personal_or_ref_time',
-               locals: { item: assessment, course_user: current_course_user, attribute: :start_at, datetime_format: :short }
+      = render partial: 'course/lesson_plan/items/item_times',
+               locals: { item: item, course_user: current_course_user,
+                         personal_time: item.personal_times.first,
+                         reference_time: item.reference_times.first,
+                         attribute: :start_at, datetime_format: :short }
   - if show_bonus_attributes?
     td.table-bonus-cut-off
       - if assessment.bonus_end_at.present? && assessment.time_bonus_exp > 0
-        = render partial: 'course/lesson_plan/items/personal_or_ref_time',
-                 locals: { item: assessment, course_user: current_course_user, attribute: :bonus_end_at, datetime_format: :short }
+        = render partial: 'course/lesson_plan/items/item_times',
+                 locals: { item: item, course_user: current_course_user, 
+                           personal_time: item.personal_times.first,
+                           reference_time: item.reference_times.first,
+                           attribute: :bonus_end_at, datetime_format: :short }
       - else
         = '-'
   - if show_end_at?
     td.table-end-at
       - if assessment.end_at.present?
-        = render partial: 'course/lesson_plan/items/personal_or_ref_time',
-                 locals: { item: assessment, course_user: current_course_user, attribute: :end_at, datetime_format: :short }
+        = render partial: 'course/lesson_plan/items/item_times',
+                 locals: { item: item, course_user: current_course_user,
+                           personal_time: item.personal_times.first,
+                           reference_time: item.reference_times.first,
+                           attribute: :end_at, datetime_format: :short }
   td.table-buttons colspan=2
     = render 'assessment_management_buttons', assessment: assessment

@@ -24,4 +24,5 @@ table.table.assessments-list.table-hover
       th
       th
   tbody
-    = render partial: 'assessment', collection: @assessments
+    = render partial: 'assessment', collection: @assessments,
+             locals: { items: @items_with_all_times }
